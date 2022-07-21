@@ -1,0 +1,62 @@
+- Nikto v2.1.5
+---------------------------------------------------------------------------
++ Target IP:          213.186.33.40
++ Target Hostname:    www.thiriet.fr
++ Target Port:        443
+---------------------------------------------------------------------------
++ SSL Info:        Subject: /CN=cluster011.hosting.ovh.net
+                   Ciphers: TLS_AES_256_GCM_SHA384
+                   Issuer:  /C=US/O=Let's Encrypt/CN=R3
++ Start Time:         2022-07-20 12:58:27 (GMT2)
+---------------------------------------------------------------------------
++ Server: Apache
++ Cookie 79e5974bf6318a1e3aacf9ca780356d8 created without the secure flag
++ Cookie 79e5974bf6318a1e3aacf9ca780356d8 created without the httponly flag
++ Retrieved x-powered-by header: PHP/5.6
++ The anti-clickjacking X-Frame-Options header is not present.
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Cookie 8cf3b907ed71174cad93b2d598ed58ab created without the secure flag
++ Cookie 8cf3b907ed71174cad93b2d598ed58ab created without the httponly flag
++ Uncommon header 'x-frames-options' found, with contents: SAME-ORIGIN
++ File/dir '/administrator/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/cache/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/cli/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/components/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/images/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/includes/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/language/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/libraries/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/logs/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/media/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/modules/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/plugins/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/templates/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ File/dir '/tmp/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ "robots.txt" contains 15 entries which should be manually viewed.
++ Server banner has changed from 'Apache' to 'nginx' which may suggest a WAF, load balancer or proxy is in place
++ Uncommon header 'x-ovh-webhosting-id' found, with contents: 7257b93c74ddf29df8c50be089318894
++ Hostname 'www.thiriet.fr' does not match certificate's CN 'cluster011.hosting.ovh.net'
++ DEBUG HTTP verb may show server debugging information. See http://msdn.microsoft.com/en-us/library/e8z01xdh%28VS.80%29.aspx for details.
++ OSVDB-637: /~root/: Allowed to browse root's home directory.
++ Uncommon header 'tcn' found, with contents: choice
++ OSVDB-3092: /web.config: ASP config file is accessible.
++ /servlet/webacc?User.html=noexist: Netware web access may reveal full path of the web server. Apply vendor patch or upgrade.
++ OSVDB-3092: /administrator/: This might be interesting...
++ OSVDB-3092: /includes/: This might be interesting...
++ OSVDB-3092: /logs/: This might be interesting...
++ OSVDB-3092: /tmp/: This might be interesting...
++ OSVDB-3092: /README: README file found.
++ OSVDB-3092: /LICENSE.txt: License file found may identify site software.
++ Cookie ae616c7751ec7e6e06699bf985c23d6b created without the secure flag
++ Cookie ae616c7751ec7e6e06699bf985c23d6b created without the httponly flag
++ OSVDB-3092: /fr/: This might be interesting... potential country code (France)
++ OSVDB-3092: /de/: This might be interesting... potential country code (Germany)
++ OSVDB-3092: /it/: This might be interesting... potential country code (Italy)
++ OSVDB-3092: /es/: This might be interesting... potential country code (Spain)
++ /htaccess.txt: Default Joomla! htaccess.txt file found. This should be removed or renamed.
++ /administrator/index.php: Admin login page/section found.
++ /configuration/: Admin login page/section found.
++ 6544 items checked: 0 error(s) and 44 item(s) reported on remote host
++ End Time:           2022-07-20 13:12:30 (GMT2) (843 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested

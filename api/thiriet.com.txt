@@ -1,0 +1,35 @@
+- Nikto v2.1.5
+---------------------------------------------------------------------------
++ Target IP:          13.107.213.42
++ Target Hostname:    www.thiriet.com
++ Target Port:        443
+---------------------------------------------------------------------------
++ SSL Info:        Subject: /C=US/ST=WA/L=Redmond/O=Microsoft Corporation/CN=*.azureedge.net
+                   Ciphers: ECDHE-RSA-AES256-GCM-SHA384
+                   Issuer:  /C=US/O=Microsoft Corporation/CN=Microsoft Azure TLS Issuing CA 02
++ Start Time:         2022-07-20 14:43:46 (GMT2)
+---------------------------------------------------------------------------
++ Server: No banner retrieved
++ Cookie fowwwthirietcom80 created without the secure flag
++ Cookie fowwwthirietcom80 created without the httponly flag
++ Cookie panier created without the httponly flag
++ Cookie di_4 created without the httponly flag
++ The anti-clickjacking X-Frame-Options header is not present.
++ Uncommon header 'x-cache' found, with contents: CONFIG_NOCACHE
++ Uncommon header 'access-control-allow-origin' found, with contents: *
++ Uncommon header 'x-azure-ref' found, with contents: 0MvnXYgAAAABPcRjmL91pRJoYty1QjOzhUEFSMDJFREdFMDYxMABlMGY1NzY1Yi00MWNkLTQ1YzgtYTdkYy0xMjRmNDM0YmEyMDc=
++ Server leaks inodes via ETags, header found with file /favicon.ico, fields: 0x10be 0x5cca6326a0680 
++ Uncommon header 'x-msedge-ref' found, with contents: 0WfnXYgAAAACvCvme8drwSIO0v3qJu/ucUEFSMDJFREdFMDYxOQBFZGdl
++ Server is using a wildcard certificate: '*.azureedge.net'
++ Hostname 'www.thiriet.com' does not match certificate's CN '*.azureedge.net'
++ DEBUG HTTP verb may show server debugging information. See http://msdn.microsoft.com/en-us/library/e8z01xdh%28VS.80%29.aspx for details.
++ OSVDB-724: /cgi-bin/ans.pl?p=../../../../../usr/bin/id|&blah: Avenger's News System allows commands to be issued remotely.
++ OSVDB-724: /cgi-bin/ans/ans.pl?p=../../../../../usr/bin/id|&blah: Avenger's News System allows commands to be issued remotely.
++ OSVDB-724: /ans.pl?p=../../../../../usr/bin/id|&blah: Avenger's News System allows commands to be issued remotely.  http://ans.gq.nu/ default admin string 'admin:aaLR8vE.jjhss:root@127.0.0.1', password file location 'ans_data/ans.passwd'
++ OSVDB-724: /ans/ans.pl?p=../../../../../usr/bin/id|&blah: Avenger's News System allows commands to be issued remotely.
++ OSVDB-3233: /icons/README: Apache default file found.
++ /wp-app.log: Wordpress' wp-app.log may leak application/system details.
++ 6544 items checked: 0 error(s) and 19 item(s) reported on remote host
++ End Time:           2022-07-20 15:00:11 (GMT2) (985 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
