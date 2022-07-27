@@ -8,13 +8,19 @@ import chai from "chai";
 dotenv.config()
 chai.use(chaiHttp);
 const {log,table}=console;
-
-describe('SERVER',()=>{
+const sec={
+    i:1
+};
+setTimeout(()=>{
+    console.log(sec.i)
+    return sec.i+=1
+},1000)
+describe.only('SERVER',()=>{
     it("Should do everything",()=>{
         log("nothing here for now")
     });
 });
 
-describe.only("DATABASE",()=>{
-    require("./mongoTest/mongoTestHighOrder");
+describe("DATABASE",()=>{
+        //require("./mongoTest/mongoTestHighOrder");
 });

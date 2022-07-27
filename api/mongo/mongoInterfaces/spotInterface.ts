@@ -6,7 +6,7 @@ export interface SpotInterface{
     userId:String,
     spotName:String,
     country:String,
-    type:Array<WaveTypeObject>,
+    type:WaveTypeObject,
     location:GeoJsonObject,
     orientation:Array<String>,
     optimalConditions:Array<OptimalConditionsObj>,

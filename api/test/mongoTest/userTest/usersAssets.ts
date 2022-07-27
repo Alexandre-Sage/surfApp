@@ -7,6 +7,7 @@ const userOne=new User({
     userName:"TestOne",
     email: "test@testOne",
     phone:"0606654654",
+    password:"test",
     picture:[
         {
             path:"../../../",
@@ -29,6 +30,7 @@ const userNameDup=new User({
     userName:"TestOne",
     email: "test@testTwo",
     phone:"065687456",
+    password:"test",
     picture:[
         {
             path:"../../../",
@@ -51,6 +53,7 @@ const emailDup=new User({
     userName:"TestTwo",
     email: "test@testOne",
     phone:"0606654645",
+    password:"test",
     picture:[
         {
             path:"../../../",
@@ -73,6 +76,7 @@ const phoneDup=new User({
     userName:"TestTwo",
     email: "test@testTwo",
     phone:"0606654654",
+    password:"test",
     picture:[
         {
             path:"../../../",
@@ -87,4 +91,126 @@ const phoneDup=new User({
         creationDate:Date.now(),
         lastConnection:Date.now()
 });
-export {userOne,userNameDup,emailDup,phoneDup}
+
+const missingFirstName=new User({
+    location:"TestOne",
+    name:"TestOne",
+    //firstName:"TestTwo",
+    userName:"TestTwo",
+    email: "test@testTwo",
+    phone:"0606654654",
+    password:"test",
+    picture:[
+        {
+            path:"../../../",
+            place:"here",
+            uploadDate:Date.now()
+        },
+        {
+            path:"../../../",
+            place:"here",uploadDate:Date.now()
+        }
+    ],
+        creationDate:Date.now(),
+        lastConnection:Date.now()
+});
+const missingName=new User({
+    location:"TestOne",
+    //name:"TestOne",
+    firstName:"TestTwo",
+    userName:"TestTwo",
+    email: "test@testTwo",
+    phone:"0606654654",
+    password:"test",
+    picture:[
+        {
+            path:"../../../",
+            place:"here",
+            uploadDate:Date.now()
+        },
+        {
+            path:"../../../",
+            place:"here",uploadDate:Date.now()
+        }
+    ],
+        creationDate:Date.now(),
+        lastConnection:Date.now()
+});
+const missingEmail=new User({
+    location:"TestOne",
+    name:"TestOne",
+    firstName:"TestTwo",
+    userName:"TestTwo",
+    //email: "test@testTwo",
+    phone:"0606654654",
+    password:"test",
+    picture:[
+        {
+            path:"../../../",
+            place:"here",
+            uploadDate:Date.now()
+        },
+        {
+            path:"../../../",
+            place:"here",uploadDate:Date.now()
+        }
+    ],
+        creationDate:Date.now(),
+        lastConnection:Date.now()
+});
+const missingPhone=new User({
+    location:"TestOne",
+    name:"TestOne",
+    firstName:"TestTwo",
+    userName:"TestTwo",
+    email: "test@testTwo",
+    //phone:"0606654654",
+    password:"test",
+    picture:[
+        {
+            path:"../../../",
+            place:"here",
+            uploadDate:Date.now()
+        },
+        {
+            path:"../../../",
+            place:"here",uploadDate:Date.now()
+        }
+    ],
+        creationDate:Date.now(),
+        lastConnection:Date.now()
+});
+
+const missingPassword=new User({
+    location:"TestOne",
+    name:"TestOne",
+    firstName:"TestTwo",
+    userName:"TestTwo",
+    email: "test@testTwo",
+    phone:"0606654654",
+    //password:"test",
+    picture:[
+        {
+            path:"../../../",
+            place:"here",
+            uploadDate:Date.now()
+        },
+        {
+            path:"../../../",
+            place:"here",uploadDate:Date.now()
+        }
+    ],
+        creationDate:Date.now(),
+        lastConnection:Date.now()
+});
+export {
+    missingPhone,
+    missingEmail,
+    missingName,
+    missingPassword,
+    missingFirstName,
+    userOne,
+    userNameDup,
+    emailDup,
+    phoneDup
+}

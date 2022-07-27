@@ -5,12 +5,10 @@ const SpotSchema=new Schema<SpotInterface>({
     userId:{type:String,required:true},
     spotName:{type:String,required:true},
     country:{type:String,required:true},
-    type:[
-        {
-            waveType:{type:String,required:false},
-            bottomType:{type:String,required:false},
-        }
-    ],
+    type:{
+            waveType:{type:String,required:true},
+            bottomType:{type:String,required:true},
+        },
     location:{
         type:{type:String,required:true},
         coordinates:[{type:String,required:true}]
@@ -23,9 +21,9 @@ const SpotSchema=new Schema<SpotInterface>({
                 orientation:{type:String,require:false}
             },
             swell:{
-                size:{type:String,require:true},
-                period:{type:String,require:true},
-                orientation:{type:String,require:true}
+                size:{type:String,require:false},
+                period:{type:String,require:false},
+                orientation:{type:String,require:false}
             }
         }
     ],

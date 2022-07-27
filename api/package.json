@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/main.test.ts'",
+    "test": "clear && env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --recursive -r ts-node/register 'test/**/main.test.ts'",
     "build": "clear && npx tsc",
     "--prod-start": "npx tsc && pm2 start compiled/server.js",
     "start": "clear && concurrently \"npx tsc --watch\" \"nodemon -q compiled/server.js\""

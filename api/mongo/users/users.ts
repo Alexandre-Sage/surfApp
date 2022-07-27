@@ -8,6 +8,7 @@ const UserSchema=new Schema<UserInterface>({
     userName:{type:String,required:true,unique:true,index:true,dropDups:false},
     email:{type:String,required:true,unique:true,index:true,dropDups:false},
     phone:{type:String,required:true,unique:true,index:true,dropDups:false},
+    password:{type:String,required:true},
     picture:[
         {
             path:{type:String,required:false},

@@ -7,6 +7,7 @@ export interface UserInterface{
     userName:String,
     email:String,
     phone:String,
+    password:String,
     picture:Array<PictureObject>
     creationDate:Date,
     lastConnection:Date

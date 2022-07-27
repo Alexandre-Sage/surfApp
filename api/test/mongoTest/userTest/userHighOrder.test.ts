@@ -16,5 +16,11 @@ export default describe("I) USER SCHEMA TEST",function(){
         require("./errors/userNameError.test");
         require("./errors/emailError.test");
         require("./errors/phoneError.test");
+        require("./errors/missingField/firstName.test");
+        require("./errors/missingField/email.test");
+        require("./errors/missingField/name.test");
+        require("./errors/missingField/phone.test");
+        require("./errors/missingField/password.test");
+
     });
 });

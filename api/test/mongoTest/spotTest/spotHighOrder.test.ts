@@ -14,7 +14,9 @@ export default describe("II) SPOT SCHEMA TEST",function(){
     });
     describe("2) SPOT CREATION ERROR",function(){
         require("./errors/emptyLocation.test");
-        //require("./errors/emailError.test");
-        //require("./errors/phoneError.test");
+        require("./errors/emptyUserId.test");
+        require("./errors/emptyWaveType.test");
+        require("./errors/emptyCountry.test");
+        require("./errors/emptySpotName.test");
     });
 });
