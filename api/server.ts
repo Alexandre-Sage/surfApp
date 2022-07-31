@@ -7,9 +7,9 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import logger from "morgan";
 import cors from "cors";
-
+import {connect,disconnect,MongooseError} from "mongoose";
 /*ROUTES*/
-import login from "./routes/login";
+import signUp from "./routes/signUp/signUp";
 
 
 const server:Express=express();
@@ -20,9 +20,11 @@ declare module "express-session" {
         sessionToken:string;
     }
 };
-
+server.locals.db=connect(`${process.env.MONGO_DB}`,{
+    autoIndex: true,
+})
 server.use(cors({
-    origin:`${process.env.HOST}${process.env.PORT}`,
+    origin:`${process.env.HOSTTWO}${process.env.PORT}`,
     methods: ["GET","POST"],
     credentials:true
 }));
@@ -42,7 +44,7 @@ server.use(session({
     },
 }));
 
-server.use('/login', login);
+server.use('/sign-up', signUp);
 
 const httpServer=http.createServer(server);
 httpServer.listen(process.env.PORT,()=>{

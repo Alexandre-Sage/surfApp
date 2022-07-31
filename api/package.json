@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "clear && env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --recursive -r ts-node/register 'test/**/main.test.ts'",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --recursive -r ts-node/register 'test/**/main.test.ts'",
+    "testC": "clear && env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --recursive -r ts-node/register 'test/**/main.test.ts'",
     "build": "clear && npx tsc",
     "--prod-start": "npx tsc && pm2 start compiled/server.js",
     "start": "clear && concurrently \"npx tsc --watch\" \"nodemon -q compiled/server.js\""
@@ -21,7 +22,8 @@
     "express-validator": "^6.14.2",
     "helmet": "^5.1.0",
     "mongoose": "^6.4.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
@@ -31,8 +33,10 @@
     "@types/express": "^4.17.13",
     "@types/express-session": "^1.17.5",
     "@types/mocha": "^9.1.1",
+    "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
+    "@types/validator": "^13.7.4",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "concurrently": "^7.2.1",
