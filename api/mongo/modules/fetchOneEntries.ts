@@ -1,7 +1,7 @@
 import { connect, disconnect } from "mongoose";
 import CustomError from "../../modules/errors/errorClass";
 
-export default async function fetchOneEntriesFromDb(mongoSchema: any, researchObject: object) {
+export default async function fetchOneEntriesFromDb(mongoSchema: any, researchObject: object): Promise<any> {
     type ObjectKey = keyof typeof researchObject;
     const errorKey = `${Object.keys(researchObject)[0]}` as ObjectKey;
     const errorMessage = `${Object.keys(researchObject)[0]}: ${researchObject[errorKey]} not found please retry`;
