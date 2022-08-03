@@ -1,14 +1,18 @@
-import {randomBytes} from "crypto";
-import {Response} from "express";
-declare interface CookieOptions extends Object{
+import { randomBytes } from "crypto";
+import { Response } from "express";
+
+declare interface CookieOptions extends Object {
     httpOnly: boolean,
     signed: boolean,
     sameSite: boolean | "strict" | "none" | "lax" | undefined,
-    maxAge:number
+    maxAge: number
 };
 
-const cookieResponse= (res:Response, status:number, cookieName:string, token:string, options:CookieOptions):Response<any>=> res.status(status).cookie(cookieName,token,options);
+/**
+ * Function that generates a random token
+ * @param bytes Number of bytes to generate.
+ * @returns given number of bytes
+ */
+const tokenGenerator = (bytes: number): string => randomBytes(bytes).toString('hex');
 
-const tokenGenerator=(bytes:number):string=>randomBytes(bytes).toString('hex');
-
-export {CookieOptions,cookieResponse,tokenGenerator};
+export { CookieOptions, tokenGenerator };

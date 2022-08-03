@@ -2,8 +2,8 @@ import server from "../../../../server";
 import { testGetRoute, testPostRoute } from "../../testModules/httpModule.test";
 import { jsonHeader200ObjCookie, jsonHeader200ObjectNoCookie, assertBodyNoRedirectObj, noErrorObject, chaiAgent } from "../../globalsTestVar";
 
-describe.only("USER LOGED WITH SUCESS", function () {
-    it("Sould login user with sucess", (done) => {
+describe("USER LOGED WITH SUCESS", function () {
+    it("Sould login user with sucess", async () => {
         const chai = chaiAgent();
         const agentObj = { agent: chai.request.agent(server) };
         const sendBody = { userName: "TestOne", password: "test" };
@@ -16,9 +16,13 @@ describe.only("USER LOGED WITH SUCESS", function () {
             redirectsLength:0,
             propertyArray:responseProperty
         };*/
-        testGetRoute(agentObj, "/csrf", jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
-            .then(() => testPostRoute(agentObj, "/login", sendBody, jsonHeader200ObjectNoCookie, noErrorObject, assertBodyNoRedirectObj))
-            .then(() => (done(), agentObj.agent.close()))
-            .catch(err => (done(err), agentObj.agent.close()));
+        try {
+            await testGetRoute(agentObj, "/csrf", jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
+            await testPostRoute(agentObj, "/login", sendBody, jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
+            agentObj.agent.close()
+        } catch (error: any) {
+            agentObj.agent.close()
+            throw error
+        };
     });
 });

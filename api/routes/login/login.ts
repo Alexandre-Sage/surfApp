@@ -1,39 +1,31 @@
 import express, { Request, Response } from "express";
-import { tokenGenerator } from "../modules/cookies/general";
-import { csurfCookieGenerator, csurfChecking } from "../modules/cookies/csurf";
-
-import { UserInterface } from "../../mongo/mongoInterfaces/userInterface";
+import fetchOneEntriesFromDb from "../../mongo/modules/fetchOneEntries";
 import User from "../../mongo/users/users";
-import CustomError from "../../modules/errors/errorClass";
-
-import { connect, disconnect } from "mongoose"
+import { Session } from "express-session"
+import { tokenGenerator } from "../modules/cookies/general";
 const router = express.Router();
 const { log, table } = console;
 
 router.post("/", async function (req: Request, res: Response) {
-    const session = req.session;
+    const session: Session = req.session;
     const { userName, password } = req.body;
-    async function fetchFromDb(mongoSchema: any, researchObject: object) {
-        await connect(`${process.env.MONGO_ATLAS}`, {
-            autoIndex: true,
+    const researchObject = { userName: userName };
+    try {
+        const user = await fetchOneEntriesFromDb(User, researchObject)
+        const sessionToken = tokenGenerator(75);
+        const cookieOptions = { httpOnly: true, signed: true, sameSite: true, maxAge: 600000 };
+        const cookieName = "SESSION-TOKEN";
+        return res.status(200).cookie(cookieName, sessionToken, cookieOptions).json({
+            message: `Welcome back ${researchObject.userName}.`,
+            error: false
         })
-        return await mongoSchema.findOne(researchObject)
-            .then((user: UserInterface) => user)
-            .catch((err: Error) => err)
-            .finally(() => disconnect());
-    };
-    const researchObject = { userName: userName }
-    await fetchFromDb(User, researchObject)
-        .then(async (user: any) => {
-            const passwordCheck = await user.checkPassword(password)
-            return passwordCheck ? user : passwordCheck
-        })
-        .then((user: any) => log("usssssss", user._id))
-        .catch((err: any) => log("eeeerrrrrrr", err))
-    //const test = await user.checkPassword(password).then((res: any) => res).catch((err: any) => err)
-    //log(user)
-    //log(test)
-    res.status(200).json({})
+    } catch (error: any) {
+        log("catch", error)
+        return res.status(error.httpStatus).json({
+            message: error.message,
+            error: true
+        });
+    }
 });
 
 
