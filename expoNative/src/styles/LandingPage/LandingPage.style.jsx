@@ -1,0 +1,29 @@
+import { StyleSheet } from 'react-native';
+import { backgroundColor, fontColor } from "../variable.style"
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: backgroundColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    title: {
+        color: fontColor,
+        fontSize: 32,
+        marginBottom: 50,
+    },
+    image: {
+        width: 400,
+        height: 150,
+        marginBottom: 25
+    },
+    span: {
+        width: 100,
+        height: 1,
+        backgroundColor: fontColor
+
+    }
+});
+
+export default styles;
