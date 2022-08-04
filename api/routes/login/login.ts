@@ -1,13 +1,18 @@
 import express, { Request, Response } from "express";
 import fetchOneEntriesFromDb from "../../mongo/modules/fetchOneEntries";
 import User from "../../mongo/users/users";
-import { Session } from "express-session"
+import { Session } from "express-session";
 import { tokenGenerator } from "../modules/cookies/general";
 import { UserInterface } from "../../mongo/mongoInterfaces/userInterface";
+import { createSession } from "../modules/sessionManagement/sessionCreation";
 const router = express.Router();
 const { log, table } = console;
-
-router.post("/", async function (req: Request, res: Response) {
+/**
+ * Login Router, handle the login form
+ * @return If sucess return a resposne with a session cookie and create the session.
+ * @return If invalid credentials return an error response
+ */
+router.post("/", async function (req: Request, res: Response): Promise<Response> {
     const session: Session = req.session;
     const { userName, password } = req.body;
     const researchObject = { userName: userName };
@@ -17,17 +22,17 @@ router.post("/", async function (req: Request, res: Response) {
         const sessionToken = tokenGenerator(75);
         const cookieOptions = { httpOnly: true, signed: true, sameSite: true, maxAge: 600000 };
         const cookieName = "SESSION-TOKEN";
+        createSession(session, sessionToken, user);
         return res.status(200).cookie(cookieName, sessionToken, cookieOptions).json({
             message: `Welcome back ${researchObject.userName}.`,
             error: false
-        })
+        });
     } catch (error: any) {
-        log("catch", error)
         return res.status(error.httpStatus).json({
             message: error.message,
             error: true
         });
-    }
+    };
 });
 
 

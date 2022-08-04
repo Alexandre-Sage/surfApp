@@ -1,6 +1,7 @@
 import { PictureObject } from "./pictureObjectInterface";
-
+import { Types } from "mongoose";
 export interface UserInterface {
+    _id: Types.ObjectId,
     location: string,
     name: string,
     firstName: string,

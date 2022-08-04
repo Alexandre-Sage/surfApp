@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import logger from "morgan";
 import cors from "cors";
-import { connect, disconnect, MongooseError } from "mongoose";
+import { Types } from "mongoose";
 /*ROUTES*/
 import signUp from "./routes/signUp/signUp";
 import login from "./routes/login/login";
@@ -19,6 +19,7 @@ declare module "express-session" {
     export interface Session {
         csurfToken: string;
         sessionToken: string;
+        userId: Types.ObjectId;
     }
 };
 /*server.locals.db=connect(`${process.env.MONGO_ATLAS}`,{
