@@ -5,25 +5,30 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: backgroundColor,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    returnButton: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 15,
+        marginTop: 15
+    },
+    subContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1
+
     },
     title: {
         color: fontColor,
         fontSize: 32,
-        marginBottom: 50,
     },
     image: {
         width: 400,
         height: 150,
         marginBottom: 25
     },
-    span: {
-        width: 100,
-        height: 1,
-        backgroundColor: fontColor
-
-    }
 });
 
 export default styles;
