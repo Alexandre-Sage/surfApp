@@ -7,17 +7,19 @@ const validator_1 = __importDefault(require("validator"));
 const errorClass_1 = __importDefault(require("../../../modules/errors/errorClass"));
 function notEmptyCheck(object) {
     const { isEmpty, isLength } = validator_1.default;
-    const responseBody = Object.entries(object);
+    const requestBody = Object.entries(object);
     let validationCount = 0;
-    for (const item of responseBody) {
+    for (const item of requestBody) {
         const [key, value] = item;
+        if (value === null)
+            break;
         if (isEmpty(value) && !isLength(value, { min: 1 }))
             break;
         else
             validationCount++;
     }
     ;
-    return new Promise((resolve, reject) => (validationCount === responseBody.length ? resolve(true) : reject(new errorClass_1.default(`The field ${responseBody[validationCount][0]} is empty`, 400))));
+    return new Promise((resolve, reject) => (validationCount === requestBody.length ? resolve(true) : reject(new errorClass_1.default(`The field ${requestBody[validationCount][0]} is empty`, 400))));
 }
 exports.default = notEmptyCheck;
 ;

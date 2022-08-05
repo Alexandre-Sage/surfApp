@@ -1,0 +1,37 @@
+import validator from "validator";
+import CustomError, { CustomErrorInterface } from "../../../modules/errors/errorClass";
+
+
+export default function dataValidation(body: object): Promise<boolean | CustomErrorInterface> {
+    const requestBody = Object.entries(body)
+    let validationCount: number = 0;
+    for (const item of requestBody) {
+        const [key, value] = item;
+        const { isLength, isEmail } = validator;
+        if (key === "email" && !isEmail(value)) break;
+        if (key === "password" && !isLength(value, { min: 4 })) break;
+        else validationCount++;
+    };
+    console.log(validationCount)
+    return new Promise((resolve: Function, reject: Function): Boolean | Error => (
+        validationCount === requestBody.length ? resolve(true) : reject(
+            new CustomError(`The provided ${requestBody[validationCount][0]} is incorrect`, 400)
+        )
+    ));
+};
+
+/*switch (key) {
+            case "email":
+                console.log("email")
+                if (!isEmail(value)) break;
+                else validationCount++;
+                break;
+            case "password":
+                console.log("password")
+                if (!isLength(value, { min: 4 })) break;
+                else validationCount++;
+            default:
+                validationCount++;
+                break;
+        };
+*/ 

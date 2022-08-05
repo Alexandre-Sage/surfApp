@@ -16,18 +16,11 @@ const express_1 = __importDefault(require("express"));
 const notEmpty_1 = __importDefault(require("../modules/dataValidation/notEmpty"));
 const addMongoEntries_1 = __importDefault(require("../../mongo/modules/addMongoEntries"));
 const createUser_1 = __importDefault(require("./modules/createUser"));
-const general_1 = require("../modules/cookies/general");
 const csurf_1 = require("../modules/cookies/csurf");
 const router = express_1.default.Router();
-router.get("/csrf", function (req, res) {
-    const csurfToken = (0, general_1.tokenGenerator)(50);
-    const csrfName = "CSRF-TOKEN";
-    const options = { httpOnly: true, signed: true, sameSite: true, maxAge: 600000 };
-    (0, csurf_1.csurfCookieGenerator)(req, csurfToken);
-    return res.status(200).cookie(csrfName, csurfToken, options).json({});
-});
 router.post("/", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(req.body);
         const session = req.session;
         const bodyCopy = Object.assign({}, req.body);
         delete bodyCopy.picture;

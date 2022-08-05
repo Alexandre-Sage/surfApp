@@ -2,10 +2,10 @@ import { Request } from "express";
 import { Session } from "express-session";
 import CustomError from "../../../modules/errors/errorClass";
 
-const csurfCookieGenerator = async (req: Request, token: string): Promise<Session> => {
-    req.session.csurfToken = token;
+const csurfCookieGenerator = async (req: Request, token: string, session: Session): Promise<Session> => {
+    session.csurfToken = token;
     return new Promise((resolve: Function, reject: Function) => {
-        req.session.save((err: any) => err ? reject(err) : resolve(true))
+        session.save((err: any) => err ? reject(err) : resolve(true))
     })
 };
 

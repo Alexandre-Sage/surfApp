@@ -14,21 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const general_1 = require("../modules/cookies/general");
+const csurf_1 = require("../modules/cookies/csurf");
 const router = express_1.default.Router();
 router.get("/", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const session = req.session;
         const csurfToken = (0, general_1.tokenGenerator)(50);
         const csrfName = "CSRF-TOKEN";
-        const options = { httpOnly: true, signed: true, sameSite: "none" };
-        //await csurfCookieGenerator(req, csurfToken);
-        console.log("qsdqsd", req.signedCookies);
-        session.csurfToken = csurfToken;
-        session.save;
-        console.log(session);
-        return res.status(200).cookie(csrfName, csurfToken, { httpOnly: true, signed: true, sameSite: "none", maxAge: 600000 }).json({
-            message: "ok"
-        });
+        const options = { httpOnly: true, signed: true, sameSite: false };
+        yield (0, csurf_1.csurfCookieGenerator)(req, csurfToken, session);
+        return res.status(200).cookie(csrfName, csurfToken, options).json({});
     });
 });
 exports.default = router;

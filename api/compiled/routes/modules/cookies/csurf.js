@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.csurfChecking = exports.csurfCookieGenerator = void 0;
 const errorClass_1 = __importDefault(require("../../../modules/errors/errorClass"));
-const csurfCookieGenerator = (req, token) => __awaiter(void 0, void 0, void 0, function* () {
-    req.session.csurfToken = token;
+const csurfCookieGenerator = (req, token, session) => __awaiter(void 0, void 0, void 0, function* () {
+    session.csurfToken = token;
     return new Promise((resolve, reject) => {
-        req.session.save((err) => err ? reject(err) : resolve(true));
+        session.save((err) => err ? reject(err) : resolve(true));
     });
 });
 exports.csurfCookieGenerator = csurfCookieGenerator;

@@ -1,17 +1,18 @@
 import validator from "validator";
 import CustomError from "../../../modules/errors/errorClass";
-export default function notEmptyCheck(object:object):Promise<boolean | Error>{
-    const {isEmpty,isLength}=validator;
-    const responseBody=Object.entries(object);
-    let validationCount=0;
-    for(const item of responseBody){
-        const [key,value]=item;
-        if(isEmpty(value) && !isLength(value,{min:1})) break;
+export default function notEmptyCheck(object: object): Promise<boolean | Error> {
+    const { isEmpty, isLength } = validator;
+    const requestBody = Object.entries(object);
+    let validationCount = 0;
+    for (const item of requestBody) {
+        const [key, value] = item;
+        if (value === null) break;
+        if (isEmpty(value) && !isLength(value, { min: 1 })) break;
         else validationCount++;
     };
-    return new Promise((resolve:Function,reject:Function):Boolean | Error=>(
-        validationCount===responseBody.length?resolve(true):reject(
-            new CustomError(`The field ${responseBody[validationCount][0]} is empty`,400)
+    return new Promise((resolve: Function, reject: Function): Boolean | Error => (
+        validationCount === requestBody.length ? resolve(true) : reject(
+            new CustomError(`The field ${requestBody[validationCount][0]} is empty`, 400)
         )
     ));
 };

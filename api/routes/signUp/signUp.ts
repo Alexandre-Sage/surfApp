@@ -6,15 +6,10 @@ import { tokenGenerator } from "../modules/cookies/general";
 import { csurfCookieGenerator, csurfChecking } from "../modules/cookies/csurf";
 
 const router = express.Router();
-router.get("/csrf", function (req: Request, res: Response): Response<JSON> {
-    const csurfToken = tokenGenerator(50);
-    const csrfName = "CSRF-TOKEN";
-    const options = { httpOnly: true, signed: true, sameSite: true, maxAge: 600000 };
-    csurfCookieGenerator(req, csurfToken);
-    return res.status(200).cookie(csrfName, csurfToken, options).json({});
-});
+
 
 router.post("/", async function (req: Request, res: Response) {
+    console.log(req.body)
     const session = req.session;
     const bodyCopy = { ...req.body };
     delete bodyCopy.picture;
