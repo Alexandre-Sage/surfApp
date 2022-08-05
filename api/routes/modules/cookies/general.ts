@@ -4,7 +4,7 @@ import { Response } from "express";
 declare interface CookieOptions extends Object {
     httpOnly: boolean,
     signed: boolean,
-    sameSite: boolean | "strict" | "none" | "lax" | undefined,
+    sameSite: any,
     maxAge: number
 };
 

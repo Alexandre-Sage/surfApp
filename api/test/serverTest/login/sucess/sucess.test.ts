@@ -6,7 +6,7 @@ describe("USER LOGED WITH SUCESS", function () {
     it("Sould login user with sucess", async () => {
         const chai = chaiAgent();
         const agentObj = { agent: chai.request.agent(server) };
-        const sendBody = { userName: "TestOne", password: "test" };
+        const sendBody = { email: "test@testOne", password: "test" };
         /*const message="User was sucessfully created";
         const responseProperty=[
             {propertyName:"message",propertyValue:message},

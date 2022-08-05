@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.chaiAgent = exports.clientErrorObject = exports.noErrorObject = exports.assertBodyRedirectObj = exports.assertBodyNoRedirectObj = exports.jsonSqlError400Object = exports.jsonHeader400ObjectNoCookie = exports.jsonHeader200ObjCookie = exports.jsonHeader200ObjectNoCookie = void 0;
+const chai_1 = __importDefault(require("chai"));
+const chai_http_1 = __importDefault(require("chai-http"));
+const chaiAgent = () => chai_1.default.use(chai_http_1.default);
+exports.chaiAgent = chaiAgent;
+const jsonHeader200ObjectNoCookie = { status: 200, contentType: "application/json; charset=utf-8", cookie: false, origin: "http://127.0.0.1:4875" };
+exports.jsonHeader200ObjectNoCookie = jsonHeader200ObjectNoCookie;
+const jsonHeader400ObjectNoCookie = { status: 400, contentType: "application/json; charset=utf-8", cookie: false, origin: "http://127.0.0.1:4875" };
+exports.jsonHeader400ObjectNoCookie = jsonHeader400ObjectNoCookie;
+const jsonHeader200ObjCookie = { status: 200, contentType: "application/json; charset=utf-8", origin: "http://127.0.0.1:4875", cookie: true };
+exports.jsonHeader200ObjCookie = jsonHeader200ObjCookie;
+const jsonSqlError400Object = { status: 400, contentType: "application/json; charset=utf-8", cookie: false, origin: "http://127.0.0.1:4875" };
+exports.jsonSqlError400Object = jsonSqlError400Object;
+const assertBodyNoRedirectObj = { redirectsLength: 0 };
+exports.assertBodyNoRedirectObj = assertBodyNoRedirectObj;
+const assertBodyRedirectObj = { redirectsLength: 1 };
+exports.assertBodyRedirectObj = assertBodyRedirectObj;
+const noErrorObject = { clientError: false, serverError: false, badRequest: false };
+exports.noErrorObject = noErrorObject;
+const clientErrorObject = { clientError: true, serverError: false, badRequest: true };
+exports.clientErrorObject = clientErrorObject;

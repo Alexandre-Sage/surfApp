@@ -13,30 +13,39 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 /*ROUTES*/
-const login_1 = __importDefault(require("./routes/login"));
+const signUp_1 = __importDefault(require("./routes/signUp/signUp"));
+const login_1 = __importDefault(require("./routes/login/login"));
+const csrf_1 = __importDefault(require("./routes/csrf/csrf"));
 const server = (0, express_1.default)();
 dotenv_1.default.config({ path: path_1.default.resolve(".env") });
 ;
+/*server.locals.db=connect(`${process.env.MONGO_ATLAS}`,{
+    autoIndex: true,
+})*/
 server.use((0, cors_1.default)({
-    origin: `${process.env.HOST}${process.env.PORT}`,
+    origin: [`${process.env.HOSTTWO}${process.env.PORT}`, "http://localhost:19006"] /*"http://localhost:19006"*/,
     methods: ["GET", "POST"],
     credentials: true
 }));
-server.use(body_parser_1.default.urlencoded({ extended: false }));
+server.set("trust proxy", 1);
+server.use(body_parser_1.default.urlencoded({ extended: true }));
 process.env.NODE_ENV === "development" ? server.use((0, morgan_1.default)("dev")) : null;
 server.use(express_1.default.json());
 server.use(express_1.default.urlencoded({ extended: true }));
 server.use((0, cookie_parser_1.default)("secret"));
 server.use((0, express_session_1.default)({
     secret: "secret",
-    resave: true,
-    saveUninitialized: false,
+    resave: false,
+    //saveUninitialized: false,
     cookie: {
-        httpOnly: false,
-        sameSite: "strict"
+        httpOnly: true,
+        sameSite: "none",
+        secure: false,
     },
 }));
-server.use('/login', login_1.default);
+server.use("/sign-up", signUp_1.default);
+server.use("/login", login_1.default);
+server.use("/csrf", csrf_1.default);
 const httpServer = http_1.default.createServer(server);
 httpServer.listen(process.env.PORT, () => {
     console.log(`Server listening on: ${process.env.PORT}`);

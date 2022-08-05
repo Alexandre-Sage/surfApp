@@ -26,23 +26,24 @@ declare module "express-session" {
     autoIndex: true,
 })*/
 server.use(cors({
-    origin: `${process.env.HOSTTWO}${process.env.PORT}`,
+    origin: [`${process.env.HOSTTWO}${process.env.PORT}`, "http://localhost:19006"]/*"http://localhost:19006"*/,
     methods: ["GET", "POST"],
     credentials: true
 }));
-
-server.use(bodyParser.urlencoded({ extended: false }));
+server.set("trust proxy", 1);
+server.use(bodyParser.urlencoded({ extended: true }));
 process.env.NODE_ENV === "development" ? server.use(logger("dev")) : null;
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cookieParser("secret"));
 server.use(session({
     secret: "secret",
-    resave: true,
-    saveUninitialized: false,
+    resave: false,
+    //saveUninitialized: false,
     cookie: {
-        httpOnly: false,
-        sameSite: "strict"
+        httpOnly: true,
+        sameSite: "none",
+        secure: false,
     },
 }));
 

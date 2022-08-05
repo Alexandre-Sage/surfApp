@@ -1,41 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const usersAssets_1 = require("./usersAssets");
-const chai_1 = require("chai");
-const users_1 = require("../../../mongo/users/users");
-const { log, table } = console;
-/*describe("",()=>{
-    it("Should add a user to the DB",()=>{
-
-    });
-});*/
-exports.default = describe("1) TEST USER SCHEMA", function () {
-    /*after(async ()=>{
-        await connect("mongodb://localhost:27017/surfApp")
-        .then(()=>User.remove())
-        .catch(err=>log(err))
-    })*/
-    describe("1.1) POT USER TO DB WITHOUT ERROR", function () {
-        it("Should add a user to the DB", (done) => {
-            (0, users_1.addUser)(usersAssets_1.userOne)
-                .then((res) => {
-                log(typeof res);
-                (0, chai_1.expect)(typeof res).to.be.eql("boolean");
-                (0, chai_1.expect)(res).to.be.eql(true);
-                done();
-            }).catch((err) => done(err));
-        });
-    });
-    describe("1.2) SHOULD POST USER AND RETURN AN ERROR", () => {
-        it("Return something", (done) => {
-            (0, users_1.addUser)(usersAssets_1.userOne)
-                .then((res) => {
-                log(typeof res);
-                log(res);
-                //expect(typeof res).to.be.eql("boolean");
-                //expect(res).to.be.eql(true)
-                done();
-            }); //.catch((err:any)=>done(err))
-        });
-    });
+const addMongoEntries_1 = __importDefault(require("../../../mongo/modules/addMongoEntries"));
+const addEntryToDataBase_test_1 = __importDefault(require("../modules/addEntryToDataBase.test"));
+exports.default = describe("1.1) ADD USER TO DB WITHOUT ERROR", function () {
+    (0, addEntryToDataBase_test_1.default)(addMongoEntries_1.default, usersAssets_1.userOne, "user");
 });

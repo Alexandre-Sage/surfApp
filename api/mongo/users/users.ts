@@ -1,7 +1,9 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, connect, disconnect } from "mongoose";
 import { UserInterface } from "../mongoInterfaces/userInterface";
 import { randomBytes, pbkdf2Sync } from "crypto";
 import CustomError from "../../modules/errors/errorClass";
+import dotenv from "dotenv";
+dotenv.config()
 
 const UserSchema = new Schema<UserInterface>({
     location: { type: String, required: true },
@@ -48,6 +50,10 @@ UserSchema.methods.checkPassword = function (password: string): Promise<any> {
     ))
 };
 const User = model<UserInterface>("User", UserSchema);
+connect(`${process.env.MONGO_ATLAS}`, {
+    autoIndex: true,
+}).then(() => User.createIndexes())
+    .catch(err => console.log(err))
+    .finally(() => disconnect())
 
-User.createIndexes();
 export default User;
