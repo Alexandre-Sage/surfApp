@@ -12,7 +12,7 @@ import { Types } from "mongoose";
 import signUp from "./routes/signUp/signUp";
 import login from "./routes/login/login";
 import csrf from "./routes/csrf/csrf";
-
+import userProfil from "./routes/userProfil/userProfil";
 const server: Express = express();
 dotenv.config({ path: path.resolve(".env") });
 declare module "express-session" {
@@ -39,7 +39,7 @@ server.use(cookieParser("secret"));
 server.use(session({
     secret: "secret",
     resave: false,
-    //saveUninitialized: false,
+    saveUninitialized: false,
     cookie: {
         httpOnly: true,
         sameSite: "none",
@@ -50,6 +50,7 @@ server.use(session({
 server.use("/sign-up", signUp);
 server.use("/login", login);
 server.use("/csrf", csrf);
+server.use("/userProfil", userProfil);
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
     console.log(`Server listening on: ${process.env.PORT}`);

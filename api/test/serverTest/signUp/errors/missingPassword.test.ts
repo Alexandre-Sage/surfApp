@@ -8,7 +8,7 @@ export default describe("3.9) SHOULD RETURN MISSING PASSWORD ERROR", function ()
         const chai = chaiAgent();
         const agentObj = { agent: chai.request.agent(server) };
         const sendBody = missingPasswordObject;
-        const message = "The field password is empty";
+        const message = "The password's field is empty";
         const responseProperty = [
             { propertyName: "message", propertyValue: message },
             { propertyName: "error", propertyValue: true }

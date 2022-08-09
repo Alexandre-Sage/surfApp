@@ -4,8 +4,7 @@ import dataValidation from "../modules/dataValidation/validation";
 import addMongoEntries from "../../mongo/modules/addMongoEntries";
 import createUser from "./modules/createUser";
 import passwordConfirmation from "./modules/passwordConfirmation";
-import { tokenGenerator } from "../modules/cookies/general";
-import { csurfCookieGenerator, csurfChecking } from "../modules/cookies/csurf";
+import { csurfChecking } from "../modules/cookies/csurf";
 
 const router = express.Router();
 

@@ -8,6 +8,7 @@ import { createSession } from "../modules/sessionManagement/sessionCreation";
 import { csurfChecking } from "../modules/cookies/csurf";
 import notEmptyCheck from "../modules/dataValidation/notEmpty";
 import dataValidation from "../modules/dataValidation/validation";
+//import {CookieOptions} from "../"
 const router = express.Router();
 const { log, table } = console;
 /**
@@ -26,12 +27,12 @@ router.post("/", async function (req: Request, res: Response): Promise<Response>
         await dataValidation(req.body)
         const user: UserInterface = await fetchOneEntriesFromDb(User, researchObject)
         await user.checkPassword(password);
-        const sessionToken = tokenGenerator(75);
+        const sessionToken: string = tokenGenerator(75);
         const cookieOptions = { httpOnly: true, signed: true, sameSite: true, maxAge: 600000 };
-        const cookieName = "SESSION-TOKEN";
+        const cookieName: string = "SESSION-TOKEN";
         createSession(session, sessionToken, user);
         return res.status(200).cookie(cookieName, sessionToken, cookieOptions).json({
-            message: `Welcome back ${researchObject.email}.`,
+            message: `Welcome back ${user.userName}!`,
             error: false
         });
     } catch (error: any) {

@@ -8,7 +8,7 @@ export default describe("3.6) SHOULD RETURN MISSING USERNAME ERROR", function ()
         const chai = chaiAgent();
         const agentObj = { agent: chai.request.agent(server) };
         const sendBody = { ...missingUserNameObject };
-        const message = "The field userName is empty";
+        const message = "The userName's field is empty";
         const responseProperty = [
             { propertyName: "message", propertyValue: message },
             { propertyName: "error", propertyValue: true }

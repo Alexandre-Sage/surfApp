@@ -12,7 +12,7 @@ export default function notEmptyCheck(object: object): Promise<boolean | Error> 
     };
     return new Promise((resolve: Function, reject: Function): Boolean | Error => (
         validationCount === requestBody.length ? resolve(true) : reject(
-            new CustomError(`The field ${requestBody[validationCount][0]} is empty`, 400)
+            new CustomError(`The ${requestBody[validationCount][0]}'s field is empty`, 400)
         )
     ));
 };

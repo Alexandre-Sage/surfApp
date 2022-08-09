@@ -8,7 +8,7 @@ export default describe("3.7) SHOULD RETURN MISSING PHONE ERROR", function () {
         const chai = chaiAgent();
         const agentObj = { agent: chai.request.agent(server) };
         const sendBody = { ...missingPhoneObject };
-        const message = "The field phone is empty";
+        const message = "The phone's field is empty";
         const responseProperty = [
             { propertyName: "message", propertyValue: message },
             { propertyName: "error", propertyValue: true }
