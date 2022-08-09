@@ -2,7 +2,7 @@ import server from "../../../../server";
 import { testGetRoute, testPostRoute } from "../../testModules/httpModule.test";
 import { jsonHeader200ObjCookie, jsonHeader200ObjectNoCookie, assertBodyNoRedirectObj, noErrorObject, chaiAgent } from "../../globalsTestVar";
 import { userObject } from "../signUpAssets";
-export default describe("2) POST THE LOGIN FORM", function () {
+export default describe("2) POST THE SIGN UP FORM", function () {
     it("Should post the sign-up form and crate new user", async () => {
         const chai = chaiAgent();
         const agentObj = { agent: chai.request.agent(server) };
@@ -17,7 +17,7 @@ export default describe("2) POST THE LOGIN FORM", function () {
             propertyArray: responseProperty
         };
         try {
-            await testGetRoute(agentObj, "/sign-up/csrf", jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
+            await testGetRoute(agentObj, "/csrf", jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
             await testPostRoute(agentObj, "/sign-up", sendBody, jsonHeader200ObjectNoCookie, noErrorObject, assertBodyObj)
         } catch (err) {
             throw err

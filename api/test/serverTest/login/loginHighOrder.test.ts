@@ -1,3 +1,3 @@
 export default describe("LOGIN ROUTES", function () {
-    require("./sucess/sucess.test");
+    require("./sucess/loginSucess.test");
 });
