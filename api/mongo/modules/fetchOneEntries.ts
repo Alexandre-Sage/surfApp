@@ -9,7 +9,7 @@ export default async function fetchOneEntriesFromDb(mongoSchema: any, researchOb
         await connect(`${process.env.MONGO_ATLAS}`, {
             autoIndex: true,
         });
-        const document = field ? await mongoSchema.findOne(researchObject, field) : await mongoSchema.findOne(researchObject);
+        const document = await mongoSchema.findOne(researchObject, field ? field : undefined);
         return new Promise((resolve: Function, reject: Function) => (
             document ? resolve(document) : reject(new CustomError(errorMessage, 400))
         ));

@@ -1,5 +1,5 @@
 import http from "http";
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express, Request, Response, NextFunction, application } from "express";
 import path from "path";
 import dotenv from "dotenv";
 import session, { Session } from "express-session";
@@ -13,6 +13,10 @@ import signUp from "./routes/signUp/signUp";
 import login from "./routes/login/login";
 import csrf from "./routes/csrf/csrf";
 import userProfil from "./routes/userProfil/userProfil";
+/**//* */
+import multer, { Multer, StorageEngine } from "multer";
+import { request } from "chai";
+
 const server: Express = express();
 dotenv.config({ path: path.resolve(".env") });
 declare module "express-session" {
@@ -20,6 +24,7 @@ declare module "express-session" {
         csurfToken: string;
         sessionToken: string;
         userId: Types.ObjectId;
+        userName: string;
     }
 };
 /*server.locals.db=connect(`${process.env.MONGO_ATLAS}`,{
@@ -32,6 +37,7 @@ server.use(cors({
 }));
 server.set("trust proxy", 1);
 server.use(bodyParser.urlencoded({ extended: true }));
+server.use(express.static("src"));
 process.env.NODE_ENV === "development" ? server.use(logger("dev")) : null;
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
@@ -46,9 +52,20 @@ server.use(session({
         secure: false,
     },
 }));
-
 server.use("/sign-up", signUp);
 server.use("/login", login);
+/*server.use(function (req, res, next) {
+    const session = req.session;
+    //const error = new CustomError(, 403);
+    if (session.sessionToken && req.signedCookies["SESSION-TOKEN"] === session.sessionToken) {
+        next()
+    } else {
+        res.status(777).json({
+            message: "Something wrong happened please retry.",
+            error: true
+        })
+    }
+})*/
 server.use("/csrf", csrf);
 server.use("/userProfil", userProfil);
 const httpServer = http.createServer(server);
