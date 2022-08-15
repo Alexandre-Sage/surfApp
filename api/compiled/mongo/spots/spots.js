@@ -28,6 +28,13 @@ const SpotSchema = new mongoose_1.Schema({
             }
         }
     ],
+    picture: [
+        {
+            path: { type: String, required: false },
+            place: { type: String, required: false },
+            uploadDate: { type: Date, required: false }
+        }
+    ],
     sessions: [{ type: String, require: false, unique: true }],
     creationDate: { type: Date, required: true }
 });

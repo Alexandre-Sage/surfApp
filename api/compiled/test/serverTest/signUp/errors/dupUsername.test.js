@@ -16,8 +16,7 @@ const server_1 = __importDefault(require("../../../../server"));
 const httpModule_test_1 = require("../../testModules/httpModule.test");
 const globalsTestVar_1 = require("../../globalsTestVar");
 const signUpAssets_1 = require("../signUpAssets");
-//PROBLEME AVEC TOUT LES TEST
-exports.default = describe("2.1) SHOULD RETURN DUPLICATE USERNAME ERROR", function () {
+exports.default = describe("3.1) SHOULD RETURN DUPLICATE USERNAME ERROR", function () {
     it("Should post a new user and return error for duplicate userName", () => __awaiter(this, void 0, void 0, function* () {
         const chai = (0, globalsTestVar_1.chaiAgent)();
         const agentObj = { agent: chai.request.agent(server_1.default) };
@@ -32,7 +31,7 @@ exports.default = describe("2.1) SHOULD RETURN DUPLICATE USERNAME ERROR", functi
             propertyArray: responseProperty
         };
         try {
-            yield (0, httpModule_test_1.testGetRoute)(agentObj, "/sign-up/csrf", globalsTestVar_1.jsonHeader200ObjCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
+            yield (0, httpModule_test_1.testGetRoute)(agentObj, "/csrf", globalsTestVar_1.jsonHeader200ObjCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
             yield (0, httpModule_test_1.testPostRoute)(agentObj, "/sign-up", sendBody, globalsTestVar_1.jsonHeader400ObjectNoCookie, globalsTestVar_1.clientErrorObject, assertBodyObj);
         }
         catch (err) {

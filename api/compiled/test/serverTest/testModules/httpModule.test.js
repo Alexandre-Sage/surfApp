@@ -8,15 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.testPostRoute = exports.testGetRoute = void 0;
+exports.testPostFileRoute = exports.testPostRoute = exports.testGetRoute = void 0;
 const assertionModule_test_1 = require("./assertionModule.test");
+const fs_1 = __importDefault(require("fs"));
 const { log } = console;
 function testGetRoute(agentObj, path, assertHeaderObj, errorObject, assertBodyObj) {
     return __awaiter(this, void 0, void 0, function* () {
         yield agentObj.agent.get(path)
             .then((res) => {
-            //log(res)
             const { contentType, status, origin, cookie } = assertHeaderObj;
             const { serverError, clientError, badRequest } = errorObject;
             (0, assertionModule_test_1.assertHeader)(res, assertHeaderObj);
@@ -43,3 +46,22 @@ function testPostRoute(agentObj, url, sendBody, assertHeaderObj, errorObject, as
     });
 }
 exports.testPostRoute = testPostRoute;
+function testPostFileRoute(agentObj, url, filePath, fileName, assertHeaderObj, errorObject, assertBodyObj) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const boundary = Math.random();
+        try {
+            const res = yield agentObj.agent.post(url)
+                .set('Content-Type', 'multipart/form-data; boundary=' + boundary)
+                .attach("image", fs_1.default.readFileSync(filePath), fileName);
+            (0, assertionModule_test_1.assertHeader)(res, assertHeaderObj);
+            (0, assertionModule_test_1.assertError)(res, errorObject);
+            (0, assertionModule_test_1.assertBody)(res, assertBodyObj);
+            console.log(res);
+        }
+        catch (error) {
+            throw error;
+        }
+    });
+}
+exports.testPostFileRoute = testPostFileRoute;
+;

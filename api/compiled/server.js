@@ -16,6 +16,7 @@ const cors_1 = __importDefault(require("cors"));
 const signUp_1 = __importDefault(require("./routes/signUp/signUp"));
 const login_1 = __importDefault(require("./routes/login/login"));
 const csrf_1 = __importDefault(require("./routes/csrf/csrf"));
+const userProfil_1 = __importDefault(require("./routes/userProfil/userProfil"));
 const server = (0, express_1.default)();
 dotenv_1.default.config({ path: path_1.default.resolve(".env") });
 ;
@@ -23,12 +24,13 @@ dotenv_1.default.config({ path: path_1.default.resolve(".env") });
     autoIndex: true,
 })*/
 server.use((0, cors_1.default)({
-    origin: [`${process.env.HOSTTWO}${process.env.PORT}`, "http://localhost:19006"] /*"http://localhost:19006"*/,
+    origin: /*`${process.env.HOSTTWO}${process.env.PORT}`*/ "http://localhost:19006",
     methods: ["GET", "POST"],
     credentials: true
 }));
 server.set("trust proxy", 1);
 server.use(body_parser_1.default.urlencoded({ extended: true }));
+server.use(express_1.default.static("src"));
 process.env.NODE_ENV === "development" ? server.use((0, morgan_1.default)("dev")) : null;
 server.use(express_1.default.json());
 server.use(express_1.default.urlencoded({ extended: true }));
@@ -36,7 +38,7 @@ server.use((0, cookie_parser_1.default)("secret"));
 server.use((0, express_session_1.default)({
     secret: "secret",
     resave: false,
-    //saveUninitialized: false,
+    saveUninitialized: false,
     cookie: {
         httpOnly: true,
         sameSite: "none",
@@ -45,7 +47,20 @@ server.use((0, express_session_1.default)({
 }));
 server.use("/sign-up", signUp_1.default);
 server.use("/login", login_1.default);
+/*server.use(function (req, res, next) {
+    const session = req.session;
+    //const error = new CustomError(, 403);
+    if (session.sessionToken && req.signedCookies["SESSION-TOKEN"] === session.sessionToken) {
+        next()
+    } else {
+        res.status(777).json({
+            message: "Something wrong happened please retry.",
+            error: true
+        })
+    }
+})*/
 server.use("/csrf", csrf_1.default);
+server.use("/userProfil", userProfil_1.default);
 const httpServer = http_1.default.createServer(server);
 httpServer.listen(process.env.PORT, () => {
     console.log(`Server listening on: ${process.env.PORT}`);

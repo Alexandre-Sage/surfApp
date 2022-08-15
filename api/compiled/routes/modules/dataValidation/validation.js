@@ -10,16 +10,17 @@ function dataValidation(body) {
     let validationCount = 0;
     for (const item of requestBody) {
         const [key, value] = item;
-        const { isLength, isEmail } = validator_1.default;
+        const { isLength, isEmail, isMobilePhone } = validator_1.default;
         if (key === "email" && !isEmail(value))
             break;
         if (key === "password" && !isLength(value, { min: 4 }))
+            break;
+        if (key === "phone" && !isMobilePhone(value))
             break;
         else
             validationCount++;
     }
     ;
-    console.log(validationCount);
     return new Promise((resolve, reject) => (validationCount === requestBody.length ? resolve(true) : reject(new errorClass_1.default(`The provided ${requestBody[validationCount][0]} is incorrect`, 400))));
 }
 exports.default = dataValidation;

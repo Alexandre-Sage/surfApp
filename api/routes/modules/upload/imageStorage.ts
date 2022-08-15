@@ -3,8 +3,8 @@ import multer, { Multer, StorageEngine } from "multer";
 import fs, { exists } from "fs";
 import { Session } from "express-session";
 import sessionChecking from "../sessionManagement/sessionChecking";
-
-const storage: StorageEngine = multer.diskStorage({
+import path from "path";
+const storage = multer.diskStorage({
     async destination(req: Request, file: Express.Multer.File, callBack: Function) {
         const { userName }: Session = req.session;
         const folder: string = `./src/images/usersImages/${userName}`;
@@ -15,11 +15,12 @@ const storage: StorageEngine = multer.diskStorage({
             return callBack(null, folder);
         });
     },
-    filename(req: Request, file: Express.Multer.File, callBack: Function): void {
+    async filename(req: Request, file: Express.Multer.File, callBack: Function) {
         const { userName }: Session = req.session;
         const uniqueSuffix: string = `${Date.now()}_${userName}`;
-        callBack(null, file.originalname + '-' + uniqueSuffix);
+        return callBack(null, file.originalname + '-' + uniqueSuffix)
     }
 });
+
 const imageStorage: Multer = multer({ storage: storage });
 export default imageStorage;

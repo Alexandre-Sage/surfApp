@@ -7,7 +7,6 @@ import Buttons from "./Buttons";
 import SignUpForm from "./SignUpForm";
 import Header from "./Header";
 export default function LandingPage() {
-    const navigation = useNavigation();
     const [loginForm, setLoginForm] = useState(false);
     const [signUpForm, setSignUpForm] = useState(false);
     const [buttons, setButtons] = useState(true);

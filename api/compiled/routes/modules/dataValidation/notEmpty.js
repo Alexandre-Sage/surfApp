@@ -19,7 +19,7 @@ function notEmptyCheck(object) {
             validationCount++;
     }
     ;
-    return new Promise((resolve, reject) => (validationCount === requestBody.length ? resolve(true) : reject(new errorClass_1.default(`The field ${requestBody[validationCount][0]} is empty`, 400))));
+    return new Promise((resolve, reject) => (validationCount === requestBody.length ? resolve(true) : reject(new errorClass_1.default(`The ${requestBody[validationCount][0]}'s field is empty`, 400))));
 }
 exports.default = notEmptyCheck;
 ;

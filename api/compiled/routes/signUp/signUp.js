@@ -14,27 +14,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const notEmpty_1 = __importDefault(require("../modules/dataValidation/notEmpty"));
+const validation_1 = __importDefault(require("../modules/dataValidation/validation"));
 const addMongoEntries_1 = __importDefault(require("../../mongo/modules/addMongoEntries"));
 const createUser_1 = __importDefault(require("./modules/createUser"));
+const passwordConfirmation_1 = __importDefault(require("./modules/passwordConfirmation"));
 const csurf_1 = require("../modules/cookies/csurf");
 const router = express_1.default.Router();
 router.post("/", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(req.body);
+        //  console.log(req.body)
         const session = req.session;
-        const bodyCopy = Object.assign({}, req.body);
-        delete bodyCopy.picture;
-        const createUserPromiseArray = [(0, csurf_1.csurfChecking)(session, req), (0, notEmpty_1.default)(bodyCopy), (0, createUser_1.default)(req.body)];
-        yield Promise.all(createUserPromiseArray)
-            .then((resolved) => (0, addMongoEntries_1.default)(resolved[2]))
-            .then(() => res.status(200).json({
-            message: "User was sucessfully created",
-            error: false
-        }))
-            .catch((err) => res.status(err.httpStatus).json({
-            message: err.message,
-            error: true
-        }));
+        try {
+            yield (0, csurf_1.csurfChecking)(session, req);
+            yield (0, notEmpty_1.default)(req.body);
+            yield (0, validation_1.default)(req.body);
+            yield (0, passwordConfirmation_1.default)(req.body.password, req.body.passwordConfirmation);
+            const newUser = yield (0, createUser_1.default)(req.body);
+            yield (0, addMongoEntries_1.default)(newUser);
+            res.status(200).json({
+                message: "User was sucessfully created",
+                error: false
+            });
+        }
+        catch (error) {
+            res.status(error.httpStatus).json({
+                message: error.message,
+                error: true
+            });
+        }
     });
 });
 exports.default = router;

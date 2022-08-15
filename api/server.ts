@@ -31,7 +31,7 @@ declare module "express-session" {
     autoIndex: true,
 })*/
 server.use(cors({
-    origin: `${process.env.HOSTTWO}${process.env.PORT}`/*"http://localhost:19006"*/,
+    origin: /*`${process.env.HOSTTWO}${process.env.PORT}`*/"http://localhost:19006",
     methods: ["GET", "POST"],
     credentials: true
 }));

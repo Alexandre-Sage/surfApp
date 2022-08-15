@@ -13,6 +13,7 @@ exports.createSession = void 0;
 const createSession = (session, sessionToken, user) => __awaiter(void 0, void 0, void 0, function* () {
     session.sessionToken = sessionToken;
     session.userId = user._id;
+    session.userName = user.userName;
     session.save();
 });
 exports.createSession = createSession;

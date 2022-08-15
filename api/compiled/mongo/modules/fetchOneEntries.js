@@ -14,15 +14,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const errorClass_1 = __importDefault(require("../../modules/errors/errorClass"));
-function fetchOneEntriesFromDb(mongoSchema, researchObject) {
+function fetchOneEntriesFromDb(mongoSchema, researchObject, field) {
     return __awaiter(this, void 0, void 0, function* () {
         const errorKey = `${Object.keys(researchObject)[0]}`;
         const errorMessage = `${Object.keys(researchObject)[0]}: ${researchObject[errorKey]} not found please retry`;
-        yield (0, mongoose_1.connect)(`${process.env.MONGO_ATLAS}`, {
-            autoIndex: true,
-        });
-        const document = yield mongoSchema.findOne(researchObject);
-        return new Promise((resolve, reject) => (document ? resolve(document) : reject(new errorClass_1.default(errorMessage, 400))));
+        try {
+            yield (0, mongoose_1.connect)(`${process.env.MONGO_ATLAS}`, {
+                autoIndex: true,
+            });
+            const document = yield mongoSchema.findOne(researchObject, field ? field : undefined);
+            return new Promise((resolve, reject) => (document ? resolve(document) : reject(new errorClass_1.default(errorMessage, 400))));
+        }
+        catch (error) {
+            return Promise.reject(new errorClass_1.default("Something wrong happened please retry ", 403));
+        }
     });
 }
 exports.default = fetchOneEntriesFromDb;

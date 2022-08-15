@@ -28,9 +28,11 @@ router.post("/", async function (req: Request, res: Response): Promise<Response>
         const user: UserInterface = await fetchOneEntriesFromDb(User, researchObject)
         await user.checkPassword(password);
         const sessionToken: string = tokenGenerator(75);
-        const cookieOptions = { httpOnly: true, signed: true, sameSite: true, maxAge: 600000 };
+        const cookieOptions = { httpOnly: true, signed: true, sameSite: false, maxAge: 600000 };
         const cookieName: string = "SESSION-TOKEN";
-        createSession(session, sessionToken, user);
+        await createSession(session, sessionToken, user);
+        session.save()
+        log(session)
         return res.status(200).cookie(cookieName, sessionToken, cookieOptions).json({
             message: `Welcome back ${user.userName}!`,
             error: false

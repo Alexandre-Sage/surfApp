@@ -1,5 +1,6 @@
 import { assertError, assertHeader, assertBody } from "./assertionModule.test";
 import { ErrorObject, HeaderObject, AssertBodyObj } from "./modulesInterfaces";
+import fs from "fs";
 const { log } = console;
 async function testGetRoute(agentObj: any, path: string, assertHeaderObj: HeaderObject, errorObject: ErrorObject, assertBodyObj: AssertBodyObj) {
     await agentObj.agent.get(path)
@@ -25,4 +26,21 @@ async function testPostRoute(agentObj: any, url: string, sendBody: Object, asser
             assertBody(res, assertBodyObj);
         }).catch((err: Error) => { throw err });
 }
-export { testGetRoute, testPostRoute }
+
+async function testPostFileRoute(agentObj: any, url: string, filePath: string, fileName: string, assertHeaderObj: HeaderObject, errorObject: ErrorObject, assertBodyObj: AssertBodyObj) {
+    const boundary = Math.random();
+    try {
+        const res = await agentObj.agent.post(url)
+            .set('Content-Type', 'multipart/form-data; boundary=' + boundary)
+            .attach("image", fs.readFileSync(filePath), fileName)
+        assertHeader(res, assertHeaderObj);
+        assertError(res, errorObject);
+        assertBody(res, assertBodyObj);
+        console.log(res)
+    } catch (error) {
+        throw error
+    }
+
+};
+
+export { testGetRoute, testPostRoute, testPostFileRoute }

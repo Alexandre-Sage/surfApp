@@ -20,6 +20,7 @@ const sessionCreation_1 = require("../modules/sessionManagement/sessionCreation"
 const csurf_1 = require("../modules/cookies/csurf");
 const notEmpty_1 = __importDefault(require("../modules/dataValidation/notEmpty"));
 const validation_1 = __importDefault(require("../modules/dataValidation/validation"));
+//import {CookieOptions} from "../"
 const router = express_1.default.Router();
 const { log, table } = console;
 /**
@@ -39,16 +40,18 @@ router.post("/", function (req, res) {
             const user = yield (0, fetchOneEntries_1.default)(users_1.default, researchObject);
             yield user.checkPassword(password);
             const sessionToken = (0, general_1.tokenGenerator)(75);
-            const cookieOptions = { httpOnly: true, signed: true, sameSite: true, maxAge: 600000 };
+            const cookieOptions = { httpOnly: true, signed: true, sameSite: false, maxAge: 600000 };
             const cookieName = "SESSION-TOKEN";
-            (0, sessionCreation_1.createSession)(session, sessionToken, user);
+            yield (0, sessionCreation_1.createSession)(session, sessionToken, user);
+            session.save();
+            log(session);
             return res.status(200).cookie(cookieName, sessionToken, cookieOptions).json({
-                message: `Welcome back ${researchObject.email}.`,
+                message: `Welcome back ${user.userName}!`,
                 error: false
             });
         }
         catch (error) {
-            console.log(error);
+            //console.log(error)
             return res.status(error.httpStatus).json({
                 message: error.message,
                 error: true
