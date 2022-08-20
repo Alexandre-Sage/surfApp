@@ -13,17 +13,17 @@ const SpotSchema = new Schema<SpotInterface>({
         type: { type: String, required: true },
         coordinates: [{ type: String, required: true }]
     },
-    orientation: [{ type: String, required: false }],
+    orientation: [{ type: String, required: true }],
     optimalConditions: [
         {
             wind: {
-                strength: { type: String, require: false },
-                orientation: { type: String, require: false }
+                strength: { type: String, required: false },
+                orientation: { type: String, required: false }
             },
             swell: {
-                size: { type: String, require: false },
-                period: { type: String, require: false },
-                orientation: { type: String, require: false }
+                size: { type: String, required: false },
+                period: { type: String, required: false },
+                orientation: { type: String, required: false }
             }
         }
     ],
@@ -34,7 +34,7 @@ const SpotSchema = new Schema<SpotInterface>({
             uploadDate: { type: Date, required: false }
         }
     ],
-    sessions: [{ type: String, require: false, unique: true }],
+    sessions: [{ type: String, required: false }],
     creationDate: { type: Date, required: true }
 });
 const Spot = model<SpotInterface>("Spot", SpotSchema);

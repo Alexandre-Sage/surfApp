@@ -4,6 +4,7 @@ import { MongoServerError } from "mongodb";
 const { log } = console;
 
 function mongoErrorHandling(error: MongoServerError, reject: Function) {
+    console.log("here", error)
     switch (error.code) {
         case 11000:
             const fieldValue = Object.entries(error.keyValue)[0];
@@ -15,17 +16,16 @@ function mongoErrorHandling(error: MongoServerError, reject: Function) {
 
 
 export default async function addMongoEntries(mongoSchema: any): Promise<boolean | MongooseError | void> {
-    await connect(`${process.env.MONGO_ATLAS}`, {
-        autoIndex: true,
-    });
-    return new Promise(async (resolve: Function, reject: Function) => (
-        mongoSchema.save((error: MongoServerError, documentSaved: any) => {
-            if (error && error.name === "MongoServerError") {
-                //log("mdb", err)
-                mongoErrorHandling(error, reject)
-            } else if (documentSaved) {
-                resolve(true)
-            };
-        })
-    )).then(() => disconnect());
+    return new Promise(async function (resolve: Function, reject: Function) {
+        try {
+            await connect(`${process.env.MONGO_ATLAS}`, {
+                autoIndex: true,
+            });
+            await mongoSchema.save();
+            resolve(true)
+        } catch (error: any) {
+            if (error.name === "MongoServerError") mongoErrorHandling(error, reject)
+            else if (error) reject(new CustomError("Something wrong happened please retry", 403))
+        }
+    }).then(() => disconnect());
 }

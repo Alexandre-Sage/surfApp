@@ -9,10 +9,26 @@ const router = express.Router();
 const { log, table, error } = console
 
 const upload = imageStorage.single("image")
+
+
+/**/
+const stringModification = (string: string | undefined, splitCharactere: string, spliceIndex: number, numberOfDelete: number, joinCharactere: string, replacement?: string): string | Error => {
+    const array: Array<string> | undefined = string ? string.split(splitCharactere) : undefined;
+    if (replacement && array) array.splice(spliceIndex, numberOfDelete, replacement);
+    else if (array && !replacement) array.splice(spliceIndex, numberOfDelete);
+    else throw new Error("String modification function error");
+    const newString: string = array.join(joinCharactere);
+    return newString;
+};
+/** */
+
+
 router.post("/uploadPicture", imageStorage.single("image"), async function (req: Request, res: Response, next: any): Promise<Response<JSON>> {
     const fileCopy = { ...req.file }
     const session: Session = req.session;
-    const pictureObj: PictureObject = { path: `${fileCopy.path}`, place: "test", date: Date.now() };
+    const { path } = fileCopy;
+    const dataBasePath: string | Error = stringModification(path, "/", 0, 1, "/")
+    const pictureObj: PictureObject = { path: `${dataBasePath}`, place: "test", date: Date.now() };
     try {
         await sessionChecking(req, session)
         await addPicturePathToDb(session, User, pictureObj)

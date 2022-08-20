@@ -7,6 +7,7 @@ import path from "path";
 const storage = multer.diskStorage({
     async destination(req: Request, file: Express.Multer.File, callBack: Function) {
         const { userName }: Session = req.session;
+        //console.log(process.static)
         const folder: string = `./src/images/usersImages/${userName}`;
         fs.exists(folder, (existing: boolean) => {
             if (!existing) {
@@ -17,8 +18,10 @@ const storage = multer.diskStorage({
     },
     async filename(req: Request, file: Express.Multer.File, callBack: Function) {
         const { userName }: Session = req.session;
+        console.log(file)
         const uniqueSuffix: string = `${Date.now()}_${userName}`;
-        return callBack(null, file.originalname + '-' + uniqueSuffix)
+        return await callBack(null, file.originalname + '-' + uniqueSuffix)
+            .then((res: any) => console.log(res))
     }
 });
 

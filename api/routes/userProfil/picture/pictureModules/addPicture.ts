@@ -2,6 +2,7 @@ import { connect } from "mongoose";
 import { PictureObject } from "../../../../mongo/mongoInterfaces/pictureObjectInterface";
 import { Session } from "express-session";
 import CustomError from "../../../../modules/errors/errorClass";
+
 export default async function addPicturePathToDb(session: Session, mongoSchema: any, pictureObject: PictureObject) {
     new Promise(async function (resolve: Function, reject: Function) {
         try {

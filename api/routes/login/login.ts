@@ -31,8 +31,6 @@ router.post("/", async function (req: Request, res: Response): Promise<Response>
         const cookieOptions = { httpOnly: true, signed: true, sameSite: false, maxAge: 600000 };
         const cookieName: string = "SESSION-TOKEN";
         await createSession(session, sessionToken, user);
-        session.save()
-        log(session)
         return res.status(200).cookie(cookieName, sessionToken, cookieOptions).json({
             message: `Welcome back ${user.userName}!`,
             error: false

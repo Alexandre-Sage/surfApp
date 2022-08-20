@@ -1,4 +1,4 @@
-export interface GeoJsonObject{
-    type:String,
-    coordinates:Array<String>
+export interface GeoJsonObject {
+    type: String,
+    coordinates: Array<String>
 };

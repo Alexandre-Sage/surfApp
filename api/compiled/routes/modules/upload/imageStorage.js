@@ -18,6 +18,7 @@ const storage = multer_1.default.diskStorage({
     destination(req, file, callBack) {
         return __awaiter(this, void 0, void 0, function* () {
             const { userName } = req.session;
+            //console.log(process.static)
             const folder = `./src/images/usersImages/${userName}`;
             fs_1.default.exists(folder, (existing) => {
                 if (!existing) {
@@ -31,8 +32,10 @@ const storage = multer_1.default.diskStorage({
     filename(req, file, callBack) {
         return __awaiter(this, void 0, void 0, function* () {
             const { userName } = req.session;
+            console.log(file);
             const uniqueSuffix = `${Date.now()}_${userName}`;
-            return callBack(null, file.originalname + '-' + uniqueSuffix);
+            return yield callBack(null, file.originalname + '-' + uniqueSuffix)
+                .then((res) => console.log(res));
         });
     }
 });

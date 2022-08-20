@@ -56,7 +56,7 @@ function testPostFileRoute(agentObj, url, filePath, fileName, assertHeaderObj, e
             (0, assertionModule_test_1.assertHeader)(res, assertHeaderObj);
             (0, assertionModule_test_1.assertError)(res, errorObject);
             (0, assertionModule_test_1.assertBody)(res, assertBodyObj);
-            console.log(res);
+            //console.log(res)
         }
         catch (error) {
             throw error;

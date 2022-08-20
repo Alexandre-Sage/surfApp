@@ -36,7 +36,7 @@ async function testPostFileRoute(agentObj: any, url: string, filePath: string, f
         assertHeader(res, assertHeaderObj);
         assertError(res, errorObject);
         assertBody(res, assertBodyObj);
-        console.log(res)
+        //console.log(res)
     } catch (error) {
         throw error
     }

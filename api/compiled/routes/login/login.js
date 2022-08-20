@@ -43,8 +43,6 @@ router.post("/", function (req, res) {
             const cookieOptions = { httpOnly: true, signed: true, sameSite: false, maxAge: 600000 };
             const cookieName = "SESSION-TOKEN";
             yield (0, sessionCreation_1.createSession)(session, sessionToken, user);
-            session.save();
-            log(session);
             return res.status(200).cookie(cookieName, sessionToken, cookieOptions).json({
                 message: `Welcome back ${user.userName}!`,
                 error: false

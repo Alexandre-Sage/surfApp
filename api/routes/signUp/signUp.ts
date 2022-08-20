@@ -5,7 +5,7 @@ import addMongoEntries from "../../mongo/modules/addMongoEntries";
 import createUser from "./modules/createUser";
 import passwordConfirmation from "./modules/passwordConfirmation";
 import { csurfChecking } from "../modules/cookies/csurf";
-
+import { UserInterface } from "../../mongo/mongoInterfaces/userInterface";
 const router = express.Router();
 
 router.post("/", async function (req: Request, res: Response) {
@@ -16,7 +16,7 @@ router.post("/", async function (req: Request, res: Response) {
         await notEmptyCheck(req.body);
         await dataValidation(req.body);
         await passwordConfirmation(req.body.password, req.body.passwordConfirmation)
-        const newUser = await createUser(req.body);
+        const newUser: UserInterface | Error = await createUser(req.body);
         await addMongoEntries(newUser);
         res.status(200).json({
             message: "User was sucessfully created",

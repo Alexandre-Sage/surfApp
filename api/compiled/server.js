@@ -30,7 +30,8 @@ server.use((0, cors_1.default)({
 }));
 server.set("trust proxy", 1);
 server.use(body_parser_1.default.urlencoded({ extended: true }));
-server.use(express_1.default.static("src"));
+//server.use(express.static(path.join(__dirname, "src")));
+server.use(express_1.default.static(`${process.cwd()}/src`));
 process.env.NODE_ENV === "development" ? server.use((0, morgan_1.default)("dev")) : null;
 server.use(express_1.default.json());
 server.use(express_1.default.urlencoded({ extended: true }));
