@@ -2,20 +2,28 @@ import React from "react";
 import { Text, View, TextInput } from "react-native";
 import styles from "../../styles/input/Input.style";
 import toCamelCase from "../../modules/strings/toCamelCase";
+import { State } from "react-native-gesture-handler";
 /**
  * Input functional component take two props a name and a function to execute on change and a 
  * aditional keyboardType props
  * @param {name,onValueChange} props 
  */
 
+declare interface InputProps {
+    name: string,
+    onValueChange?: Function,
+    state: object,
+    setState: Function,
+    defaultValue?: string
+    keyboardType?: any
+}
 
-
-export default function Input(props) {
-    const { name, onValueChange, state, setState } = props;
+export default function Input(props: InputProps): JSX.Element {
+    const { name, onValueChange, state, setState, defaultValue } = props;
     const keyboardType = props.keyboardType ? props.keyboardType : "default";
 
 
-    function answersRecord(data, setState, state) {
+    function answersRecord(data: any, setState: Function, state: object) {
         const { name, value } = data;
         setState({
             ...state, [toCamelCase(name)]: value
@@ -25,7 +33,7 @@ export default function Input(props) {
     return (
         <View style={styles.inputContainer}>
             <Text style={styles.label}>{name}: </Text>
-            <TextInput
+            <TextInput defaultValue={defaultValue}
                 style={styles.input}
                 onChangeText={(value) => answersRecord({ name: name, value: value }, setState, state)}
                 keyboardType={keyboardType}

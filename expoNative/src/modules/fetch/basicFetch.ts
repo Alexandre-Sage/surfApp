@@ -1,4 +1,4 @@
-async function getFetchFunction(url) {
+async function getFetchFunction(url: string): Promise<Response> {
     return fetch(url, {
         method: "GET",
         credentials: "include",
@@ -10,7 +10,7 @@ async function getFetchFunction(url) {
         .catch(serverError => serverError);
 };
 
-async function getFetchSetState(url, callBack) {
+async function getFetchSetState(url: string, callBack: Function): Promise<Response> {
     return fetch(url, {
         method: "GET",
         credentials: "include",
@@ -23,7 +23,7 @@ async function getFetchSetState(url, callBack) {
         .catch(serverError => serverError);
 }
 
-async function postFetchFunction(url, body) {
+async function postFetchFunction(url: string, body: object): Promise<Response> {
     return fetch(url, {
         method: "POST",
         headers: {

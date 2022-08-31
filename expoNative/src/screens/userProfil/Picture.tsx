@@ -1,19 +1,18 @@
 import { View, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 import { getFetchFunction, postFetchFunction, getFetchSetState } from "../../modules/fetch/basicFetch";
-import { API_URL } from "@env";
 import styles from "../../styles/userProfil/Picture.style";
 import Button from "../../components/buttons/Button";
 export default function Picture() {
     const [pictureData, setData] = useState({ pictures: [] });
     useEffect(function () {
-        getFetchSetState(`${API_URL}/userProfil/picture`, setData)
-            .catch(err => alert(err))
+        getFetchSetState(`${process.env.API_LAN}/userProfil/picture`, setData)
+            .catch(err => console.log(err))
     }, []);
     const { pictures } = pictureData;
     const pictureJsx = pictures.map((picture, key) => (
         <React.Fragment key={key}>
-            <Image style={styles.picture} source={`${API_URL}/${picture.path}`} />
+            <Image style={styles.picture} source={{ uri: `${process.env.API_LAN}/${picture.path}` }} />
         </React.Fragment>
     ));
     return (
@@ -21,9 +20,9 @@ export default function Picture() {
             <View>
                 {pictureJsx}
             </View>
-            <View>
-                <Button text={"Gallery"} aditionalStyles={styles.buttons} />
-                <Button text={"Upload"} />
+            <View style={styles.buttonsContainer}>
+                {/*<Button text={"Gallery"} aditionalStyles={styles.button} />
+                <Button text={"Upload"} aditionalStyles={styles.button} />*/}
             </View>
         </View>
     );

@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import styles from "../../styles/LandingPage/Or.style"
 
-export default function Or() {
+export default function Or(): JSX.Element {
     return (
         <View style={styles.container}>
             <View style={styles.span}></View>
