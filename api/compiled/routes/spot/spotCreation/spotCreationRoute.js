@@ -12,23 +12,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const errorClass_1 = __importDefault(require("../../modules/errors/errorClass"));
-function fetchOneEntriesFromDb(mongoSchema, researchObject, field, sortObject) {
+const express_1 = __importDefault(require("express"));
+const sessionChecking_1 = __importDefault(require("../../modules/sessionManagement/sessionChecking"));
+const csurf_1 = require("../../modules/cookies/csurf");
+const spotCreationFunction_1 = __importDefault(require("./spotCreationFunction"));
+const router = express_1.default.Router();
+router.post("/newSpot", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const errorKey = `${Object.keys(researchObject)[0]}`;
-        const errorMessage = `${Object.keys(researchObject)[0]}: ${researchObject[errorKey]} not found please retry`;
+        const session = req.session;
         try {
-            yield (0, mongoose_1.connect)(`${process.env.MONGO_ATLAS}`, {
-                autoIndex: true,
+            yield (0, csurf_1.csurfChecking)(session, req);
+            yield (0, sessionChecking_1.default)(req, session);
+            yield (0, spotCreationFunction_1.default)(req.body);
+            return res.status(200).json({
+                message: "Spot added with sucess",
+                error: false
             });
-            const document = yield mongoSchema.findOne(researchObject, field ? field : undefined).sort(sortObject ? sortObject : undefined);
-            return new Promise((resolve, reject) => (document ? resolve(document) : reject(new errorClass_1.default(errorMessage, 400))));
         }
         catch (error) {
-            return Promise.reject(new errorClass_1.default("Something wrong happened please retry ", 403));
+            console.log(error);
+            return res.status(error.httpStatus).json({
+                message: error.message,
+                error: true
+            });
         }
+        ;
     });
-}
-exports.default = fetchOneEntriesFromDb;
-;
+});
+exports.default = router;

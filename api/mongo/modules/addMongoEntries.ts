@@ -27,5 +27,5 @@ export default async function addMongoEntries(mongoSchema: any): Promise<boolean
             if (error.name === "MongoServerError") mongoErrorHandling(error, reject)
             else if (error) reject(new CustomError("Something wrong happened please retry", 403))
         }
-    }).then(() => disconnect());
+    });
 }

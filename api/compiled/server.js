@@ -17,6 +17,7 @@ const signUp_1 = __importDefault(require("./routes/signUp/signUp"));
 const login_1 = __importDefault(require("./routes/login/login"));
 const csrf_1 = __importDefault(require("./routes/csrf/csrf"));
 const userProfil_1 = __importDefault(require("./routes/userProfil/userProfil"));
+const spot_1 = __importDefault(require("./routes/spot/spot"));
 const server = (0, express_1.default)();
 dotenv_1.default.config({ path: path_1.default.resolve(".env") });
 ;
@@ -24,7 +25,7 @@ dotenv_1.default.config({ path: path_1.default.resolve(".env") });
     autoIndex: true,
 })*/
 server.use((0, cors_1.default)({
-    origin: /*`${process.env.HOSTTWO}${process.env.PORT}`*/ "http://localhost:19006",
+    origin: true,
     methods: ["GET", "POST"],
     credentials: true
 }));
@@ -62,6 +63,7 @@ server.use("/login", login_1.default);
 })*/
 server.use("/csrf", csrf_1.default);
 server.use("/userProfil", userProfil_1.default);
+server.use("/spot", spot_1.default);
 const httpServer = http_1.default.createServer(server);
 httpServer.listen(process.env.PORT, () => {
     console.log(`Server listening on: ${process.env.PORT}`);

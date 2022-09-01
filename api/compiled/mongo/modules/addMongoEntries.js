@@ -16,6 +16,7 @@ const mongoose_1 = require("mongoose");
 const errorClass_1 = __importDefault(require("../../modules/errors/errorClass"));
 const { log } = console;
 function mongoErrorHandling(error, reject) {
+    console.log("here", error);
     switch (error.code) {
         case 11000:
             const fieldValue = Object.entries(error.keyValue)[0];
@@ -28,21 +29,23 @@ function mongoErrorHandling(error, reject) {
 ;
 function addMongoEntries(mongoSchema) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, mongoose_1.connect)(`${process.env.MONGO_ATLAS}`, {
-            autoIndex: true,
-        });
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            return (mongoSchema.save((error, documentSaved) => {
-                if (error && error.name === "MongoServerError") {
-                    //log("mdb", err)
-                    mongoErrorHandling(error, reject);
-                }
-                else if (documentSaved) {
+        return new Promise(function (resolve, reject) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    yield (0, mongoose_1.connect)(`${process.env.MONGO_ATLAS}`, {
+                        autoIndex: true,
+                    });
+                    yield mongoSchema.save();
                     resolve(true);
                 }
-                ;
-            }));
-        })).then(() => (0, mongoose_1.disconnect)());
+                catch (error) {
+                    if (error.name === "MongoServerError")
+                        mongoErrorHandling(error, reject);
+                    else if (error)
+                        reject(new errorClass_1.default("Something wrong happened please retry", 403));
+                }
+            });
+        }).then(() => (0, mongoose_1.disconnect)());
     });
 }
 exports.default = addMongoEntries;

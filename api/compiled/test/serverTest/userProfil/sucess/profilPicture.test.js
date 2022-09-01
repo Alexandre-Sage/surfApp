@@ -16,23 +16,23 @@ const server_1 = __importDefault(require("../../../../server"));
 const httpModule_test_1 = require("../../testModules/httpModule.test");
 const globalsTestVar_1 = require("../../globalsTestVar");
 const fuck = {
-    location: 'TestOne',
-    name: 'TestOne',
-    firstName: 'TestOne',
-    userName: 'TestOne',
+    //location: 'TestOne',
+    //name: 'TestOne',
+    //firstName: 'TestOne',
+    //userName: 'TestOne',
     //email: 'test@testOne.com',
     //phone: '0606654654',
-    creationDate: "2022-08-09T19:32:54.000Z",
+    //creationDate: "2022-08-09T19:32:54.000Z",
     //lastConnection: "2022-08-09T19:32:54.000Z",
-    //picture: [],
+    picture: [],
 };
-exports.default = describe("1) SHOULD GET USER PROFIL HEADER", function () {
-    it("Should log and get user profil header", () => __awaiter(this, void 0, void 0, function* () {
+exports.default = describe("2) SHOULD GET USER PROFIL PICTURE", function () {
+    it("Should log and get user profil picture", () => __awaiter(this, void 0, void 0, function* () {
         const chai = (0, globalsTestVar_1.chaiAgent)();
         const agentObj = { agent: chai.request.agent(server_1.default) };
         const sendBody = { email: "test@testOne.com", password: "test" };
         const responseProperty = [
-            { propertyName: "userInfo", propertyValue: fuck },
+            { propertyName: "pictures", propertyValue: "nycatlope" },
             { propertyName: "error", propertyValue: false }
         ];
         const assertBodyObj = {
@@ -42,7 +42,7 @@ exports.default = describe("1) SHOULD GET USER PROFIL HEADER", function () {
         try {
             yield (0, httpModule_test_1.testGetRoute)(agentObj, "/csrf", globalsTestVar_1.jsonHeader200ObjCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
             yield (0, httpModule_test_1.testPostRoute)(agentObj, "/login", sendBody, globalsTestVar_1.jsonHeader200ObjCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
-            yield (0, httpModule_test_1.testGetRoute)(agentObj, "/userProfil/header", globalsTestVar_1.jsonHeader200ObjectNoCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
+            yield (0, httpModule_test_1.testGetRoute)(agentObj, "/userProfil/picture", globalsTestVar_1.jsonHeader200ObjectNoCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
             agentObj.agent.close();
         }
         catch (error) {
