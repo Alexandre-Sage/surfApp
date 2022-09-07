@@ -14,10 +14,7 @@ router.get(`/header`, async function (req: Request, res: Response): Promise<Resp
     try {
         await sessionChecking(req, session)
         const userInfo: UserInterface = await fetchOneEntriesFromDb(User, researchObject, headerFieldObject);
-        return res.status(200).json({
-            userInfo,
-            error: false
-        });
+        return res.status(200).json([userInfo]);
     } catch (error: any) {
         return res.status(error.httpStatus).json({
             message: error.message,

@@ -13,22 +13,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const sessionChecking_1 = __importDefault(require("../../modules/sessionManagement/sessionChecking"));
 const fetchOneEntries_1 = __importDefault(require("../../../mongo/modules/fetchOneEntries"));
-const users_1 = __importDefault(require("../../../mongo/users/users"));
+const sessionChecking_1 = __importDefault(require("../../modules/sessionManagement/sessionChecking"));
+const spots_1 = require("../../../mongo/spots/spots");
 const router = express_1.default.Router();
-router.get(`/allPicture`, function (req, res) {
+router.get("/getSpot/:spotId", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const session = req.session;
-        const researchObject = { _id: session.userId };
-        const pictureFieldObject = { picture: 1, _id: 0 };
+        console.log(req.params);
+        const { spotId } = req.params;
+        const researchObject = {
+            userId: session.userId,
+            _id: spotId
+        };
         try {
             yield (0, sessionChecking_1.default)(req, session);
-            const pictures = yield (0, fetchOneEntries_1.default)(users_1.default, researchObject, pictureFieldObject);
-            return res.status(200).json(pictures.picture);
+            const spotInfo = yield (0, fetchOneEntries_1.default)(spots_1.Spot, researchObject);
+            res.status(200).json({
+                spotInfo,
+                error: false
+            });
         }
         catch (error) {
-            return res.status(error.httpStatus).json({
+            console.log(error);
+            res.status(error.httpStatus).json({
                 message: error.message,
                 error: true
             });

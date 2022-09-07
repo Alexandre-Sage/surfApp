@@ -3,7 +3,7 @@ import { testGetRoute, testPostRoute } from "../../testModules/httpModule.test";
 import { jsonHeader200ObjCookie, jsonHeader200ObjectNoCookie, assertBodyNoRedirectObj, noErrorObject, chaiAgent, } from "../../globalsTestVar";
 
 export default describe.only("2) SHOULD GET ALL USER SPOTS", function () {
-    it("Should log and get user profil header", async () => {
+    it("Should log and get user Sspot", async () => {
         const chai = chaiAgent();
         const agentObj = { agent: chai.request.agent(server) };
         const sendBody = { email: "test@testOne.com", password: "test" };

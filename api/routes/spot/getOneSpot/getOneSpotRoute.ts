@@ -7,10 +7,9 @@ import { Spot } from "../../../mongo/spots/spots";
 const router: Router = express.Router();
 
 router.get("/getSpot/:spotId", async function (req, res) {
-    console.log("getSpot")
     const session: Session = req.session;
     console.log(req.params)
-    const { spotId }: any = req.params;
+    const { spotId } = req.params;
     const researchObject = {
         userId: session.userId,
         _id: spotId
@@ -18,7 +17,6 @@ router.get("/getSpot/:spotId", async function (req, res) {
     try {
         await sessionChecking(req, session);
         const spotInfo = await fetchOneEntriesFromDb(Spot, researchObject);
-        console.log(spotInfo);
         res.status(200).json({
             spotInfo,
             error: false

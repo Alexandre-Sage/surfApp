@@ -1,8 +1,10 @@
 import React from "react";
 import { Platform, UIManager } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import LandingPage from "./src/screens/landingPage/LandingPage";
 import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import { store } from "./src/redux/store";
+import LandingPage from "./src/screens/landingPage/LandingPage";
 import UserProfil from "./src/screens/userProfil/userProfil";
 
 export type RootStackParamList = {
@@ -18,12 +20,14 @@ if (Platform.OS === "android") {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="LandingPage">
-        <Stack.Screen name="LandingPage" component={LandingPage} options={{ title: "Welcome" }} />
-        <Stack.Screen name="UserProfil" component={UserProfil} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="LandingPage">
+          <Stack.Screen name="LandingPage" component={LandingPage} options={{ title: "Welcome" }} />
+          <Stack.Screen name="UserProfil" component={UserProfil} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

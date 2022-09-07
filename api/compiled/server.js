@@ -25,7 +25,7 @@ dotenv_1.default.config({ path: path_1.default.resolve(".env") });
     autoIndex: true,
 })*/
 server.use((0, cors_1.default)({
-    origin: true,
+    origin: /*`${process.env.HOSTTWO}${process.env.PORT}`*/ "http://localhost:19006",
     methods: ["GET", "POST"],
     credentials: true
 }));

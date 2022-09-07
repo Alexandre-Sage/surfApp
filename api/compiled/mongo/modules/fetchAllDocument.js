@@ -12,28 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const sessionChecking_1 = __importDefault(require("../../modules/sessionManagement/sessionChecking"));
-const fetchOneEntries_1 = __importDefault(require("../../../mongo/modules/fetchOneEntries"));
-const users_1 = __importDefault(require("../../../mongo/users/users"));
-const router = express_1.default.Router();
-router.get(`/allPicture`, function (req, res) {
+const mongoose_1 = require("mongoose");
+const errorClass_1 = __importDefault(require("../../modules/errors/errorClass"));
+function fetchOneEntriesFromDb(mongoSchema, researchObject, field, sortObject) {
     return __awaiter(this, void 0, void 0, function* () {
-        const session = req.session;
-        const researchObject = { _id: session.userId };
-        const pictureFieldObject = { picture: 1, _id: 0 };
+        const errorKey = `${Object.keys(researchObject)[0]}`;
+        const errorMessage = `${Object.keys(researchObject)[0]}: ${researchObject[errorKey]} not found please retry`;
         try {
-            yield (0, sessionChecking_1.default)(req, session);
-            const pictures = yield (0, fetchOneEntries_1.default)(users_1.default, researchObject, pictureFieldObject);
-            return res.status(200).json(pictures.picture);
+            yield (0, mongoose_1.connect)(`${process.env.MONGO_ATLAS}`, {
+                autoIndex: true,
+            });
+            const document = yield mongoSchema.find(researchObject, field ? field : undefined).sort(sortObject ? sortObject : undefined);
+            return new Promise((resolve, reject) => (document ? resolve(document) : reject(new errorClass_1.default(errorMessage, 400))));
         }
         catch (error) {
-            return res.status(error.httpStatus).json({
-                message: error.message,
-                error: true
-            });
+            return Promise.reject(new errorClass_1.default("Something wrong happened please retry ", 403));
         }
-        ;
     });
-});
-exports.default = router;
+}
+exports.default = fetchOneEntriesFromDb;
+;

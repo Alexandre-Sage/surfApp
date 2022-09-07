@@ -25,7 +25,7 @@ exports.default = describe("1) SHOULD ADD SPOT TO DATABSE", function () {
             const userId = yield (0, fetchOneEntries_1.default)(users_1.default, researchObject, fieldObject);
             const newSpot = {
                 userId: userId._id,
-                spotName: "spotTest",
+                spotName: "Fuck",
                 country: "spotTest",
                 type: {
                     waveType: "Shore break",
@@ -33,9 +33,9 @@ exports.default = describe("1) SHOULD ADD SPOT TO DATABSE", function () {
                 },
                 location: {
                     type: "Point",
-                    coordinates: ["", "5"]
+                    coordinates: ["2", "5"]
                 },
-                orientation: ["E", "N/E", "NN/E"],
+                orientation: ["N", "N/E", "NN/E"],
                 creationDate: new Date().toUTCString()
             };
             this.ctx.spot = newSpot;

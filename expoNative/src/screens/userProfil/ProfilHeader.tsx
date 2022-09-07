@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { View, LayoutAnimation, Text, ScrollView } from "react-native";
-import { getFetchSetState } from "../../modules/fetch/basicFetch";
-import API_LAN from "react-native-dotenv";
 import styles from "../../styles/userProfil/ProfilHeader.style";
+import { useAppSelector, useAppDispatch } from '../../redux/hook';
+import { getProfilHeader } from "../../redux/slices/userProfil/userProfilSlice";
 
-declare interface UserInfoInterface {
-    userInfo: {
-        userName: string,
-        name: string,
-        location: string,
-        firstName: string,
-        creationDate: string
-    }
-}
 
 export default function ProfilHeader() {
-    const [userData, setData] = useState<UserInfoInterface>({} as UserInfoInterface);
+    const dispatch = useAppDispatch();
+    const { profilHeader } = useAppSelector((state) => state.user);
+
     useEffect(function () {
-        getFetchSetState(`${process.env.API_LAN}/userProfil/header`, setData)
-            .catch((error) => console.log(error));
+        dispatch(getProfilHeader())
     }, []);
-    const userInfo = [{ ...userData.userInfo }]
-    const headerJsx = userInfo.map(info => (
-        <React.Fragment>
+    const headerJsx = profilHeader.map((info, key) => (
+        <React.Fragment key={key}>
             <View>
                 <Text>{info.userName!}</Text>
             </View>

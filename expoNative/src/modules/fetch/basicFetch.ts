@@ -1,4 +1,4 @@
-async function getFetchFunction(url: string): Promise<Response> {
+async function getFetchFunction(url: string): Promise<any> {
     return fetch(url, {
         method: "GET",
         credentials: "include",
@@ -6,7 +6,7 @@ async function getFetchFunction(url: string): Promise<Response> {
             "Content-Type": "application/json",
         }
     })
-        .then(serverResponse => serverResponse)
+        .then(serverResponse => serverResponse.json())
         .catch(serverError => serverError);
 };
 

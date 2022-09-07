@@ -45,7 +45,7 @@ function addMongoEntries(mongoSchema) {
                         reject(new errorClass_1.default("Something wrong happened please retry", 403));
                 }
             });
-        }).then(() => (0, mongoose_1.disconnect)());
+        });
     });
 }
 exports.default = addMongoEntries;

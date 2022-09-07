@@ -25,10 +25,7 @@ router.get(`/header`, function (req, res) {
         try {
             yield (0, sessionChecking_1.default)(req, session);
             const userInfo = yield (0, fetchOneEntries_1.default)(users_1.default, researchObject, headerFieldObject);
-            return res.status(200).json({
-                userInfo,
-                error: false
-            });
+            return res.status(200).json([userInfo]);
         }
         catch (error) {
             return res.status(error.httpStatus).json({

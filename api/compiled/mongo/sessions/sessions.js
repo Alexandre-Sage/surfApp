@@ -10,13 +10,13 @@ const SessionSchema = new mongoose_1.Schema({
     endTime: { type: Date, required: false },
     totalTime: { type: Date, required: false },
     swell: {
-        size: { type: String, required: true },
-        period: { type: String, required: true },
-        orientation: { type: String, required: true }
+        size: { type: String, required: false },
+        period: { type: String, required: false },
+        orientation: { type: String, required: false }
     },
     wind: {
-        strength: { type: String, required: true },
-        orientation: { type: String, required: true }
+        strength: { type: String, required: false },
+        orientation: { type: String, required: false }
     },
     comment: { type: String, required: false }
 });

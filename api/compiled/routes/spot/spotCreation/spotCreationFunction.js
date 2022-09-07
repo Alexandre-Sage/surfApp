@@ -30,7 +30,7 @@ function spotCreation(requestBody) {
     return __awaiter(this, void 0, void 0, function* () {
         const { location, type, orientation } = requestBody, bodyCopy = __rest(requestBody, ["location", "type", "orientation"]);
         try {
-            yield (0, notEmpty_1.default)(location);
+            //await notEmptyCheck(location)
             yield (0, notEmpty_1.default)(bodyCopy);
             const newSpot = new spots_1.Spot(requestBody);
             const document = yield (0, addMongoEntries_1.default)(newSpot);

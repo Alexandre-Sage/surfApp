@@ -22,13 +22,12 @@ export default function Input(props: InputProps): JSX.Element {
     const { name, onValueChange, state, setState, defaultValue } = props;
     const keyboardType = props.keyboardType ? props.keyboardType : "default";
 
-
-    function answersRecord(data: any, setState: Function, state: object) {
+    function answersRecord(data: any, setState: Function, state: object): void {
         const { name, value } = data;
         setState({
             ...state, [toCamelCase(name)]: value
         });
-        console.log(state)
+        //console.log(state)
     };
     return (
         <View style={styles.inputContainer}>

@@ -31,16 +31,20 @@ function objectAssertion(object) {
     let validationCount = 0;
     for (const item of requestBody) {
         const [key, value] = item;
+        console.log({ [key]: value });
         if (value === null)
             break;
         if (value instanceof Array) {
+            console.log("arr");
             let empty = false;
-            arrayAssertion(value);
+            //arrayAssertion(value)
             value.forEach((subValue) => __awaiter(this, void 0, void 0, function* () {
-                isEmpty(subValue) ? empty = true : undefined;
+                console.log(subValue);
+                isEmpty(`${subValue}`) ? empty = true : validationCount++;
             }));
             if (empty)
                 break;
+            //else validationCount++;
         }
         if (isEmpty(value) && !isLength(value, { min: 1 }))
             break;

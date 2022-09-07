@@ -3,14 +3,21 @@ import React, { useState, useEffect } from "react";
 import { getFetchFunction, postFetchFunction, getFetchSetState } from "../../modules/fetch/basicFetch";
 import styles from "../../styles/userProfil/Picture.style";
 import Button from "../../components/buttons/Button";
+
+import { useAppSelector, useAppDispatch } from '../../redux/hook';
+import { getPictureList } from "../../redux/slices/picture/pictureSlice";
+
+
 export default function Picture() {
-    const [pictureData, setData] = useState({ pictures: [] });
+    const dispatch = useAppDispatch();
+    const { pictures } = useAppSelector((state) => state.picture);
+
     useEffect(function () {
-        getFetchSetState(`${process.env.API_LAN}/userProfil/picture`, setData)
-            .catch(err => console.log(err))
+        dispatch(getPictureList())
     }, []);
-    const { pictures } = pictureData;
+    console.log(pictures)
     const pictureJsx = pictures.map((picture, key) => (
+
         <React.Fragment key={key}>
             <Image style={styles.picture} source={{ uri: `${process.env.API_LAN}/${picture.path}` }} />
         </React.Fragment>
