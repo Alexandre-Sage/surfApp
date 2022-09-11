@@ -9,15 +9,12 @@ declare interface MapMarkerProps {
     color?: string
 };
 
-export default function UserMapMarker({ coordinateObject, title, color }: MapMarkerProps): JSX.Element {
-    console.log("marker", Marker)
-    return (
-        <React.Fragment>
-            <Marker
-                coordinate={coordinateObject}
-                title={title}
-                pinColor={color}
-            />
-        </React.Fragment>
-    );
-};
+export const UserMapMarker = ({ coordinateObject, title, color }: MapMarkerProps): JSX.Element => (
+    <React.Fragment>
+        <Marker
+            coordinate={coordinateObject}
+            title={title}
+            pinColor={color}
+        />
+    </React.Fragment>
+)

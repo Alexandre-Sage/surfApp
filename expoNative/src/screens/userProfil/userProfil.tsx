@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, LayoutAnimation, Text } from "react-native";
+import { View, ScrollView, LayoutAnimation, Text, SafeAreaView } from "react-native";
 import { getFetchFunction, postFetchFunction } from "../../modules/fetch/basicFetch";
 import ProfilHeader from "./ProfilHeader";
-import Picture from "./Picture";
+import Picture from "./picture/Picture";
 import Spot from "./spot/Spot";
 import { RootStackParamList } from "../../../App"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -22,12 +22,14 @@ export default function UserProfil({ route, navigation }: UserProfilProps): JSX.
         dispatch(getCurrentLocation())
     }, [])
     return (
-        <ScrollView>
-            <View style={styles.userProfilContainer}>
-                <ProfilHeader />
-                <Picture />
-                <Spot currentLocation={currentLocation} />
-            </View>
-        </ScrollView>
+        <SafeAreaView>
+            <ScrollView nestedScrollEnabled={true}>
+                <View style={styles.userProfilContainer}>
+                    <ProfilHeader />
+                    <Picture />
+                    <Spot currentLocation={currentLocation} />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
