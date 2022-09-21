@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FlatList, ScrollView, Text, TouchableHighlight, ListRenderItem, StyleSheet, View, SafeAreaView } from 'react-native';
+import React from 'react';
+import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native';
 import { SpotListInterface } from "../../../../interfaces/spotInterfaces";
 import { SpotListItem } from "./SpotListItem";
 

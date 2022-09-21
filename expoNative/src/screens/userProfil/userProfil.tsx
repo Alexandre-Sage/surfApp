@@ -26,7 +26,7 @@ export default function UserProfil({ route, navigation }: UserProfilProps): JSX.
             <ScrollView nestedScrollEnabled={true}>
                 <View style={styles.userProfilContainer}>
                     <ProfilHeader />
-                    <Picture />
+                    <Picture navigation={navigation} />
                     <Spot currentLocation={currentLocation} />
                 </View>
             </ScrollView>

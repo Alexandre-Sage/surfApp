@@ -3,6 +3,7 @@ import currentLocationSlice from "./slices/currentLocation/currentLocationSlice"
 import spotSlice from "./slices/spot/spotSlice";
 import pictureSlice from "./slices/picture/pictureSlice";
 import userSlice from "./slices/userProfil/userProfilSlice";
+import cameraSlice from "./slices/camera/cameraSlice";
 
 
 export const store = configureStore({
@@ -10,7 +11,8 @@ export const store = configureStore({
         currentLocation: currentLocationSlice,
         spot: spotSlice,
         picture: pictureSlice,
-        user: userSlice
+        user: userSlice,
+        camera: cameraSlice,
     }
 });
 

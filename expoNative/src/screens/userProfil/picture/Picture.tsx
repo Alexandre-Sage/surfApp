@@ -3,31 +3,37 @@ import React, { useState, useEffect } from "react";
 import { getFetchFunction, postFetchFunction, getFetchSetState } from "../../../modules/fetch/basicFetch";
 import styles from "../../../styles/userProfil/Picture.style";
 import Button from "../../../components/buttons/Button";
-import { UserCamera } from "./Camera";
 import { useAppSelector, useAppDispatch } from '../../../redux/hook';
 import { getPictureList } from "../../../redux/slices/picture/pictureSlice";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Camera } from "expo-camera";
 
+declare interface PictureProps {
+    navigation: any
+}
 
-export default function Picture() {
+export default function Picture({ navigation }: PictureProps) {
     const dispatch = useAppDispatch();
     const { pictures } = useAppSelector((state) => state.picture);
     const [addPicturePressed, setAddPicturePressed] = useState<boolean>(false);
+
     const [displayCamera, setDisplayCamera] = useState<boolean>(false);
+
+
     useEffect(function () {
         dispatch(getPictureList())
     }, []);
-    console.log(pictures)
+    //console.log(pictures)
     const pictureJsx = pictures.map((picture, key) => (
         <React.Fragment key={key}>
             <Image style={styles.picture} source={{ uri: `${process.env.API_LAN}/${picture.path}` }} />
         </React.Fragment>
     ));
     const displayPopUp = () => setAddPicturePressed(addPicturePressed ? false : true);
+
     const displayCameraFunction = () => {
         console.log("fucokkf")
-        setDisplayCamera((current) => current ? false : true)
+        navigation.navigate("Camera")
+        //setDisplayCamera((current) => current ? false : true)
     }
     const addPicturePopUp = (
         <View>
@@ -52,7 +58,6 @@ export default function Picture() {
                 <Button text={"Gallery"} aditionalStyles={styles.button} onPressFunction={(event: any) => console.log(event)} />
                 <Button text={"Add picture"} aditionalStyles={styles.button} onPressFunction={() => displayPopUp()} />
                 {addPicturePressed ? addPicturePopUp : null}
-                {displayCamera ? <UserCamera /> : null}
             </View>
         </View>
     );

@@ -47,8 +47,8 @@ export default function UserProfilMap({ mapLocation, spotList, currentLocation }
                     longitudeDelta: 1,
                 }}
             >
-                {/*myLocation ? <UserMapMarker coordinateObject={currentLocationCoordinates} title={"My location"} color={"blue"} /> : null*/}
-                {/*markersList*/}
+                {myLocation ? <UserMapMarker coordinateObject={currentLocationCoordinates} title={"My location"} color={"blue"} /> : null}
+                {markersList}
             </MapView>
         </SafeAreaView>
     );

@@ -1,8 +1,8 @@
-import { connect, disconnect } from "mongoose";
+import mongoose, { connect, disconnect, HydratedDocument } from "mongoose";
 import CustomError from "../../modules/errors/errorClass";
 
 
-export default async function fetchOneEntriesFromDb(mongoSchema: any, researchObject: object, field?: object, sortObject?: object): Promise<any> {
+export default async function fetchOneEntriesFromDb(mongoSchema: HydratedDocument<any>, researchObject: object, field?: object, sortObject?: object): Promise<Document> {
     type ObjectKey = keyof typeof researchObject;
     const errorKey = `${Object.keys(researchObject)[0]}` as ObjectKey;
     const errorMessage = `${Object.keys(researchObject)[0]}: ${researchObject[errorKey]} not found please retry`;
