@@ -35,16 +35,12 @@ export default function UserProfilMap({ mapLocation, spotList, currentLocation }
         <SafeAreaView>
             <MapView style={styles.map}
                 initialRegion={{
-                    latitude: latitude,
-                    longitude: longitude,
-                    latitudeDelta: 0,
-                    longitudeDelta: 1,
+                    latitude: latitude, longitude: longitude,
+                    latitudeDelta: 0, longitudeDelta: 1,
                 }}
                 region={{
-                    latitude: latitude,
-                    longitude: longitude,
-                    latitudeDelta: 0,
-                    longitudeDelta: 1,
+                    latitude: latitude, longitude: longitude,
+                    latitudeDelta: 0, longitudeDelta: 1,
                 }}
             >
                 {myLocation ? <UserMapMarker coordinateObject={currentLocationCoordinates} title={"My location"} color={"blue"} /> : null}
@@ -56,11 +52,11 @@ export default function UserProfilMap({ mapLocation, spotList, currentLocation }
 
 const styles = StyleSheet.create({
     view: {
-        width: 250,
+        width: "75%",
         height: 200,
     },
     map: {
-        width: 500,
+        width: "100%",
         height: 200,
     },
     text: {

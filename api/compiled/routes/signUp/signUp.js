@@ -28,7 +28,7 @@ router.post("/", function (req, res) {
             yield (0, csurf_1.csurfChecking)(session, req);
             yield (0, notEmpty_1.default)(req.body);
             yield (0, validation_1.default)(req.body);
-            yield (0, passwordConfirmation_1.default)(req.body.password, req.body.passwordConfirmation);
+            yield (0, passwordConfirmation_1.default)(req.body.password, req.body.confirmPassword);
             const newUser = yield (0, createUser_1.default)(req.body);
             yield (0, addMongoEntries_1.default)(newUser);
             res.status(200).json({

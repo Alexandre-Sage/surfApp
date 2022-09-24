@@ -14,6 +14,7 @@ import login from "./routes/login/login";
 import csrf from "./routes/csrf/csrf";
 import userProfil from "./routes/userProfil/userProfil";
 import spot from "./routes/spot/spot";
+import sessionRoute from "./routes/session/session";
 /**//* */
 import multer, { Multer, StorageEngine } from "multer";
 import { request } from "chai";
@@ -37,7 +38,7 @@ server.use(cors({
     credentials: true
 }));
 server.set("trust proxy", 1);
-server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 //server.use(express.static(path.join(__dirname, "src")));
 server.use(express.static(`${process.cwd()}/src`))
 process.env.NODE_ENV === "development" ? server.use(logger("dev")) : null;
@@ -54,23 +55,12 @@ server.use(session({
         secure: false,
     },
 }));
-server.use("/sign-up", signUp);
+server.use("/signUp", signUp);
 server.use("/login", login);
-/*server.use(function (req, res, next) {
-    const session = req.session;
-    //const error = new CustomError(, 403);
-    if (session.sessionToken && req.signedCookies["SESSION-TOKEN"] === session.sessionToken) {
-        next()
-    } else {
-        res.status(777).json({
-            message: "Something wrong happened please retry.",
-            error: true
-        })
-    }
-})*/
 server.use("/csrf", csrf);
 server.use("/userProfil", userProfil);
 server.use("/spot", spot);
+server.use("/session", sessionRoute);
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
     console.log(`Server listening on: ${process.env.PORT}`);

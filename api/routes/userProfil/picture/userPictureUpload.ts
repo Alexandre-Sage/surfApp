@@ -5,10 +5,13 @@ import addPicturePathToDb from "./pictureModules/addPicture";
 import User from "../../../mongo/users/users";
 import { PictureObject } from "../../../mongo/mongoInterfaces/pictureObjectInterface";
 import { Session } from "express-session";
+import multer from "multer";
+import fs from "fs"
 const router = express.Router();
 const { log, table, error } = console
 
 const upload = imageStorage.single("image")
+const uploadTest = multer({ dest: "./", limits: { fileSize: 1000000000000 } })
 
 
 /**/
@@ -24,7 +27,9 @@ const stringModification = (string: string | undefined, splitCharactere: string,
 
 
 router.post("/uploadPicture", imageStorage.single("image"), async function (req: Request, res: Response, next: any): Promise<Response<JSON>> {
+    //console.log("body", req.body)
     const fileCopy = { ...req.file }
+    //console.log(req.file, req.files)
     const session: Session = req.session;
     const { path } = fileCopy;
     const dataBasePath: string | Error = stringModification(path, "/", 0, 1, "/")

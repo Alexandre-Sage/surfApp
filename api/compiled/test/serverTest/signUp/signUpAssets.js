@@ -9,7 +9,7 @@ const userObject = {
     email: "test@testOne.com",
     phone: "0606654654",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -22,7 +22,7 @@ const dupUserObject = {
     email: "test@testOne",
     phone: "0606654654",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -35,7 +35,7 @@ const dupMailObject = {
     email: "test@testOne.com",
     phone: "0606654654",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -48,7 +48,7 @@ const dupPhoneObject = {
     email: "test@testTwo.com",
     phone: "0606654654",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -61,7 +61,7 @@ const invalidMailObject = {
     email: "test",
     phone: "0606654654",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -74,7 +74,7 @@ const invalidPhoneObject = {
     email: "test@test.com",
     phone: "dqsmdlqùsdlùqdl",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -87,7 +87,7 @@ const missingUserNameObject = {
     email: "test@test.com",
     phone: "dqsmdlqùsdlùqdl",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -100,7 +100,7 @@ const missingPhoneObject = {
     email: "test@test.com",
     phone: "",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -113,7 +113,7 @@ const missingEmailObject = {
     email: "",
     phone: "0606060606",
     password: "test",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -126,7 +126,7 @@ const missingPasswordObject = {
     email: "test@test.com",
     phone: "0606060606",
     password: "",
-    passwordConfirmation: "test",
+    confirmPassword: "test",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };
@@ -139,7 +139,7 @@ const differentPasswordObject = {
     email: "test@test.com",
     phone: "0606060606",
     password: "test",
-    passwordConfirmation: "testssssssss",
+    confirmPassword: "testssssssss",
     creationDate: new Date().toUTCString(),
     lastConnection: new Date().toUTCString()
 };

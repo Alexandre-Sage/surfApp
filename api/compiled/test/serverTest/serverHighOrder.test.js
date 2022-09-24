@@ -6,4 +6,5 @@ exports.default = describe("API TEST SUITE", function () {
     require("./userProfil/userProfil.test");
     require("./imageUpload/uploadHighOrder.test");
     require("./spot/spotHighOrder.test");
+    require("./session/sessionHighOrder.test");
 });

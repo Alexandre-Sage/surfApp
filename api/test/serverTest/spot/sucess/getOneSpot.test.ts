@@ -5,7 +5,7 @@ import fetchOneEntriesFromDb from "../../../../mongo/modules/fetchOneEntries";
 import User from "../../../../mongo/users/users";
 import { Spot } from "../../../../mongo/spots/spots";
 
-export default describe.only("3) SHOULD GET ONE USER SPOTS", function () {
+export default describe("3) SHOULD GET ONE USER SPOTS", function () {
     before(async () => {
         const researchObjectUser = { userName: "TestOne" };
         const researchObjectSpot = { spotName: "Fuck" }

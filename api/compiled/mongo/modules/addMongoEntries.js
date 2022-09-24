@@ -16,7 +16,7 @@ const mongoose_1 = require("mongoose");
 const errorClass_1 = __importDefault(require("../../modules/errors/errorClass"));
 const { log } = console;
 function mongoErrorHandling(error, reject) {
-    console.log("here", error);
+    //console.log("here", error)
     switch (error.code) {
         case 11000:
             const fieldValue = Object.entries(error.keyValue)[0];
@@ -39,9 +39,12 @@ function addMongoEntries(mongoSchema) {
                     resolve(true);
                 }
                 catch (error) {
+                    console.log("here", error);
                     if (error.name === "MongoServerError")
                         mongoErrorHandling(error, reject);
                     else if (error)
+                        reject(new errorClass_1.default("Something wrong happened please retry", 403));
+                    else
                         reject(new errorClass_1.default("Something wrong happened please retry", 403));
                 }
             });

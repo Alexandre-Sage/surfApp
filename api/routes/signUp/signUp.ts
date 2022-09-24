@@ -15,7 +15,7 @@ router.post("/", async function (req: Request, res: Response) {
         await csurfChecking(session, req);
         await notEmptyCheck(req.body);
         await dataValidation(req.body);
-        await passwordConfirmation(req.body.password, req.body.passwordConfirmation)
+        await passwordConfirmation(req.body.password, req.body.confirmPassword)
         const newUser: UserInterface | Error = await createUser(req.body);
         await addMongoEntries(newUser);
         res.status(200).json({

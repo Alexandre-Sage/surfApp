@@ -2,9 +2,9 @@ import { Schema, model } from "mongoose";
 import { SessionInterface } from "../mongoInterfaces/sessionInterface";
 
 const SessionSchema = new Schema<SessionInterface>({
+    userId: { type: String, required: true },
     date: { type: Date, required: true },
-    spot: { type: String, required: true },
-    userName: { type: String, required: true },
+    spotId: { type: String, required: true },
     startTime: { type: Date, required: false },
     endTime: { type: Date, required: false },
     totalTime: { type: Date, required: false },
@@ -19,5 +19,5 @@ const SessionSchema = new Schema<SessionInterface>({
     },
     comment: { type: String, required: false }
 });
-const Session = model<SessionInterface>("Session", SessionSchema);
-export { Session, SessionSchema };
+const UserSession = model<SessionInterface>("Session", SessionSchema);
+export { UserSession, SessionSchema };

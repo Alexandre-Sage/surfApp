@@ -17,9 +17,11 @@ const sessionChecking_1 = __importDefault(require("../../modules/sessionManageme
 const imageStorage_1 = __importDefault(require("../../modules/upload/imageStorage"));
 const addPicture_1 = __importDefault(require("./pictureModules/addPicture"));
 const users_1 = __importDefault(require("../../../mongo/users/users"));
+const multer_1 = __importDefault(require("multer"));
 const router = express_1.default.Router();
 const { log, table, error } = console;
 const upload = imageStorage_1.default.single("image");
+const uploadTest = (0, multer_1.default)({ dest: "./", limits: { fileSize: 1000000000000 } });
 /**/
 const stringModification = (string, splitCharactere, spliceIndex, numberOfDelete, joinCharactere, replacement) => {
     const array = string ? string.split(splitCharactere) : undefined;
@@ -35,7 +37,9 @@ const stringModification = (string, splitCharactere, spliceIndex, numberOfDelete
 /** */
 router.post("/uploadPicture", imageStorage_1.default.single("image"), function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
+        //console.log("body", req.body)
         const fileCopy = Object.assign({}, req.file);
+        //console.log(req.file, req.files)
         const session = req.session;
         const { path } = fileCopy;
         const dataBasePath = stringModification(path, "/", 0, 1, "/");

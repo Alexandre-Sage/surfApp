@@ -18,6 +18,7 @@ const login_1 = __importDefault(require("./routes/login/login"));
 const csrf_1 = __importDefault(require("./routes/csrf/csrf"));
 const userProfil_1 = __importDefault(require("./routes/userProfil/userProfil"));
 const spot_1 = __importDefault(require("./routes/spot/spot"));
+const session_1 = __importDefault(require("./routes/session/session"));
 const server = (0, express_1.default)();
 dotenv_1.default.config({ path: path_1.default.resolve(".env") });
 ;
@@ -30,7 +31,7 @@ server.use((0, cors_1.default)({
     credentials: true
 }));
 server.set("trust proxy", 1);
-server.use(body_parser_1.default.urlencoded({ extended: true }));
+server.use(body_parser_1.default.urlencoded({ extended: true, limit: "50M" }));
 //server.use(express.static(path.join(__dirname, "src")));
 server.use(express_1.default.static(`${process.cwd()}/src`));
 process.env.NODE_ENV === "development" ? server.use((0, morgan_1.default)("dev")) : null;
@@ -47,23 +48,12 @@ server.use((0, express_session_1.default)({
         secure: false,
     },
 }));
-server.use("/sign-up", signUp_1.default);
+server.use("/signUp", signUp_1.default);
 server.use("/login", login_1.default);
-/*server.use(function (req, res, next) {
-    const session = req.session;
-    //const error = new CustomError(, 403);
-    if (session.sessionToken && req.signedCookies["SESSION-TOKEN"] === session.sessionToken) {
-        next()
-    } else {
-        res.status(777).json({
-            message: "Something wrong happened please retry.",
-            error: true
-        })
-    }
-})*/
 server.use("/csrf", csrf_1.default);
 server.use("/userProfil", userProfil_1.default);
 server.use("/spot", spot_1.default);
+server.use("/session", session_1.default);
 const httpServer = http_1.default.createServer(server);
 httpServer.listen(process.env.PORT, () => {
     console.log(`Server listening on: ${process.env.PORT}`);

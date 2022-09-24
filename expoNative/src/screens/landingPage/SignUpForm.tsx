@@ -18,7 +18,7 @@ declare interface SignUpAnswersInterface {
 }
 console.log(process.env.API_URL)
 export default function SignUpForm(): JSX.Element {
-    useEffect(() => { getFetchFunction(`${process.env.API_URL}/csrf`) }, []);
+    useEffect(() => { getFetchFunction(`${process.env.API_LAN}/csrf`).then(res => console.log(res)).catch(err => console.log(err)) }, []);
     const [answers, setAnswers] = useState({
         email: "",
         phone: "",
@@ -29,7 +29,7 @@ export default function SignUpForm(): JSX.Element {
         password: "",
         confirmPassword: "",
     });
-    const sendAnswers = async () => await postFetchFunction(`${process.env.API_URL}/sign-up`, answers);
+    const sendAnswers = async () => { console.log(JSON.stringify(answers)); await postFetchFunction(`${process.env.API_LAN}/signUp`, answers).then(res => console.log(res)).catch(err => console.log(err)) };
     return (
         <ScrollView >
             <View style={styles.container}>

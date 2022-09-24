@@ -1,8 +1,9 @@
 import { Camera } from "expo-camera";
 import React, { useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { getRatios, setRatio } from "../../redux/slices/camera/cameraSlice";
+import styles from "../../styles/camera/CameraButtons.style"
 interface RatiosListProps {
     camera: Camera
 }
@@ -19,8 +20,8 @@ export const RatiosList = ({ camera }: RatiosListProps): JSX.Element => {
         </TouchableOpacity>
     ));
     return (
-        <View>
+        <ScrollView style={styles.ratioList} >
             {ratioListJsx}
-        </View>
+        </ScrollView>
     );
 };

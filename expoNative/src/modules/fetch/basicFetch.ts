@@ -1,3 +1,5 @@
+import { Alert } from "react-native";
+
 async function getFetchFunction(url: string): Promise<any> {
     return fetch(url, {
         method: "GET",
@@ -28,7 +30,7 @@ async function postFetchFunction(url: string, body: object): Promise<Response> {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "CSRF-token": "CSRF-TOKEN"
+            // "CSRF-token": "CSRF-TOKEN"
         },
         credentials: "include",
         body: JSON.stringify(body)
@@ -37,5 +39,37 @@ async function postFetchFunction(url: string, body: object): Promise<Response> {
         .catch(serverError => serverError)
 };
 
+async function sendFileFetch(url: string, formData: FormData, callBack?: Function): Promise<Response> {
+    try {
+        const serverResponse = await fetch(`${process.env.API_LAN}${url}`, {
+            method: 'POST',
+            credentials: "include",
+            body: formData,
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Accept": "multipart/form-data",
+            },
+        });
+        const json = await serverResponse.json()
+        if (callBack) return callBack(json);
+        else return json
+    } catch (error: any) {
+        Alert.alert(error.message)
+        return error
+    }
+}
 
-export { postFetchFunction, getFetchFunction, getFetchSetState };
+const sendPicture = async (url: string, pictureUri: string, pictureName: string, callBack?: Function): Promise<Response> => {
+    const formData: FormData = new FormData();
+    const splitedImageUri: Array<string> = pictureUri.split(".");
+    const imageType: string = splitedImageUri[splitedImageUri.length - 1];
+    formData.append("image", {
+        uri: pictureUri,
+        type: `image/${imageType}`,
+        name: pictureName
+    });
+    return await sendFileFetch(url, formData, callBack);
+}
+
+
+export { postFetchFunction, getFetchFunction, getFetchSetState, sendFileFetch, sendPicture };

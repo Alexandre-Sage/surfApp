@@ -3,6 +3,7 @@ import { View, LayoutAnimation, Text, ScrollView } from "react-native";
 import styles from "../../styles/userProfil/ProfilHeader.style";
 import { useAppSelector, useAppDispatch } from '../../redux/hook';
 import { getProfilHeader } from "../../redux/slices/userProfil/userProfilSlice";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function ProfilHeader() {
@@ -14,22 +15,31 @@ export default function ProfilHeader() {
     }, []);
     const headerJsx = profilHeader.map((info, key) => (
         <React.Fragment key={key}>
-            <View>
-                <Text>{info.userName!}</Text>
+
+            <View style={styles.userNameContainer}>
+                <Text style={styles.userName}>{info.userName!}</Text>
             </View>
-            <View>
-                <Text>Name: {info.name!}</Text>
-                <Text>Location: {info.location!}</Text>
-            </View>
-            <View>
-                <Text>First name: {info.firstName!}</Text>
-                <Text>Inscription: {info.creationDate!}</Text>
+            <View style={styles.infoContainer}>
+                <View style={styles.infoSubContainer}>
+                    <Text style={styles.info}>Name: {info.name!}</Text>
+                    <Text style={styles.info}>Location: {info.location!}</Text>
+                </View>
+                <View style={styles.infoSubContainer}>
+                    <Text style={styles.info}>
+                        First name: {info.firstName!}
+                    </Text>
+                    <Text style={styles.info}>
+                        Inscription: {new Date(info.creationDate!).toLocaleDateString(["ban", "id"])}
+                    </Text>
+                </View>
             </View>
         </React.Fragment>
     ));
     return (
-        <View>
-            {headerJsx}
-        </View>
+        <SafeAreaView>
+            <View style={styles.container}>
+                {headerJsx}
+            </View>
+        </SafeAreaView>
     );
 };

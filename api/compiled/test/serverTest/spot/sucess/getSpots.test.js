@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = __importDefault(require("../../../../server"));
 const httpModule_test_1 = require("../../testModules/httpModule.test");
 const globalsTestVar_1 = require("../../globalsTestVar");
-exports.default = describe.only("2) SHOULD GET ALL USER SPOTS", function () {
+exports.default = describe("2) SHOULD GET ALL USER SPOTS", function () {
     it("Should log and get user Sspot", () => __awaiter(this, void 0, void 0, function* () {
         const chai = (0, globalsTestVar_1.chaiAgent)();
         const agentObj = { agent: chai.request.agent(server_1.default) };

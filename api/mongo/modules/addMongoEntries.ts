@@ -4,7 +4,7 @@ import { MongoServerError } from "mongodb";
 const { log } = console;
 
 function mongoErrorHandling(error: MongoServerError, reject: Function) {
-    console.log("here", error)
+    //console.log("here", error)
     switch (error.code) {
         case 11000:
             const fieldValue = Object.entries(error.keyValue)[0];
@@ -24,8 +24,10 @@ export default async function addMongoEntries(mongoSchema: any): Promise<boolean
             await mongoSchema.save();
             resolve(true)
         } catch (error: any) {
+            console.log("here", error)
             if (error.name === "MongoServerError") mongoErrorHandling(error, reject)
             else if (error) reject(new CustomError("Something wrong happened please retry", 403))
+            else reject(new CustomError("Something wrong happened please retry", 403))
         }
     });
 }

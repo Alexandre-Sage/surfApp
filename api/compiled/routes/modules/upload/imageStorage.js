@@ -18,26 +18,26 @@ const storage = multer_1.default.diskStorage({
     destination(req, file, callBack) {
         return __awaiter(this, void 0, void 0, function* () {
             const { userName } = req.session;
-            //console.log(process.static)
+            console.log("dest", file);
             const folder = `./src/images/usersImages/${userName}`;
-            fs_1.default.exists(folder, (existing) => {
+            fs_1.default.exists(folder, (existing) => __awaiter(this, void 0, void 0, function* () {
                 if (!existing) {
                     return fs_1.default.mkdir(folder, (error) => callBack(error, folder));
                 }
                 ;
-                return callBack(null, folder);
-            });
+                return yield callBack(null, folder);
+            }));
         });
     },
     filename(req, file, callBack) {
         return __awaiter(this, void 0, void 0, function* () {
             const { userName } = req.session;
-            console.log(file);
+            console.log("disk storage", file);
             const uniqueSuffix = `${Date.now()}_${userName}`;
-            return yield callBack(null, file.originalname + '-' + uniqueSuffix)
-                .then((res) => console.log(res));
+            return yield callBack(null, file.originalname + '-' + uniqueSuffix);
         });
-    }
+    },
 });
-const imageStorage = (0, multer_1.default)({ storage: storage });
+const maxSize = 200022 * 200022 * 2;
+const imageStorage = (0, multer_1.default)({ storage: storage, limits: { fileSize: maxSize } });
 exports.default = imageStorage;
