@@ -14,7 +14,7 @@ export default function UserCamera({ navigation }: CameraProps): JSX.Element {
     const [camera, setCamera] = useState<Camera>({} as Camera);
     //REDUX
     const dispatch = useAppDispatch();
-    const { newPicture, selectedRatio, flashActived } = useAppSelector((state) => state.camera);
+    const { cameraPicture, selectedRatio, flashActived } = useAppSelector((state) => state.camera);
     //MOVE TO REDUX
     const [type, setType] = useState(CameraType.back);
     const [autoFocus, setAutoFocus] = useState();
@@ -22,7 +22,7 @@ export default function UserCamera({ navigation }: CameraProps): JSX.Element {
 
     //A CHANGER DE PLACE?
     const [permission, setPermission] = Camera.useCameraPermissions();
-    const previewPath = newPicture[0] ? newPicture[newPicture.length - 1].uri : "/"
+    const previewPath = cameraPicture[0] ? cameraPicture[cameraPicture.length - 1].uri : "/"
     return (
         <View >
             <Camera

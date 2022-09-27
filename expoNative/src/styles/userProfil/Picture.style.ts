@@ -29,12 +29,13 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         borderRadius: 5,
-        borderWidth: 5
+        borderWidth: 1,
+        borderColor: borderColor
     },
     subContainer: {
         borderTopWidth: 1,
         borderColor: borderColor,
-        height: 150,
+        height: 80,
         justifyContent: "flex-end",
         alignItems: "flex-end"
     },
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: borderColor,
         borderRadius: borderRadius,
+        backgroundColor: backgroundColor,
         width: 125,
         height: 50,
         flexDirection: "row",

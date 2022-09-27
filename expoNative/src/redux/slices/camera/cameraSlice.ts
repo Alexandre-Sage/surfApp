@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { Camera, CameraCapturedPicture } from "expo-camera";
 import { PopUp } from "../../../components/popUp/PopUp";
-
+import { useAppDispatch } from "../../hook";
+import { setNewPicture } from "../picture/pictureSlice";
 export const takePicture = createAsyncThunk("camera/takePicture", async (camera: Camera): Promise<CameraCapturedPicture> => {
     try {
         const pic = await camera.takePictureAsync(/*{ onPictureSaved: async (p) => console.log(p) }*/)
@@ -20,7 +21,7 @@ export const getRatios = createAsyncThunk("camera/getRatios", async (camera: Cam
 const cameraSlice = createSlice({
     name: "camera",
     initialState: {
-        newPicture: [] as Array<CameraCapturedPicture>,
+        cameraPicture: [] as Array<CameraCapturedPicture>,
         imageRatiosList: [] as Array<string>,
         selectedRatio: "",
         flashActived: 0,
@@ -33,14 +34,16 @@ const cameraSlice = createSlice({
         setFlash(state, action: PayloadAction<number>): void {
             state.flashActived = action.payload;
         },
-        removePicture(state, action: PayloadAction<string>): void {
-            state.newPicture = state.newPicture.filter(picture => picture.uri !== action.payload)
+        deleteCameraPicture(state, action: PayloadAction<string>): void {
+            state.cameraPicture = state.cameraPicture.filter(picture => picture.uri !== action.payload)
         },
     },
     extraReducers: builder => {
         //TAKE PICTURE BUILDER
         builder.addCase(takePicture.fulfilled, (state, action): void => {
-            state.newPicture = [...state.newPicture, action.payload];
+            //const dispatch = useAppDispatch();
+            //dispatch(setNewPicture(action));
+            state.cameraPicture = [...state.cameraPicture, action.payload];
         });
         builder.addCase(takePicture.rejected, (state): void => {
             state.error = true
@@ -52,5 +55,5 @@ const cameraSlice = createSlice({
         builder.addCase(getRatios.rejected, (state): void => { state.error = true });
     },
 });
-export const { setRatio, setFlash, removePicture } = cameraSlice.actions
+export const { setRatio, setFlash, deleteCameraPicture } = cameraSlice.actions
 export default cameraSlice.reducer;

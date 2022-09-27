@@ -50,7 +50,7 @@ server.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        httpOnly: true,
+        httpOnly: false,
         sameSite: "none",
         secure: false,
     },

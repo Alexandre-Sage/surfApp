@@ -43,7 +43,7 @@ server.use((0, express_session_1.default)({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        httpOnly: true,
+        httpOnly: false,
         sameSite: "none",
         secure: false,
     },

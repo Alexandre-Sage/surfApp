@@ -28,11 +28,11 @@ async function getFetchSetState(url: string, callBack: Function): Promise<Respon
 async function postFetchFunction(url: string, body: object): Promise<Response> {
     return fetch(url, {
         method: "POST",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
-            // "CSRF-token": "CSRF-TOKEN"
+            "CSRF-token": "CSRF-TOKEN"
         },
-        credentials: "include",
         body: JSON.stringify(body)
     })
         .then(serverResponse => serverResponse.json())
@@ -59,17 +59,7 @@ async function sendFileFetch(url: string, formData: FormData, callBack?: Functio
     }
 }
 
-const sendPicture = async (url: string, pictureUri: string, pictureName: string, callBack?: Function): Promise<Response> => {
-    const formData: FormData = new FormData();
-    const splitedImageUri: Array<string> = pictureUri.split(".");
-    const imageType: string = splitedImageUri[splitedImageUri.length - 1];
-    formData.append("image", {
-        uri: pictureUri,
-        type: `image/${imageType}`,
-        name: pictureName
-    });
-    return await sendFileFetch(url, formData, callBack);
-}
 
 
-export { postFetchFunction, getFetchFunction, getFetchSetState, sendFileFetch, sendPicture };
+
+export { postFetchFunction, getFetchFunction, getFetchSetState, sendFileFetch };

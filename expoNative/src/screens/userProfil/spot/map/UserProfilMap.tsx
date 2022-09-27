@@ -36,12 +36,13 @@ export default function UserProfilMap({ mapLocation, spotList, currentLocation }
             <MapView style={styles.map}
                 initialRegion={{
                     latitude: latitude, longitude: longitude,
-                    latitudeDelta: 0, longitudeDelta: 1,
+                    latitudeDelta: 1, longitudeDelta: 1,
                 }}
                 region={{
                     latitude: latitude, longitude: longitude,
-                    latitudeDelta: 0, longitudeDelta: 1,
+                    latitudeDelta: 1, longitudeDelta: 1,
                 }}
+                mapType={"satellite"}
             >
                 {myLocation ? <UserMapMarker coordinateObject={currentLocationCoordinates} title={"My location"} color={"blue"} /> : null}
                 {markersList}

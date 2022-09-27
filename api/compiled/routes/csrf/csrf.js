@@ -21,7 +21,7 @@ router.get("/", function (req, res) {
         const session = req.session;
         const csurfToken = (0, general_1.tokenGenerator)(50);
         const csrfName = "CSRF-TOKEN";
-        const options = { httpOnly: true, signed: true, sameSite: false };
+        const options = { httpOnly: false, signed: true, sameSite: false };
         yield (0, csurf_1.csurfCookieGenerator)(req, csurfToken, session);
         return res.status(200).cookie(csrfName, csurfToken, options).json({});
     });
