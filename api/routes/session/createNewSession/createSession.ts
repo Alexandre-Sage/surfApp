@@ -10,15 +10,16 @@ const router = express.Router();
 
 router.post("/createSession", async function (req: Request, res: Response) {
     const session: Session = req.session;
-    //const body: SessionInterface = { ...req.body, userId: session.userId };
     const { swell, wind, ...bodyCopy } = req.body
     try {
-        const bodyCheck = await notEmptyCheck(bodyCopy);
-
-        console.log(bodyCheck);
+        const promiseArray = [
+            await notEmptyCheck(bodyCopy),
+            await notEmptyCheck(swell),
+            await notEmptyCheck(wind)
+        ]
+        const bodyCheck = await Promise.all(promiseArray);
         const newSession: HydratedDocument<SessionInterface> = new UserSession<SessionInterface>(req.body);
-        const test = await addMongoEntries(newSession)
-        //console.log(test)
+        const addSessionToDatabase = await addMongoEntries(newSession);
         res.status(200).json({
             message: "Session added successfully"
         });

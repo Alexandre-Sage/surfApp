@@ -2,7 +2,6 @@ import React from "react";
 import { Text, View, TextInput } from "react-native";
 import styles from "../../styles/input/Input.style";
 import toCamelCase from "../../modules/strings/toCamelCase";
-import { State } from "react-native-gesture-handler";
 /**
  * Input functional component take two props a name and a function to execute on change and a 
  * aditional keyboardType props

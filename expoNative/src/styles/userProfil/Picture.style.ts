@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         width: 200,
     },
     addPictureButtonContainer: {
-        marginBottom: 0,
+        marginBottom: -10,
         borderWidth: 1,
         borderColor: borderColor,
         borderRadius: borderRadius,
@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
         width: 62.5,
         height: 50,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+
     },
     split: {
         borderLeftWidth: 1,

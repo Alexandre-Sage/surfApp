@@ -1,9 +1,8 @@
 import { Camera } from "expo-camera";
 import React, { useState } from "react";
-import { Image, StyleProp, StyleSheetProperties, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleProp, Text, TouchableOpacity, View } from 'react-native';
 import { useAppSelector, useAppDispatch } from '../../redux/hook';
 import { takePicture, setFlash } from '../../redux/slices/camera/cameraSlice';
-// import flash from "../../../assets/images/flash.svg"
 import { RatiosList } from './RatiosList';
 import { SvgUri } from "react-native-svg";
 import styles from "../../styles/camera/CameraButtons.style"

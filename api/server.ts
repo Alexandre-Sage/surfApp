@@ -55,7 +55,7 @@ server.use(session({
         secure: false,
     },
 }));
-server.use("/signUp", signUp);
+server.use("/sign-up", signUp);
 server.use("/login", login);
 server.use("/csrf", csrf);
 server.use("/userProfil", userProfil);

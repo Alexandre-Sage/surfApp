@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import Button from "../../components/buttons/Button";
 import Input from "../../components/inputs/Input"
 import { getFetchFunction, postFetchFunction } from "../../modules/fetch/basicFetch";
 import styles from "../../styles/LandingPage/LoginFrom.style";
-import API_URL from "react-native-dotenv";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -15,6 +13,7 @@ declare interface LoginAnswersInterface {
     password: string
 };
 
+import { useNavigation } from "@react-navigation/native";
 declare interface LoginResponseInterface extends Response {
     message: any
     error: boolean

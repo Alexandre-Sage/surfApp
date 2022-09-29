@@ -35,7 +35,7 @@ exports.default = describe("3) SHOULD GET ONE USER SPOTS", function () {
         }
         ;
     }));
-    it("Should log and get user profil header", () => __awaiter(this, void 0, void 0, function* () {
+    it("Should log and get user spots", () => __awaiter(this, void 0, void 0, function* () {
         const chai = (0, globalsTestVar_1.chaiAgent)();
         const agentObj = { agent: chai.request.agent(server_1.default) };
         const sendBody = { email: "test@testOne.com", password: "test" };

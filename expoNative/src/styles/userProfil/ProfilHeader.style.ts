@@ -8,14 +8,16 @@ const styles = StyleSheet.create({
     userNameContainer: {
         borderBottomWidth: 1,
         borderColor: borderColor,
-        height: 75,
+        height: 50,
         display: "flex",
         justifyContent: "center",
+        alignItems: "center"
     },
     userName: {
         color: fontColor,
         fontSize: titleSize,
-        textAlign: "center"
+        textAlign: "center",
+        marginBottom: "auto"
     },
     infoContainer: {
         borderBottomWidth: 1,

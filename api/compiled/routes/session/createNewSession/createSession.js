@@ -31,14 +31,16 @@ const router = express_1.default.Router();
 router.post("/createSession", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const session = req.session;
-        //const body: SessionInterface = { ...req.body, userId: session.userId };
         const _a = req.body, { swell, wind } = _a, bodyCopy = __rest(_a, ["swell", "wind"]);
         try {
-            const bodyCheck = yield (0, notEmpty_1.default)(bodyCopy);
-            console.log(bodyCheck);
+            const promiseArray = [
+                yield (0, notEmpty_1.default)(bodyCopy),
+                yield (0, notEmpty_1.default)(swell),
+                yield (0, notEmpty_1.default)(wind)
+            ];
+            const bodyCheck = yield Promise.all(promiseArray);
             const newSession = new sessions_1.UserSession(req.body);
-            const test = yield (0, addMongoEntries_1.default)(newSession);
-            //console.log(test)
+            const addSessionToDatabase = yield (0, addMongoEntries_1.default)(newSession);
             res.status(200).json({
                 message: "Session added successfully"
             });

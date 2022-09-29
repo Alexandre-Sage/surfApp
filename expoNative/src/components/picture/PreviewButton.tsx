@@ -1,5 +1,5 @@
 import React from "react"
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import styles from "../../styles/componentAdditional/TouchablePicture.style";
 import { deleteNewPicture, getPictureList } from "../../redux/slices/picture/pictureSlice";
 import { deleteCameraPicture } from "../../redux/slices/camera/cameraSlice";
@@ -19,9 +19,13 @@ export const PreviewButton = ({ uploadFunction, deleteFunction, imagePath }: Pre
         dispatch(deleteCameraPicture(imagePath))
     };
     const uploadPicture = async (url: string, imagePath: string) => {
-        await uploadFunction(url, imagePath, "UserImage");
-        removePicture(imagePath);
-        dispatch(getPictureList())
+        try {
+            await uploadFunction(url, imagePath, "UserImage");
+            await dispatch(getPictureList())
+            removePicture(imagePath);
+        } catch (error: any) {
+            Alert.alert(error)
+        }
     }
     return (
         <View style={styles.previewButtonContainer}>

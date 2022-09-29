@@ -38,14 +38,14 @@ export default function Picture({ navigation }: PictureProps) {
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <PictureSideScroller styles={styles} pictures={pictures} navigation={navigation} />
+                <PictureSideScroller styles={styles} pictures={pictures} />
                 <View style={styles.subContainer}>
                     {addPicturePressed ? <AddPictureButton
                         displayCameraFunction={displayCameraFunction}
                         uploadFromFilesFunction={uploadFromFilesFunction}
                     /> : null}
                     <View style={styles.buttonsContainer}>
-                        <Button text={"Gallery"} aditionalStyles={styles.button} onPressFunction={(event: any) => console.log(event)} />
+                        <Button text={"Gallery"} aditionalStyles={styles.button} onPressFunction={() => navigation.navigate("Gallery")} />
                         <Button text={"Add picture"} aditionalStyles={styles.button} onPressFunction={() => displayPopUp()} />
                     </View>
                 </View>

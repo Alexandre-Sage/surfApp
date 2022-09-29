@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const errorClass_1 = __importDefault(require("../../modules/errors/errorClass"));
-function fetchOneEntriesFromDb(mongoSchema, researchObject, field, sortObject) {
+function fetchAllDocument(mongoSchema, researchObject, field, sortObject) {
     return __awaiter(this, void 0, void 0, function* () {
         const errorKey = `${Object.keys(researchObject)[0]}`;
         const errorMessage = `${Object.keys(researchObject)[0]}: ${researchObject[errorKey]} not found please retry`;
@@ -26,9 +26,10 @@ function fetchOneEntriesFromDb(mongoSchema, researchObject, field, sortObject) {
             return new Promise((resolve, reject) => (document ? resolve(document) : reject(new errorClass_1.default(errorMessage, 400))));
         }
         catch (error) {
+            console.error(error);
             return Promise.reject(new errorClass_1.default("Something wrong happened please retry ", 403));
         }
     });
 }
-exports.default = fetchOneEntriesFromDb;
+exports.default = fetchAllDocument;
 ;

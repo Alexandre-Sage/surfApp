@@ -48,7 +48,7 @@ server.use((0, express_session_1.default)({
         secure: false,
     },
 }));
-server.use("/signUp", signUp_1.default);
+server.use("/sign-up", signUp_1.default);
 server.use("/login", login_1.default);
 server.use("/csrf", csrf_1.default);
 server.use("/userProfil", userProfil_1.default);

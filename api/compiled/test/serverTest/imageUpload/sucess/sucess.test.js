@@ -31,4 +31,18 @@ exports.default = describe("IMAGE UPLOAD", function () {
             throw error;
         }
     }));
+    /**/ it("should upload an image to the server and save path in database", () => __awaiter(this, void 0, void 0, function* () {
+        const chai = (0, globalsTestVar_1.chaiAgent)();
+        const agentObj = { agent: chai.request.agent(server_1.default) };
+        const sendBody = { email: "test@testOne.com", password: "test" };
+        const file = "test/serverTest/imageUpload/sucess/image.jpg";
+        try {
+            yield (0, httpModule_test_1.testGetRoute)(agentObj, "/csrf", globalsTestVar_1.jsonHeader200ObjCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
+            yield (0, httpModule_test_1.testPostRoute)(agentObj, "/login", sendBody, globalsTestVar_1.jsonHeader200ObjCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
+            yield (0, httpModule_test_1.testPostFileRoute)(agentObj, "/userProfil/uploadPicture", file, "refacto2.jpg", globalsTestVar_1.jsonHeader200ObjectNoCookie, globalsTestVar_1.noErrorObject, globalsTestVar_1.assertBodyNoRedirectObj);
+        }
+        catch (error) {
+            throw error;
+        }
+    }));
 });

@@ -18,7 +18,7 @@ export default describe("3) SHOULD GET ONE USER SPOTS", function () {
             this.ctx.spotId = spotId
         } catch (err) { console.log(err) };
     })
-    it("Should log and get user profil header", async () => {
+    it("Should log and get user spots", async () => {
         const chai = chaiAgent();
         const agentObj = { agent: chai.request.agent(server) };
         const sendBody = { email: "test@testOne.com", password: "test" };

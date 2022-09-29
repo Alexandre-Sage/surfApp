@@ -4,7 +4,6 @@ import Button from "../../components/buttons/Button";
 import Input from "../../components/inputs/Input";
 import { getFetchFunction, postFetchFunction } from "../../modules/fetch/basicFetch";
 import styles from "../../styles/LandingPage/SignUpForm.style";
-//import { API_URL } from 'react-native-dotenv';
 
 declare interface SignUpAnswersInterface {
     email: string,

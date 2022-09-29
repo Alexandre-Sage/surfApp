@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleProp, StyleSheet, StyleSheetProperties, Text, TouchableOpacity, TouchableOpacityProps, View, ViewProps } from 'react-native';
+import { Text, TouchableOpacity, View, } from 'react-native';
 import ButtonsShadow from "./ButtonsShadow";
 import styles from "../../styles/buttons/Buttons.style";
 
