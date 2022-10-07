@@ -46,7 +46,6 @@ export default function App() {
             {
               headerStyle: {
                 backgroundColor: "rgba(30, 30, 30, 1)",
-                //height: 110,
                 borderTopWidth: 1,
                 borderColor: "rgba(255, 255, 255, 0.3)"
               },
@@ -56,12 +55,10 @@ export default function App() {
         >
           <Stack.Screen name="LandingPage" component={LandingPage} options={{ title: "Welcome" }} />
           <Stack.Screen name="UserProfil" component={UserProfil} options={{ headerStyle: { ...profilHeaderStyle }, headerTitle: () => <Header title={"Profil"} /> }} />
-          <Stack.Screen name="Preview" component={Preview} />
           <Stack.Screen name="Gallery" component={Gallery} />
           <Stack.Screen name="FullScreen" component={FullScreen} />
-          <Stack.Group>
-            <Stack.Screen name="Camera" component={UserCamera} />
-          </Stack.Group>
+          <Stack.Screen name="Preview" component={Preview} />
+          <Stack.Screen name="Camera" component={UserCamera} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

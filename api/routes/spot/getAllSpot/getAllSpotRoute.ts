@@ -25,3 +25,4 @@ router.get("/getAllSpots", async function (req, res) {
 });
 
 export default router;
+

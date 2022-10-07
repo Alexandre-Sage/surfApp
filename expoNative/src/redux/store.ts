@@ -4,7 +4,7 @@ import spotSlice from "./slices/spot/spotSlice";
 import pictureSlice from "./slices/picture/pictureSlice";
 import userSlice from "./slices/userProfil/userProfilSlice";
 import cameraSlice from "./slices/camera/cameraSlice";
-
+import mapSlice from "./slices/map/mapSlice";
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +13,7 @@ export const store = configureStore({
         picture: pictureSlice,
         user: userSlice,
         camera: cameraSlice,
+        map: mapSlice
     }
 });
 

@@ -16,30 +16,25 @@ export default function Spot({ currentLocation }: SpotPropsInterface): JSX.Eleme
     const dispatch = useAppDispatch();
     const { latitude, longitude } = currentLocation;
     const { spotList } = useAppSelector((state) => state.spot);
-    const [mapLocation, setMapLocation] = useState<MapLocationInterface>({} as MapLocationInterface);
     useEffect(() => {
-        setMapLocation({
-            latitude: latitude,
-            longitude: longitude,
-        });
         dispatch(getSpotList());
     }, [latitude, longitude]);
     return (
         <View style={styles.view}>
-            <SpotList spotList={spotList} setMapLocation={(coordinates: MapLocationInterface) => setMapLocation(coordinates)} />
-            <UserProfilMap spotList={spotList} mapLocation={mapLocation} currentLocation={currentLocation} />
+            <SpotList spotList={spotList} />
+            <UserProfilMap spotList={spotList} />
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     view: {
         width: 500,
         height: 500,
     },
     map: {
-        width: 500,
+        width: "100%",
         height: 500,
+        overflow: "visible"
     },
     text: {
         fontSize: 5

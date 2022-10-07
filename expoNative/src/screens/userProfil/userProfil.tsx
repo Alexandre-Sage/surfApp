@@ -1,25 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { View, ScrollView, LayoutAnimation, Text, SafeAreaView } from "react-native";
-import { getFetchFunction, postFetchFunction } from "../../modules/fetch/basicFetch";
-import ProfilHeader from "./ProfilHeader";
-import Picture from "./picture/Picture";
-import Spot from "./spot/Spot";
-import { RootStackParamList } from "../../../App"
+import React, { useEffect } from "react";
+import { View, ScrollView, SafeAreaView } from "react-native";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import styles from "../../styles/userProfil/UserProfil.style"
+import { RootStackParamList } from "../../../App"
 
 import { useAppSelector, useAppDispatch } from '../../redux/hook';
 import { getCurrentLocation } from "../../redux/slices/currentLocation/currentLocationSlice";
-import { RootState } from '../../redux/store';
+import { setMapLocation } from "../../redux/slices/map/mapSlice";
+
+import { getFetchFunction, postFetchFunction } from "../../modules/fetch/basicFetch";
+import ProfilHeader from "./ProfilHeader";
+import Spot from "./spot/Spot";
+import Picture from "./picture/Picture";
+
+import styles from "../../styles/userProfil/UserProfil.style"
+import { Action } from "expo-image-manipulator";
 
 
-export type UserProfilProps = NativeStackScreenProps<RootStackParamList, "UserProfil">
+type UserProfilProps = NativeStackScreenProps<RootStackParamList, "UserProfil">
 
 export default function UserProfil({ route, navigation }: UserProfilProps): JSX.Element {
     const dispatch = useAppDispatch();
-    const { currentLocation, loading } = useAppSelector((state) => state.currentLocation);
+    const { currentLocation } = useAppSelector((state) => state.currentLocation);
     useEffect(() => {
         dispatch(getCurrentLocation())
+            .then((action: any) => {
+                const { longitude, latitude } = action.payload;
+                dispatch(setMapLocation({
+                    latitude: latitude,
+                    longitude: longitude
+                }));
+            });
     }, [])
     return (
         <SafeAreaView>
