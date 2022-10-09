@@ -4,11 +4,7 @@ import chai, { request, assert, should, expect } from "chai";
 import chaiHttp from "chai-http"
 import { userObject } from "../signUpAssets.js";
 
-//import { testGetRoute, testPostRoute } from "../../testModules/httpModule.test";
-//import { jsonHeader200ObjCookie, jsonHeader200ObjectNoCookie, assertBodyNoRedirectObj, noErrorObject, chaiAgent } from "../../globalsTestVar";
-
 chai.use(chaiHttp)
-
 export default describe("1) SIGN UP ROUTES", function () {
     it("Should handle posted sign up from and create a new user", async () => {
         const agent = chai.request.agent(server);
