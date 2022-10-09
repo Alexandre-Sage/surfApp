@@ -5,18 +5,15 @@ import signUpTest from "./signUp/signUpHighOrder.test.js";
 
 const db = await mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
     autoIndex: true,
-})
-//db.model("User", UserSchema);
-console.log(db)
+});
+console.log(process.env.MONGO_ATLAS)
+db.model("User", UserSchema);
 describe("#################AUTH API TEST SUITE#################", function () {
     before(async () => {
-        console.log("before")
         await User.deleteMany()
-            .then((res: any) => res)
-            .catch((err: any) => console.error(err))
 
     });
-    //after(() => disconnect());
-    it("", () => { })
-    signUpTest
+    //  it("SHOULD TEST AUTH API", () =>{});
+    it("",()=>{})
+    this.addSuite(signUpTest)
 });
