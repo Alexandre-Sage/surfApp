@@ -1,15 +1,15 @@
 import { Request } from "express";
 import multer, { Multer, StorageEngine } from "multer";
 import fs, { exists } from "fs";
-import { Session } from "express-session";
+import sharp, { Sharp } from "sharp";
 
-import sessionChecking from "../sessionManagement/sessionChecking";
+//import { Session } from "express-session";
+//import sessionChecking from "../sessionManagement/sessionChecking";
 import path from "path";
 
-import sharp, { Sharp } from "sharp";
 const storage = multer.diskStorage({
     async destination(req: Request, file: Express.Multer.File, callBack: Function) {
-        const { userName }: Session = req.session;
+        const userName = "testOne";
         const folder: string = `./src/images/usersImages/${userName}`;
         //AREMPLACER PAR fs.stat
         fs.exists(folder, async (existing: boolean) => {
@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
         });
     },
     async filename(req: Request, file: Express.Multer.File, callBack: Function) {
-        const { userName }: Session = req.session;
+        const userName = "req.session";
         const uniqueSuffix: string = `${Date.now()}_${userName}`;
         return await callBack(null, file.originalname + '-' + uniqueSuffix)
     },

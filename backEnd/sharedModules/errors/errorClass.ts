@@ -1,13 +1,14 @@
 export declare interface CustomErrorInterface extends Error {
     httpStatus: number,
-    message: string
+    message: string,
+    devMessage:string
 };
 
 export  class CustomError extends Error {
-    httpStatus: number;
-    constructor(message: string, httpStatus: number) {
+    constructor(message: string,public devMessage:string,public httpStatus: number) {
         super(message);
         this.httpStatus = httpStatus;
+        this.message= process.env.NODE_ENV === "developpment" || "test"? devMessage : message;
         Error.captureStackTrace(this, this.constructor)
     }
 }

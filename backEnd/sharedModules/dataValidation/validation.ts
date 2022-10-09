@@ -1,5 +1,5 @@
 import validator from "validator";
-import CustomError, { CustomErrorInterface } from "../../../modules/errors/errorClass";
+import { CustomError, CustomErrorInterface } from "../errors/errorClass.js";
 
 
 export default function dataValidation(body: object): Promise<boolean | CustomErrorInterface> {
@@ -15,7 +15,7 @@ export default function dataValidation(body: object): Promise<boolean | CustomEr
     };
     return new Promise((resolve: Function, reject: Function): Boolean | Error => (
         validationCount === requestBody.length ? resolve(true) : reject(
-            new CustomError(`The provided ${requestBody[validationCount][0]} is incorrect`, 400)
+            new CustomError(`The provided ${requestBody[validationCount][0]} is incorrect`, "DATA VALIDATION ERROR", 400)
         )
     ));
 };

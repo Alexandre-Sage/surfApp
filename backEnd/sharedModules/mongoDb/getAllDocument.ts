@@ -1,5 +1,5 @@
 import mongoose, { connect, disconnect, HydratedDocument } from "mongoose";
-import CustomError from "../../modules/errors/errorClass";
+import { CustomError } from "../errors/errorClass.js";
 
 
 export default async function fetchAllDocument(mongoSchema: any, researchObject: object, field?: object, sortObject?: object): Promise<Document> {
@@ -12,12 +12,12 @@ export default async function fetchAllDocument(mongoSchema: any, researchObject:
         });
         const document = await mongoSchema.find(researchObject, field ? field : undefined).sort(sortObject ? sortObject : undefined);
         return new Promise((resolve: Function, reject: Function) => (
-            document ? resolve(document) : reject(new CustomError(errorMessage, 400))
+            document ? resolve(document) : reject(new CustomError(errorMessage, "FETCH ALL DOCUMENT ERROR", 400))
         ));
     } catch (error: any) {
         console.error(error)
-        return Promise.reject(new CustomError("Something wrong happened please retry ", 403))
-    }
+        return Promise.reject(new CustomError("Something wrong happened please retry ", "FETCH ALL DOCUMENT ERROR", 403))
+    };
 };
 
 

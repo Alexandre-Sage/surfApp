@@ -1,5 +1,5 @@
 import validator from "validator";
-import CustomError from "../../../modules/errors/errorClass";
+import { CustomError } from "../errors/errorClass.js";
 
 
 function arrayAssertion(array: Array<any>) {
@@ -46,7 +46,7 @@ export default async function notEmptyCheck(object: object): Promise<boolean | E
     //console.log(validationCount)
     return new Promise((resolve: Function, reject: Function): Boolean | Error => (
         validationCount === requestBody.length ? resolve(true) : reject(
-            new CustomError(`The ${requestBody[validationCount][0]}'s field is empty`, 400)
+            new CustomError(`The ${requestBody[validationCount][0]}'s field is empty`, "NOT EMPTY ERROR", 400)
         )
     ));
 };
