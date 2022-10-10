@@ -4,7 +4,7 @@ import { expect } from "chai";
 import chai from "chai";
 
 export default function dupUserNameErrorTest(){
-describe("SIGN UP DUPLICATE USER NAME ERROR",function(){
+    describe("SIGN UP DUPLICATE USER NAME ERROR",function(){
         it("Should handle posted sign up from and send dup user name error", async () => {
             const agent = chai.request.agent(server);
             const responseMessage=process.env.NODE_ENV==="developpment"?"ADD MONGO DOCUMENT ERROR SWITCH":"The userName TestOne is already used.";
@@ -27,35 +27,3 @@ describe("SIGN UP DUPLICATE USER NAME ERROR",function(){
         });
     });
 };
-
-
-
-
-
-
-
-//import { testGetRoute, testPostRoute } from "../../testModules/httpModule.test";
-//import { jsonHeader200ObjCookie, jsonHeader400ObjectNoCookie, clientErrorObject, jsonHeader200ObjectNoCookie, assertBodyNoRedirectObj, noErrorObject, chaiAgent } from "../../globalsTestVar";
-
-//export default describe("3.1) SHOULD RETURN DUPLICATE USERNAME ERROR", function () {
-//    it("Should post a new user and return error for duplicate userName", async () => {
-//        const chai = chaiAgent();
-//        const agentObj = { agent: chai.request.agent(server) };
-//        const sendBody = { ...userObject };
-//        const message = "The userName TestOne is already used.";
-//        const responseProperty = [
-//            { propertyName: "message", propertyValue: message },
-//            { propertyName: "error", propertyValue: true }
-//        ];
-//        const assertBodyObj = {
-//            redirectsLength: 0,
-//            propertyArray: responseProperty
-//        };
-//        try {
-//            await testGetRoute(agentObj, "/csrf", jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
-//            await testPostRoute(agentObj, "/sign-up", sendBody, jsonHeader400ObjectNoCookie, clientErrorObject, assertBodyObj)
-//        } catch (err) {
-//            throw err
-//        }
-//    });
-//});
