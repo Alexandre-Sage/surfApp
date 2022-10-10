@@ -8,7 +8,7 @@ export  class CustomError extends Error {
     constructor(message: string,public devMessage:string,public httpStatus: number) {
         super(message);
         this.httpStatus = httpStatus;
-        this.message= process.env.NODE_ENV === "developpment" || "test"? devMessage : message;
+        this.message= process.env.NODE_ENV === "developpment"? devMessage : message;
         Error.captureStackTrace(this, this.constructor)
     }
 }

@@ -9,6 +9,7 @@ import logger from "morgan";
 import signUp from "./routes/signUp/signUp.js";
 import logIn from "./routes/login/login.js";
 import mongoose from "mongoose";
+import { UserSchema } from "../mongoDb/user/users.js";
 
 const server = express();
 console.log(process.env.PORT)
@@ -20,13 +21,19 @@ server.use(cors({
     methods: ["GET", "POST"],
     credentials: true
 }));
-
+const db =  mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
+    autoIndex: true,
+});
+db.model("User", UserSchema);
+server.locals.db= db;
+//console.log(server.locals.db)
+//console.log(db.models.User.find())
 server.use(express.static(`${process.cwd()}/src`))
 server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 server.use("/signUp", signUp);
-server.use("/login", logIn);
+server.use("/login", logIn); 
 
 //mongoose.connect(`${process.env.MONGO_ATLAS}`)
 const httpServer = http.createServer(server);

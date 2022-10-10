@@ -1,7 +1,7 @@
 import mongoose, { connect, disconnect, HydratedDocument } from "mongoose";
 import { CustomError } from "../errors/errorClass.js";
 
-
+console.log("getAllDocument modified not tested")
 export default async function fetchAllDocument(mongoSchema: any, researchObject: object, field?: object, sortObject?: object): Promise<Document> {
     type ObjectKey = keyof typeof researchObject;
     const errorKey = `${Object.keys(researchObject)[0]}` as ObjectKey;
@@ -11,9 +11,12 @@ export default async function fetchAllDocument(mongoSchema: any, researchObject:
             autoIndex: true,
         });
         const document = await mongoSchema.find(researchObject, field ? field : undefined).sort(sortObject ? sortObject : undefined);
-        return new Promise((resolve: Function, reject: Function) => (
-            document ? resolve(document) : reject(new CustomError(errorMessage, "FETCH ALL DOCUMENT ERROR", 400))
-        ));
+            return document ? Promise.resolve(document) : Promise.reject(new CustomError(
+                errorMessage, 
+                "FETCH ALL DOCUMENT ERROR", 
+                400
+            ));
+        
     } catch (error: any) {
         console.error(error)
         return Promise.reject(new CustomError("Something wrong happened please retry ", "FETCH ALL DOCUMENT ERROR", 403))

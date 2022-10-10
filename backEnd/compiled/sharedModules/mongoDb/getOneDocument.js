@@ -1,5 +1,5 @@
 import { connect } from "mongoose";
-import { CustomError } from "../errors/errorClass";
+import { CustomError } from "../errors/errorClass.js";
 export default async function fetchOneDocument(mongoSchema, researchObject, field, sortObject) {
     const errorKey = `${Object.keys(researchObject)[0]}`;
     const errorMessage = `${Object.keys(researchObject)[0]}: ${researchObject[errorKey]} not found please retry`;

@@ -1,5 +1,5 @@
 import validator from "validator";
-import { CustomError } from "../errors/errorClass";
+import { CustomError } from "../errors/errorClass.js";
 function arrayAssertion(array) {
     let validationCount = 0;
     for (const item of array) {
@@ -17,7 +17,7 @@ function objectAssertion(object) {
     let validationCount = 0;
     for (const item of requestBody) {
         const [key, value] = item;
-        console.log({ [key]: value });
+        //console.log({ [key]: value })
         if (value === null)
             break;
         if (value instanceof Array) {

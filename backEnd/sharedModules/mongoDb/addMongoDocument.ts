@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
-import { connect, disconnect, MongooseError } from "mongoose";
+import mongoose, { connect, disconnect, MongooseError } from "mongoose";
 import { MongoServerError } from "mongodb";
 import { CustomError } from "../errors/errorClass.js";
+import {User, UserSchema} from "../../mongoDb/user/users.js"
 const { log } = console;
 dotenv.config()
 function mongoErrorHandling(error: MongoServerError, reject: Function) {
-    //console.log("here", error)
     switch (error.code) {
         case 11000:
             const fieldValue = Object.entries(error.keyValue)[0];
@@ -19,17 +19,16 @@ function mongoErrorHandling(error: MongoServerError, reject: Function) {
     };
 };
 
-
 export default async function addMongoDocument(mongoSchema: any): Promise<boolean | MongooseError | void> {
     return new Promise(async function (resolve: Function, reject: Function) {
         try {
-            await connect(`${process.env.MONGO_ATLAS}`, {
+            await connect(`mongodb+srv://AlexandreSage:Alexandretroisdemacedoinelegrand@cluster0.adoon.mongodb.net/surfApp?retryWrites=true&w=majority`, {
                 autoIndex: true,
-            });
+            })//.then(()=>mongoSchema.save().catch((err:any)=>console.log(err)))
             await mongoSchema.save();
             resolve(true)
         } catch (error: any) {
-            console.log("here", error)
+            //console.log("here", error)
             if (error.name === "MongoServerError") mongoErrorHandling(error, reject)
             else if (error) { console.error(error); reject(new CustomError("Something wrong happened please retry", "ADD MONGO DOCUMENT ERROR", 400)) }
             else reject(new CustomError("Something wrong happened please retry", "ADD MONGO DOCUMENT ERROR", 403))

@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { CustomError } from "../errors/errorClass";
+import { CustomError } from "../errors/errorClass.js";
 ;
 export const setSessionToken = (data, secret, expiresDate) => (jwt.sign(data, secret, { expiresIn: expiresDate }));
 export const sessionTokenAuthentification = async (jsonWebToken, secret) => {

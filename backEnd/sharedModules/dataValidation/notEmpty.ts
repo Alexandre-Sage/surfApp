@@ -18,7 +18,7 @@ function objectAssertion(object: object) {
     let validationCount: number = 0;
     for (const item of requestBody) {
         const [key, value]: Array<any> = item;
-        console.log({ [key]: value })
+        //console.log({ [key]: value })
         if (value === null) break;
         if (value instanceof Array) {
             console.log("arr")

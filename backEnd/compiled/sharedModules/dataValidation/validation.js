@@ -1,5 +1,5 @@
 import validator from "validator";
-import { CustomError } from "../errors/errorClass";
+import { CustomError } from "../errors/errorClass.js";
 export default function dataValidation(body) {
     const requestBody = Object.entries(body);
     let validationCount = 0;
