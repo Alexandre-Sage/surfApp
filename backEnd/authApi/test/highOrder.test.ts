@@ -1,19 +1,27 @@
 import "mocha";
 import mongoose from "mongoose";
 import { User, UserSchema } from "../../mongoDb/user/users.js";
-import signUpTest from "./signUp/signUpHighOrder.test.js";
+import signUpTest from "./signUp/sucess/signUpSucess.test.js";
+import dupEmailErrorTest from "./signUp/errors/dupEmail.test.js"
+import dupUserNameErrorTest from "./signUp/errors/dupUsername.test.js";
 
-const db = await mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
+const db =  mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
     autoIndex: true,
 });
-console.log(process.env.MONGO_ATLAS)
 db.model("User", UserSchema);
-describe("#################AUTH API TEST SUITE#################", function () {
+//console.log(db)
+describe("##################################AUTH API TEST SUITE##################################", async function () {
     before(async () => {
-        await User.deleteMany()
+        console.log("before")
+        try{
+            await db.models.User.deleteMany()
+
+        }catch(error){throw error}
 
     });
-    //  it("SHOULD TEST AUTH API", () =>{});
-    it("",()=>{})
-    this.addSuite(signUpTest)
+    describe("1) SIGN UP ROUTES TEST SUITE",function(){
+        signUpTest();
+        dupEmailErrorTest();
+        dupUserNameErrorTest();
+    });
 });

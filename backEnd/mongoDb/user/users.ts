@@ -57,6 +57,6 @@ connect(`${process.env.MONGO_ATLAS}`, {
     autoIndex: true,
 }).then(() => User.createIndexes())
     .catch(err => console.log(err))
-    .finally(() => disconnect())
+    //.finally(() => disconnect())
 //export {UserSchema};
 

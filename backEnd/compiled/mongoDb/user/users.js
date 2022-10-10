@@ -1,8 +1,9 @@
-//import "dotenv/config";
-import { Schema, model, connect, disconnect } from "mongoose";
+import dotenv from "dotenv";
+import { Schema, model, connect } from "mongoose";
 import { randomBytes, pbkdf2Sync } from "crypto";
-import { CustomError } from "../../sharedModules/errors/errorClass";
-const UserSchema = new Schema({
+import { CustomError } from "../../sharedModules/errors/errorClass.js";
+dotenv.config();
+export const UserSchema = new Schema({
     location: { type: String, required: true },
     name: { type: String, required: true },
     firstName: { type: String, required: true },
@@ -41,10 +42,10 @@ UserSchema.methods.checkPassword = function (password) {
     const hashedPassword = pbkdf2Sync(password, this.salt, 1000, 64, "sha512").toString("hex");
     return new Promise((resolve, reject) => (this.password === hashedPassword ? resolve(true) : reject(new CustomError("Invalid password", "USER SCHEMA PASSWORD VALIDATION ERROR", 400))));
 };
-const User = model("User", UserSchema);
+export const User = model("User", UserSchema);
 connect(`${process.env.MONGO_ATLAS}`, {
     autoIndex: true,
 }).then(() => User.createIndexes())
-    .catch(err => console.log(err))
-    .finally(() => disconnect());
-export default User;
+    .catch(err => console.log(err));
+//.finally(() => disconnect())
+//export {UserSchema};
