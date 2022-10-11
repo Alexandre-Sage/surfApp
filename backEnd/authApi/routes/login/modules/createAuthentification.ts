@@ -14,7 +14,7 @@ export const createAuthentification = async (password: string, email: string): P
     const researchObject = { email: email };
     try {
         const user: UserInterface = await fetchOneDocument(User, researchObject);
-        const tokenExpirations = "3600 * 24";
+        const tokenExpirations = `${3600 * 24}s`;
         await user.checkPassword(password);
         const tokenData = {
             userId: user._id,
@@ -25,6 +25,6 @@ export const createAuthentification = async (password: string, email: string): P
             userName: user.userName
         };
     } catch (error: any) {
-        return error
+       return Promise.reject(error)
     };
 };

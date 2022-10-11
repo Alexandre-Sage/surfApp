@@ -14,6 +14,7 @@ router.post("/", async function (req: Request, res: Response): Promise<Response>
         await dataValidation(req.body);
         const cookieName: string = "JWT-TOKEN";
         const authentification = await createAuthentification(password, email);
+        //console.log(authentification)
         return res.status(200).cookie(cookieName, authentification.sessionToken, cookieOptions).json({
             message: `Welcome back ${authentification.userName}!`,
             error: false

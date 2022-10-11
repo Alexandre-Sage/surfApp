@@ -1,28 +1,39 @@
-import server from "../../../../server";
-import { testGetRoute, testPostRoute } from "../../testModules/httpModule.test";
-import { jsonHeader200ObjCookie, jsonHeader200ObjectNoCookie, assertBodyNoRedirectObj, noErrorObject, chaiAgent } from "../../globalsTestVar";
+import server from "../../../server.js";
+import chai, { request, assert, should, expect, } from "chai";
+import chaiHttp from "chai-http"
+import { Suite } from "mocha";
+import {Response} from "express"
+import { ServerResponse } from "http";
 
-describe("1) USER LOGED WITH SUCESS", function () {
-    it("Sould log user with sucess", async () => {
-        const chai = chaiAgent();
-        const agentObj = { agent: chai.request.agent(server) };
-        const sendBody = { email: "test@testOne.com", password: "test" };
-        const message = "Welcome back TestOne!";
-        const responseProperty = [
-            { propertyName: "message", propertyValue: message },
-            { propertyName: "error", propertyValue: false }
-        ];
-        const assertBodyObj = {
-            redirectsLength: 0,
-            propertyArray: responseProperty
-        };
-        try {
-            await testGetRoute(agentObj, "/csrf", jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
-            await testPostRoute(agentObj, "/login", sendBody, jsonHeader200ObjCookie, noErrorObject, assertBodyObj)
-            agentObj.agent.close()
-        } catch (error: any) {
-            agentObj.agent.close()
-            throw error
-        };
+chai.use(chaiHttp)
+const cookieName=(arrayIndex:number,response: any):string=>{
+    const {header}=response;
+    const cookie=header["set-cookie"][arrayIndex]
+    return cookie.split("=")[0];
+}
+
+export default function loginSucessTest():Suite{
+    return describe("LOG IN ROUTES SUCESSFULL", function () {
+        it("Should handle posted log in from and authentificate the user", async () => {
+            const agent = chai.request.agent(server);
+            const credentials={ email: "test@testOne.com", password: "test" };
+            const responseMessage="Welcome back TestOne!";
+            const contentType='application/json; charset=utf-8';
+            const contentLength= '49';
+            try {
+                const response = await agent.post("/logIn").send(credentials);
+                const { header, body, error }=response;
+                expect(error).to.be.eql(false)
+                expect(response).to.have.property("status").eql(200);
+                expect(body).to.have.property("message").eql(responseMessage);
+                expect(header).to.have.property("set-cookie");
+                expect(header).to.have.property('content-type') .eql(contentType);
+                expect(header).to.have.property('content-length').eql(contentLength);
+                expect(header).to.have.property('access-control-allow-credentials').eql("true");
+                expect(cookieName(0,response)).to.be.eql("JWT-TOKEN");
+            } catch (error: any) {
+                throw error
+            };
+        });
     });
-});
+};
