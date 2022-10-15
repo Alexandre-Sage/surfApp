@@ -1,10 +1,12 @@
 import jwt, { JwtHeader, JwtPayload } from "jsonwebtoken";
+import { Types } from "mongoose";
 import { CustomError } from "../errors/errorClass.js"
-interface UserJsonDataInterface {
-
+export interface UserJsonDataInterface {
+    userId: Types.ObjectId,
+    userName: string
 };
 
-export const setSessionToken = (data: any, secret: string, expiresDate: string): string => (
+export const setSessionToken = (data: UserJsonDataInterface, secret: string, expiresDate: string): string => (
     jwt.sign(data, secret, { expiresIn: expiresDate })
 );
 

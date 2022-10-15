@@ -25,6 +25,6 @@ export const createAuthentification = async (password: string, email: string): P
             userName: user.userName
         };
     } catch (error: any) {
-       return Promise.reject(error)
+        return Promise.reject(error)
     };
 };
