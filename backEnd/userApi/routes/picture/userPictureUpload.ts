@@ -1,25 +1,17 @@
 import express, { Request, Response } from "express";
-import sessionChecking from "../../modules/sessionManagement/sessionChecking";
-import { imageStorage, compressImage } from "../../modules/upload/imageStorage";
+import { imageStorage, compressImage } from "../../../sharedModules/upload/imageStorage.js";
 import addPicturePathToDb from "./pictureModules/addPicture";
-import User from "../../../mongo/users/users";
-import { PictureObject } from "../../../mongo/mongoInterfaces/pictureObjectInterface";
-import { Session } from "express-session";
+import { User } from "../../../mongoDb/user/users.js";
+import { PictureObject } from "../../../mongoDb/generalInterface/pictureObjectInterface.js";
 import multer from "multer";
+import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement.js";
 
-import sharp, { Sharp } from "sharp";
-import fs, { rm } from "fs"
-import archiver from "archiver";
-
-import zlib, { createBrotliCompress } from "zlib";
 const router = express.Router();
 const { log, table, error } = console
 
 const upload = imageStorage.single("image")
 const uploadTest = multer({ dest: "./", limits: { fileSize: 1000000000000 } })
 
-
-/**/
 const stringModification = (string: string | undefined, splitCharactere: string, spliceIndex: number, numberOfDelete: number, joinCharactere: string, replacement?: string): string | Error => {
     const array: Array<string> | undefined = string ? string.split(splitCharactere) : undefined;
     if (replacement && array) array.splice(spliceIndex, numberOfDelete, replacement);
@@ -29,23 +21,16 @@ const stringModification = (string: string | undefined, splitCharactere: string,
     return newString;
 };
 
-///////
-
-
-
-
-/** */
-
-
 router.post("/uploadPicture", imageStorage.single("image"), async function (req: Request, res: Response, next: any): Promise<Response<JSON>> {
-    const session: Session = req.session;
     const fileCopy = { ...req.file }
     const { path, destination, originalname } = fileCopy;
     const dataBasePath: string | Error = stringModification(path, "/", 0, 1, "/")
     const pictureObj: PictureObject = { path: `${dataBasePath}_compressed`, place: "test", date: Date.now() };
+    const token= getToken(req)
+
     try {
-        await sessionChecking(req, session)
-        await addPicturePathToDb(session, User, pictureObj)
+        const checkTokenIntegrity =await sessionTokenAuthentification(`${token}`);
+        await addPicturePathToDb(checkTokenIntegrity, User, pictureObj)
         compressImage(`${path}`);
         return res.status(200).json({
             message: "You're image was successfully uploaded.",

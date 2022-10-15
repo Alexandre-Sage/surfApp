@@ -21,7 +21,7 @@ export const createAuthentification = async (password: string, email: string): P
             userName: user.userName,
         };
         return {
-            sessionToken: setSessionToken(tokenData, process.env.JWT_SECRET!, tokenExpirations),
+            sessionToken: setSessionToken(tokenData,  tokenExpirations),
             userName: user.userName
         };
     } catch (error: any) {

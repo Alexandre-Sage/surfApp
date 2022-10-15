@@ -8,6 +8,8 @@ import logger from "morgan";
 //ROUTES 
 import signUp from "./routes/signUp/signUp.js";
 import logIn from "./routes/login/login.js";
+import testRoute from "./routes/testRoute.js"
+
 import mongoose from "mongoose";
 import { UserSchema } from "../mongoDb/user/users.js";
 
@@ -33,8 +35,8 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 server.use("/signUp", signUp);
-server.use("/login", logIn); 
-
+server.use("/logIn", logIn); 
+server.use("/", testRoute)
 //mongoose.connect(`${process.env.MONGO_ATLAS}`)
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {

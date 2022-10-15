@@ -1,8 +1,9 @@
 import "mocha";
-import getProfilHeaderTest from "./sucess/sucess.test.js";
-
-describe("Project set up test",()=>{
-    it("Should say Hello World",()=>{
+import getProfilHeaderTest from "./sucess/profilHeader.js";
+import getProfilPictureTest from "./sucess/profilPicture.test.js";
+describe("################################## AUTH API TEST SUITE ##################################",()=>{
+    describe("1) GET USER INFO ROUTE",()=>{
         getProfilHeaderTest();
-    });
+        getProfilPictureTest();
+    })
 });

@@ -37,12 +37,12 @@ export default function loginSucessTest(): Suite {
         });
     });
 };
-export const loginFunction = async (agent: any, credentials: any) => {
+export const loginFunction = async (agent: any, credentials: any, url:string) => {
     const responseMessage = "Welcome back TestOne!";
     const contentType = 'application/json; charset=utf-8';
     const contentLength = '49';
     try {
-        const response = await agent.post("/logIn").send(credentials);
+        const response = await agent.post(url).send(credentials);
         const { header, body, error } = response;
         expect(error).to.be.eql(false)
         expect(response).to.have.property("status").eql(200);

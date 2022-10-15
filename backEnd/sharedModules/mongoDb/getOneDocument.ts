@@ -9,7 +9,7 @@ export default async function fetchOneDocument(mongoSchema: any, researchObject:
         await connect(`${process.env.MONGO_ATLAS}`, {
             autoIndex: true,
         });
-        const document = await mongoSchema.findOne(researchObject, field ? field : undefined).sort(sortObject ? sortObject : undefined);
+        const document = await mongoSchema.findOne(researchObject, field ? field : undefined).sort(sortObject ? sortObject : undefined)
         return new Promise((resolve: Function, reject: Function) => (
             document ? resolve(document) : reject(new CustomError(errorMessage, "FETCH ONE DOCUMENT ERROR", 400))
         ));

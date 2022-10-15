@@ -3,14 +3,10 @@ import multer, { Multer, StorageEngine } from "multer";
 import fs, { exists } from "fs";
 import sharp, { Sharp } from "sharp";
 
-//import { Session } from "express-session";
-//import sessionChecking from "../sessionManagement/sessionChecking";
-import path from "path";
-
 const storage = multer.diskStorage({
     async destination(req: Request, file: Express.Multer.File, callBack: Function) {
         const userName = "testOne";
-        const folder: string = `./src/images/usersImages/${userName}`;
+        const folder: string = `../images/usersImages/${userName}`;
         //AREMPLACER PAR fs.stat
         fs.exists(folder, async (existing: boolean) => {
             if (!existing) {
