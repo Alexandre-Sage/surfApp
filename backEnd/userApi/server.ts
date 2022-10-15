@@ -8,7 +8,7 @@ import logger from "morgan";
 //ROUTES 
 //import mongoose from "mongoose";
 import { UserSchema } from "../mongoDb/user/users.js";
-
+import userHeaderRouter from "./routes/profilHeader.js";
 const server = express();
 console.log(process.env.PORT)
 process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;
@@ -30,6 +30,8 @@ server.use(express.static(`${process.cwd()}/src`))
 server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
+
+server.use("/header",userHeaderRouter);
 
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
