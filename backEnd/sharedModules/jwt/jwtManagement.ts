@@ -8,7 +8,13 @@ export interface UserJsonDataInterface {
     sessionToken:string
 };
 
-export const setSessionToken = (data: UserJsonDataInterface,  expiresDate: string): string => (
+
+interface TokenDataInterface{
+    userId: Types.ObjectId,
+    userName:string,
+};
+
+export const setSessionToken = (data: TokenDataInterface,  expiresDate: string): string => (
     jwt.sign(data, process.env.JWT_SECRET!, { expiresIn: expiresDate })
 );
 
