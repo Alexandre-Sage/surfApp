@@ -4,7 +4,7 @@ import sharp from "sharp";
 const storage = multer.diskStorage({
     async destination(req, file, callBack) {
         const userName = "testOne";
-        const folder = `./src/images/usersImages/${userName}`;
+        const folder = `../images/usersImages/${userName}`;
         //AREMPLACER PAR fs.stat
         fs.exists(folder, async (existing) => {
             if (!existing) {
