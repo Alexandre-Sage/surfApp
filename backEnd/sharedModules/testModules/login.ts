@@ -1,6 +1,6 @@
 import fetch from "node-fetch"
 
-const url="http://localhost:3500/logIn"
+//const url="http://localhost:3500/logIn"
 export const getAuthentificationToken =  async (url: string, credentials:any): Promise<string>=>{
     const token:any= await fetch(url,{
         method:"POST", 

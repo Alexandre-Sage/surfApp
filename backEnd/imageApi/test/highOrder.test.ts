@@ -1,8 +1,14 @@
 import "mocha";
+import fs from "fs";
+import path from "path";
+import uploadUserImageSucessTest from "./userImageUpload/sucess.js";
 
 
-describe("Project set up test",()=>{
-    it("Should say Hello World",()=>{
-        console.log("Hello World");
+describe("IMAGE API",()=>{
+    describe("1) IMAGE UPLOAD",()=>{
+        uploadUserImageSucessTest();
     });
 });
+
+
+
