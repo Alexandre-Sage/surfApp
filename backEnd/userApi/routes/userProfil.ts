@@ -1,5 +1,5 @@
 import express from "express";
-import pictureUpload from "./picture/userPictureUpload";
+import pictureUpload from "../../imageApi/routes/userPictureUpload";
 import userPicture from "./picture/userProfilPicture";
 import profilHeader from "./profilHeader"
 
