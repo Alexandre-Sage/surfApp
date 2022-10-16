@@ -4,11 +4,14 @@ import fetchOneDocument from "../../../../sharedModules/mongoDb/getOneDocument.j
 import { setSessionToken } from "../../../../sharedModules/jwt/jwtManagement.js";
 
 import { CustomError } from "../../../../sharedModules/errors/errorClass.js";
+import { Types } from "mongoose";
 
 interface AuthentificationInterface {
     sessionToken: string,
     userName: string
 }
+
+
 
 export const createAuthentification = async (password: string, email: string): Promise<AuthentificationInterface> => {
     const researchObject = { email: email };
