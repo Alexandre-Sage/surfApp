@@ -11,7 +11,7 @@ const registry = {
     authApi: "http://192.168.1.39:3500",
     imageApi: "http://192.168.1.39:3250",
     userApiUrl: "http://192.168.1.39:3750",
-    spotApiUrl: "http://192.168.1.39:3750",
+    spotApiUrl: "http://192.168.1.39:3000",
   }
 };
 export default registry;
