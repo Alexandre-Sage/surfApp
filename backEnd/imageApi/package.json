@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start:dev": "nodemon",
-    "test": "mocha --loader=ts-node/esm --extension ts 'test/**/highOrder.test.ts'"
+    "test": "mocha --loader=ts-node/esm --extension ts 'test/**/highOrder.test.ts'",
+    "start:prod":"pm2  start --interpreter /usr/local/bin/ts-node-esm  server.ts --name imagesApi  --log imageLog.json" 
   },
   "author": "",
   "license": "ISC",

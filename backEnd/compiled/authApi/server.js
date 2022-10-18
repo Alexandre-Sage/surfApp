@@ -1,27 +1,40 @@
 import "dotenv/config";
 import express from "express";
 import http from "http";
-import cors from "cors";
+//import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 //ROUTES 
-import signUp from "./routes/signUp/signUp";
-import logIn from "./routes/login/login";
+import signUp from "./routes/signUp/signUp.js";
+import logIn from "./routes/login/login.js";
+import testRoute from "./routes/testRoute.js";
+import mongoose from "mongoose";
+import { UserSchema } from "../mongoDb/user/users.js";
 const server = express();
-console.log(process.env.PORT);
+//console.log(cors);
 process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;
 server.set("trust proxy", 1);
-server.use(cors({
+/*server.use(cors({
     origin: [`${process.env.FRONT_END}`, `${process.env.HOST}`],
     methods: ["GET", "POST"],
     credentials: true
-}));
+}));*/
+const db = mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
+    autoIndex: true,
+});
+db.model("User", UserSchema);
+server.locals.db = db;
+//console.log(server.locals.db)
+//console.log(db.models.User.find())
 server.use(express.static(`${process.cwd()}/src`));
 server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 server.use(cookieParser(process.env.COOKIE_SECRET));
+server.use(express.json());
 server.use("/signUp", signUp);
-server.use("/login", logIn);
+server.use("/logIn", logIn);
+server.use("/", testRoute);
+//mongoose.connect(`${process.env.MONGO_ATLAS}`)
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
     console.log(`Server listening on: ${process.env.PORT}`);

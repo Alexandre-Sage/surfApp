@@ -1,5 +1,5 @@
 import express from "express";
-import { createAuthentification } from "./modules/createAuthentification";
+import { createAuthentification } from "./modules/createAuthentification.js";
 import dataValidation from "../../../sharedModules/dataValidation/validation.js";
 import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty.js";
 import { cookieOptions } from "../../../sharedModules/cookies/cookieOptions.js";
@@ -14,6 +14,7 @@ router.post("/", async function (req, res) {
         const authentification = await createAuthentification(password, email);
         return res.status(200).cookie(cookieName, authentification.sessionToken, cookieOptions).json({
             message: `Welcome back ${authentification.userName}!`,
+            token: authentification.sessionToken,
             error: false
         });
     }

@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "start:dev": "nodemon",
-    "test": "mocha --loader=ts-node/esm --extension ts,js 'test/**/highOrder.test.ts'"
-  },
+    "test": "mocha --loader=ts-node/esm --extension ts,js 'test/**/highOrder.test.ts'",
+    "post-build":"cp package.json package-lock.json .env ../compiled/authApi && cd ../compiled/authApi && npm install --only=production",
+    "start:prod":"pm2  start --interpreter /usr/local/bin/ts-node-esm  server.ts --name authServer  --log authLog.json"  
+},
   "author": "",
   "license": "ISC",
   "devDependencies": {
