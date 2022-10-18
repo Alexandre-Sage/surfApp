@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement.js";
-import spotCreation from "./spotCreationFunction";
+import spotCreation from "./spotCreationFunction.js";
 //import { Session } from "express-session";
 //import sessionChecking from "../../modules/sessionManagement/sessionChecking";
 //import { csurfChecking } from "../../modules/cookies/csurf";
@@ -16,7 +16,7 @@ router.post("/", async function (req, res) {
       error: false
     })
   } catch (error: any) {
-    console.log(error);
+    //console.log(error);
     return res.status(error.httpStatus).json({
       message: error.message,
       error: true

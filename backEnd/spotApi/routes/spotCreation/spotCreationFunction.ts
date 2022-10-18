@@ -1,7 +1,7 @@
-import addMongoDocument from "../../../sharedModules/mongoDb/addMongoDocument";
-import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty";
-import { SpotInterface } from "../../../mongoDb/spots/spotInterface";
-import { Spot } from "../../../mongoDb/spots/spots"
+import addMongoDocument from "../../../sharedModules/mongoDb/addMongoDocument.js";
+import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty.js";
+import { SpotInterface } from "../../../mongoDb/spots/spotInterface.js";
+import { Spot } from "../../../mongoDb/spots/spots.js";
 import { HydratedDocument } from "mongoose";
 
 
@@ -14,6 +14,7 @@ export default async function spotCreation(requestBody: SpotInterface, userId: a
     const document = await addMongoDocument(newSpot);
     return document;
   } catch (error: any) {
+    console.log({ error })
     throw error
   }
 };

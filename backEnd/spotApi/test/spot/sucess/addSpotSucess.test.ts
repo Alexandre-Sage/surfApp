@@ -1,60 +1,65 @@
-import server from "../../../../server";
-import { testGetRoute, testPostRoute } from "../../testModules/httpModule.test";
-import { jsonHeader200ObjCookie, jsonHeader200ObjectNoCookie, assertBodyNoRedirectObj, noErrorObject, chaiAgent } from "../../globalsTestVar";
-import User from "../../../../mongo/users/users";
-import fetchOneEntriesFromDb from "../../../../mongo/modules/fetchOneEntries";
-export default describe("1) SHOULD ADD SPOT TO DATABSE", function (this) {
+import server from "../../../server.js";
+import chai, { assert, should, expect } from "chai";
+import chaiHttp from "chai-http"
+import { Suite, SuiteFunction } from "mocha";
+import getOneDocument from "../../../../sharedModules/mongoDb/getOneDocument.js";
+import { User } from "../../../../mongoDb/user/users.js";
+import { getAuthentificationToken } from "../../../../sharedModules/testModules/login.js";
+import registry from "../../../../../urlRegistry.mjs";
+import { Types } from "mongoose";
+const { devloppmentServer } = registry;
+
+
+
+const url = `${devloppmentServer.authApi}/logIn`
+
+export function addSpotWithSucessTest(): Suite {
+  chai.use(chaiHttp)
+  return describe("LOG IN AND ADD SPOT SUCESFULL", function () {
     before(async () => {
-        const researchObject = { userName: "TestOne" };
-        const fieldObject = { _id: 1 };
-        try {
-            const userId = await fetchOneEntriesFromDb(User, researchObject, fieldObject);
-            const newSpot = {
-                userId: userId._id,
-                spotName: "Fuck",
-                country: "spotTest",
-                type: {
-                    waveType: "Shore break",
-                    bottomType: "Reef",
-                },
-                location: {
-                    type: "Point",
-                    coordinates: ["2", "5"]
-                },
-                orientation: ["N", "N/E", "NN/E"],
-                creationDate: new Date().toUTCString()
-            };
-            this.ctx.spot = newSpot;
-        } catch (err) {
-            throw err
-        }
-
-        //done()
-        //console.log(this.ctx)
+      const newSpot = {
+        spotName: "Fuck",
+        country: "spotTest",
+        type: {
+          waveType: "Shore break",
+          bottomType: "Reef",
+        },
+        location: {
+          type: "Point",
+          coordinates: ["47.52408959", "-3.1545563"]
+        },
+        orientation: ["N", "N/E", "NN/E"],
+        creationDate: new Date().toUTCString()
+      };
+      this.ctx.spot = newSpot;
     });
-    it("Should add spot to database with sucess", async () => {
-        //console.log(this.ctx.spot)
-        const chai = chaiAgent();
-        const agentObj = { agent: chai.request.agent(server) };
-        const credentials = { email: "test@testOne.com", password: "test" };
-        const sendBody = this.ctx.spot;
-        const message = "User was sucessfully created";
-        const responseProperty = [
-            { propertyName: "message", propertyValue: message },
-            { propertyName: "error", propertyValue: false }
-        ];
-        const assertBodyObj = {
-            redirectsLength: 0,
-            propertyArray: responseProperty
-        };
-        try {
-            await testGetRoute(agentObj, "/csrf", jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
-            await testPostRoute(agentObj, "/login", credentials, jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj);
-            await testGetRoute(agentObj, "/csrf", jsonHeader200ObjCookie, noErrorObject, assertBodyNoRedirectObj)
-            await testPostRoute(agentObj, "/spot/newSpot", sendBody, jsonHeader200ObjectNoCookie, noErrorObject, assertBodyNoRedirectObj)
-        } catch (err) {
-            throw err
-        }
 
+
+    it("Should log in and post a new spot to data base with sucess", async () => {
+      const agent = chai.request.agent(server);
+      const responseMessage = "Spot added with sucess";
+      const contentType = 'application/json; charset=utf-8';
+      const credentials = { email: "test@testOne.com", password: "test" };
+      const contentLength = '50';
+      try {
+        const token: any = await getAuthentificationToken(url, credentials);
+        const response = await agent.post("/newSpot").send(this.ctx.spot).set("Authorization", `Bearer ${token.token}`);
+        const { header, body, error } = response;
+        expect(error).to.be.eql(false);
+        expect(response).to.have.property("status").eql(200);
+        expect(body).to.have.property("message").eql(responseMessage);
+        expect(header).to.have.property('content-type').eql(contentType);
+        expect(header).to.have.property('content-length').eql(contentLength);
+        expect(header).to.have.property('access-control-allow-credentials').eql("true");
+      } catch (error: any) {
+        console.log(error)
+        throw error;
+      };
     });
-});
+  });
+};
+
+
+
+
+
