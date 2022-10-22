@@ -22,14 +22,13 @@ declare interface LoginResponseInterface extends Response {
 type LoginFormProps = NativeStackScreenProps<RootStackParamList>;
 
 export default function LoginForm({ navigation }: LoginFormProps): JSX.Element {
-    useEffect(() => { getFetchFunction(`${process.env.API_LAN}/csrf`) }, []);
     const [answers, setAnswers] = useState({
         email: "test@testOne.com",
         password: "test"
     });
     /*Ajout du param a vérifier*/
     const sendAnswers = async () => {
-        postFetchFunction(`${process.env.API_LAN}/login`, answers)
+        postFetchFunction(`${process.env.DEVELOPMENT_AUTH_SERVER}/login`, answers)
             .then((res: any) => !res.error ? navigation.navigate("UserProfil") : console.log(res.error))
             .catch(err => console.error(err))
     };

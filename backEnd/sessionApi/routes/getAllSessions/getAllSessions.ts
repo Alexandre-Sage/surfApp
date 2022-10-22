@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/getAllSessions", async function (req: Request, res: Response): Promise<Response> {
   //const session: Session = req.session;
-  const researchObject = { userId: session.userId };
+  const researchObject = { userId: userData.userId };
   try {
     //await sessionChecking(req, session);
     const sessionDocument = await getAllDocument(UserSession, researchObject);
