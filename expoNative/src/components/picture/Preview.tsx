@@ -11,60 +11,61 @@ import { deleteCameraPicture } from '../../redux/slices/camera/cameraSlice';
 import styles from "../../styles/componentAdditional/Preview.style";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getSpotList } from '../../redux/slices/spot/spotSlice';
+import { useNewPicture } from '../../api/cameraApi/cameraApi';
 
 export type PreviewProps = NativeStackScreenProps<RootStackParamList, "Preview">
 
 export default function Preview({ navigation }: PreviewProps): JSX.Element {
-    const { newPicture } = useAppSelector((state) => state.picture);
-    const { cameraPicture } = useAppSelector((state) => state.camera)
+  //const { newPicture } = useAppSelector((state) => state.picture);
+  //const { cameraPicture } = useAppSelector((state) => state.camera)
+  const [newPictures, updateNewPicture] = useNewPicture();
+  //const dispatch = useAppDispatch();
+  //const allPictures = [...newPicture, ...cameraPicture];
+  //const addNewPicture = () => {
+  //    dispatch(uploadImageFromLocalFiles());
+  //};
+  const url = "/userProfil/uploadPicture";
+  //TO MOVE
+  const uploadPictureFunction = async (url: string, pictureUri: string, pictureName: string, callBack?: Function): Promise<Response> => {
+    const formData: FormData = new FormData();
+    const splitedImageUri: Array<string> = pictureUri.split(".");
+    const imageType: string = splitedImageUri[splitedImageUri.length - 1];
+    formData.append("image", {
+      uri: pictureUri,
+      type: `image/${imageType}`,
+      name: pictureName
+    });
+    try {
+      return await sendFileFetch(url, formData, callBack);
+    } catch (error) {
+      throw error
+    }
+  };
+  const uploadAll = async (picturesArray: Array<any>) => {
+    picturesArray.forEach(async (picture, index) => {
+      await uploadPictureFunction(url, picture.uri, "userPicture");
+      //dispatch(deleteNewPicture(picture.uri))
+      //dispatch(deleteCameraPicture(picture.uri))
+    });
+  };////////
 
-    const dispatch = useAppDispatch();
-    const allPictures = [...newPicture, ...cameraPicture];
-    const addNewPicture = () => {
-        dispatch(uploadImageFromLocalFiles());
-    };
-    const url = "/userProfil/uploadPicture";
-    //TO MOVE
-    const uploadPictureFunction = async (url: string, pictureUri: string, pictureName: string, callBack?: Function): Promise<Response> => {
-        const formData: FormData = new FormData();
-        const splitedImageUri: Array<string> = pictureUri.split(".");
-        const imageType: string = splitedImageUri[splitedImageUri.length - 1];
-        formData.append("image", {
-            uri: pictureUri,
-            type: `image/${imageType}`,
-            name: pictureName
-        });
-        try {
-            return await sendFileFetch(url, formData, callBack);
-        } catch (error) {
-            throw error
-        }
-    };
-    const uploadAll = async (picturesArray: Array<any>) => {
-        picturesArray.forEach(async (picture, index) => {
-            await uploadPictureFunction(url, picture.uri, "userPicture");
-            dispatch(deleteNewPicture(picture.uri))
-            dispatch(deleteCameraPicture(picture.uri))
-        });
-    };////////
-
-    return (
-        <SafeAreaView>
-            <ScrollView style={styles.container} >
-                <View style={styles.container}>
-                    <PictureSideScroller
-                        pictures={[...newPicture, ...cameraPicture]}
-                        styles={styles}
-                        isPreview={true}
-                        pictureFunction={uploadPictureFunction}
-                    />
-                    <View style={styles.buttonContainer}>
-                        <Button aditionalStyles={styles.button} text={"Upload all"} onPressFunction={() => uploadAll(allPictures).then(() => dispatch(getSpotList()))} />
-                        <Button aditionalStyles={styles.button} text={"Add picture"} onPressFunction={() => console.log("ok")} />
-                    </View>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView>
+      <ScrollView style={styles.container} >
+        <View style={styles.container}>
+          <PictureSideScroller
+            pictures={[...newPictures]}
+            styles={styles}
+            isPreview={true}
+            pictureFunction={uploadPictureFunction}
+          />
+          <View style={styles.buttonContainer}>
+            <Button aditionalStyles={styles.button} text={"Upload all"} onPressFunction={() => uploadAll(allPictures).then(() => dispatch(getSpotList()))} />
+            <Button aditionalStyles={styles.button} text={"Add picture"} onPressFunction={() => console.log("ok")} />
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 

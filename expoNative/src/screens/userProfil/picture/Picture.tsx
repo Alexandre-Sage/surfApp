@@ -6,10 +6,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AddPictureButton } from "./AddPictureButton";
 import { PictureSideScroller } from "../../../components/picture/PictureSideScroller";
 import { useProfilPicture } from "../../../api/userApi/userApi";
+import { Camera } from "expo-camera";
 declare interface PictureProps {
   navigation: any
 }
-
 export default function Picture({ navigation }: PictureProps) {
   const [addPicturePressed, setAddPicturePressed] = useState<boolean>(false);
   const [pictureInfo, updatePictureInfo] = useProfilPicture();
