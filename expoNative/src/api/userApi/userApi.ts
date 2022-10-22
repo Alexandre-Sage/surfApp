@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getFetchFunction } from "../../modules/fetch/basicFetch";
+import { getFetch } from "../../api/fetchApi/fetchApi";
 import { getCurrentPositionAsync, requestForegroundPermissionsAsync } from "expo-location";
 import { CurrentLocationInterface } from "../../interfaces/currentLocation";
 import { Use } from "react-native-svg";
@@ -18,30 +18,28 @@ declare interface PictureInterface {
 }
 
 
-export const useProfilHeaderInfo = (authToken: string): [UserHeaderInterface | Error, (userInfo: UserHeaderInterface) => void] => {
-  const [headerInfo, setHeaderInfo] = useState<UserHeaderInterface>({} as UserHeaderInterface)
-  getFetchFunction(`${process.env.DEVELOPMENT_USER_SERVER}/header`, authToken)
-    .then(response => setHeaderInfo(response))
+export const useProfilHeaderInfo = (): [UserHeaderInterface[], () => void] => {
+  const [headerInfo, setHeaderInfo] = useState<UserHeaderInterface[]>([] as UserHeaderInterface[])
+  const updateHeaderInfo = () => getFetch(`${process.env.DEVELOPMENT_USER_SERVER}/header`, setHeaderInfo)
     .catch(error => setHeaderInfo(error));
-  return [headerInfo, setHeaderInfo];
+  return [headerInfo, updateHeaderInfo];
 }
 
-export const useProfilPicture = (authToken: string): [PictureInterface[], (pictures: PictureInterface[]) => void] => {
+export const useProfilPicture = (): [PictureInterface[], () => void] => {
   const [pictureInfo, setPictureInfo] = useState<PictureInterface[]>([]);
-  getFetchFunction(`${process.env.DEVELOPMENT_USER_SERVER}/picture`, authToken)
-    .then(response => setPictureInfo(response))
+  const updatePictureInfo = () => getFetch(`${process.env.DEVELOPMENT_USER_SERVER}/allPicture`, setPictureInfo)
     .catch(error => setPictureInfo(error));
-  return [pictureInfo, setPictureInfo]
+  return [pictureInfo, updatePictureInfo]
 }
 
-export const getUserLocation = (): [CurrentLocationInterface, (newLocation: CurrentLocationInterface) => void] => {
+export const useUserLocation = (): [CurrentLocationInterface, () => void] => {
   const [currentLocation, setCurrentLocation] = useState<CurrentLocationInterface>({} as CurrentLocationInterface)
   requestForegroundPermissionsAsync()
     .then(authorization => authorization)
     .catch(error => error)
-  getCurrentPositionAsync({})
+  const updateCurrentLocation = () => getCurrentPositionAsync({})
     .then(location => setCurrentLocation({ ...location.coords }))
     .catch(error => setCurrentLocation(error))
-  return [currentLocation, setCurrentLocation];
+  return [currentLocation, updateCurrentLocation];
 };
 

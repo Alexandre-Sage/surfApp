@@ -1,10 +1,9 @@
 import { Alert } from "react-native";
-/**
- * @deprecated Use new fetch api
- */
+import { getStoredData, setStoredData } from "../asyncStorage/asyncStorage";
 
 
-async function getFetchFunction(url: string, token?: string): Promise<any> {
+async function getFetch(url: string, callBack?: Function): Promise<Response> {
+  const token = await getStoredData("JWT-TOKEN");
   return fetch(url, {
     method: "GET",
     credentials: "include",
@@ -14,51 +13,35 @@ async function getFetchFunction(url: string, token?: string): Promise<any> {
     }
   })
     .then(serverResponse => serverResponse.json())
-    .catch(serverError => serverError);
-};
-/**
- * @deprecated Use new fetch api
- */
-async function getFetchSetState(url: string, callBack: Function): Promise<Response> {
-  return fetch(url, {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    }
-  })
-    .then(serverResponse => serverResponse.json())
-    .then(json => callBack(json))
+    .then(json => callBack ? callBack(json) : json)
     .catch(serverError => serverError);
 }
-/**
- * @deprecated Use new fetch api
- */
+
 async function postFetchFunction(url: string, body: object): Promise<Response> {
+  const token = await getStoredData("JWT-TOKEN");
   return fetch(url, {
     method: "POST",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      "CSRF-token": "CSRF-TOKEN"
+      "Authorization": `Bearer ${token}`
     },
     body: JSON.stringify(body)
   })
     .then(serverResponse => serverResponse.json())
     .catch(serverError => serverError)
 };
-/**
- * @deprecated Use new fetch api
- */
+
 async function sendFileFetch(url: string, formData: FormData, callBack?: Function): Promise<Response> {
+  const token = await getStoredData("JWT-TOKEN")
   try {
-    const serverResponse = await fetch(`${process.env.API_LAN}${url}`, {
+    const serverResponse = await fetch(url, {
       method: 'POST',
-      credentials: "include",
       body: formData,
       headers: {
         "Content-Type": "multipart/form-data",
         "Accept": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
       },
     });
     const json = await serverResponse.json()
@@ -70,7 +53,23 @@ async function sendFileFetch(url: string, formData: FormData, callBack?: Functio
   }
 }
 
+async function authentificationFetch(url: string, body: object): Promise<string> {
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).then(response => response.json());
+    await setStoredData("JWT-TOKEN", response.token);
+    return response.message;
+  } catch (error) {
+    throw error
+  }
+
+};
 
 
 
-export { postFetchFunction, getFetchFunction, getFetchSetState, sendFileFetch };
+export { authentificationFetch, postFetchFunction, getFetch, sendFileFetch };
