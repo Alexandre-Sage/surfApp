@@ -8,11 +8,11 @@ export const useNewPicture = (): [CameraCapturedPicture[], (pictures: CameraCapt
   const updateNewPicture = (picture: CameraCapturedPicture) => setNewPictures([...newPictures, picture]);
   return [newPictures, updateNewPicture]
 }
-export const takePicture = async (camera: Camera): Promise<void> => {
-  const [newPictures, updateNewPicture] = useNewPicture();
+export const takePicture = async (camera: Camera, callBack: Function): Promise<void> => {
+  //const [newPictures, updateNewPicture] = useNewPicture();
   try {
     const picture = await camera.takePictureAsync(/*{ onPictureSaved: async (p) => console.log(p) }*/)
-    updateNewPicture(picture)
+    callBack(picture)
   } catch (error: any) {
     console.error("camera slice takePicture", error)
     throw error

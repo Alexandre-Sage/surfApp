@@ -19,12 +19,12 @@ export default function UserCamera({ navigation }: CameraProps): JSX.Element {
   const [type, setType] = useState(CameraType.back);
   const [autoFocus, setAutoFocus] = useState();
   const [focusDepth, setFocusDepth] = useState();
-
   //A CHANGER DE PLACE?
   const [permission, setPermission] = Camera.useCameraPermissions();
   const previewPath = newPictures[0] ? newPictures[newPictures.length - 1].uri : "/"
+  if (!permission?.granted) setPermission()
   return (
-    <View >
+    <View>
       <Camera
         useCamera2Api={true} autoFocus={true} ref={async (ref) => { setCamera(ref!) }}
         type={type} focusDepth={0} flashMode={flash} ratio={ratio}
@@ -37,7 +37,9 @@ export default function UserCamera({ navigation }: CameraProps): JSX.Element {
           flashStatus={flash}
           camera={camera}
           flashActived={(newFlash) => setFlash(newFlash)}
-          setRatio={setRatio} />
+          setRatio={setRatio}
+          cameraAction={updateNewPicture}
+        />
       </Camera>
     </View>
   );

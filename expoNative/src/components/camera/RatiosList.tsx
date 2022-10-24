@@ -11,8 +11,11 @@ interface RatiosListProps {
 export const RatiosList = ({ camera, setRatio }: RatiosListProps): JSX.Element => {
   const [ratios, setRatioList] = useState<string[]>()
   useEffect(() => {
-    (async () => setRatioList(await camera.getSupportedRatiosAsync()))
+    camera.getSupportedRatiosAsync().then(res => setRatioList(res))
+
+
   }, [])
+  console.log(ratios)
   const ratioListJsx = ratios?.map((ratio, key): JSX.Element => (
     <TouchableOpacity key={key} onPress={() => setRatio(ratio)} >
       <Text>{ratio}</Text>
