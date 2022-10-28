@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
-import { createAuthentification } from "./modules/createAuthentification.js";
-import dataValidation from "../../../sharedModules/dataValidation/validation.js";
-import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty.js";
-import { cookieOptions } from "../../../sharedModules/cookies/cookieOptions.js";
+import { createAuthentification } from "./modules/createAuthentification";
+import dataValidation from "../../../sharedModules/dataValidation/validation";
+import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty";
+import { cookieOptions } from "../../../sharedModules/cookies/cookieOptions";
 
 const router = express.Router();
 const { log, table } = console;

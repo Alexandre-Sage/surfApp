@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement.js";
-import spotCreation from "./spotCreationFunction.js";
+import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement";
+import spotCreation from "./spotCreationFunction";
 //import { Session } from "express-session";
 //import sessionChecking from "../../modules/sessionManagement/sessionChecking";
 //import { csurfChecking } from "../../modules/cookies/csurf";

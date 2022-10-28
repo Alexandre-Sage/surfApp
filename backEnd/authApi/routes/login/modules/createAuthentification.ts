@@ -1,9 +1,9 @@
-import { UserInterface } from "../../../../mongoDb/user/userInterface.js";
-import { User } from "../../../../mongoDb/user/users.js";
-import fetchOneDocument from "../../../../sharedModules/mongoDb/getOneDocument.js";
-import { setSessionToken } from "../../../../sharedModules/jwt/jwtManagement.js";
+import { UserInterface } from "../../../../mongoDb/user/userInterface";
+import { User } from "../../../../mongoDb/user/users";
+import fetchOneDocument from "../../../../sharedModules/mongoDb/getOneDocument";
+import { setSessionToken } from "../../../../sharedModules/jwt/jwtManagement";
 
-import { CustomError } from "../../../../sharedModules/errors/errorClass.js";
+import { CustomError } from "../../../../sharedModules/errors/errorClass";
 import { Types } from "mongoose";
 
 interface AuthentificationInterface {

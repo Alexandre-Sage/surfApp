@@ -1,9 +1,9 @@
 import fs from 'fs';
-import server from "../../server.js";
+import server from "../../server";
 import chai, { request, assert, should, expect, } from "chai";
 import chaiHttp from "chai-http"
 import { Suite } from "mocha";
-import {getAuthentificationToken} from "../../../sharedModules/testModules/login.js"
+import {getAuthentificationToken} from "../../../sharedModules/testModules/login"
 import  registry  from "../../../../urlRegistry.mjs"
 const {devloppmentServer}=registry;
 const filePath = `test/userImageUpload/image.jpg`

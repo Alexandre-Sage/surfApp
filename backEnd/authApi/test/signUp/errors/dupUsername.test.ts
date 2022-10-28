@@ -1,5 +1,5 @@
-import server from "../../../server.js";
-import { userObject } from "../signUpAssets.js";
+import server from "../../../server";
+import { userObject } from "../signUpAssets";
 import { expect } from "chai";
 import chai from "chai";
 

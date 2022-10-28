@@ -1,5 +1,5 @@
 import validator from "validator";
-import { CustomError } from "../errors/errorClass.js";
+import { CustomError } from "../errors/errorClass";
 
 
 function arrayAssertion(array: Array<any>) {

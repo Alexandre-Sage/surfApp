@@ -6,8 +6,8 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 //ROUTES 
-import userImageUpload from "./routes/userPictureUpload.js";
-//import allPictureRoute from "./routes/picture/userProfilPicture.js";
+import userImageUpload from "./routes/userPictureUpload";
+//import allPictureRoute from "./routes/picture/userProfilPicture";
 const server = express();
 console.log(process.env.PORT)
 process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;

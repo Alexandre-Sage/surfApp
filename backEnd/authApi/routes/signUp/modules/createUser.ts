@@ -1,7 +1,7 @@
 import { HydratedDocument } from "mongoose";
-import { UserInterface } from "../../../../mongoDb/user/userInterface.js";
-import { User } from "../../../../mongoDb/user/users.js";
-import { CustomError } from "../../../../sharedModules/errors/errorClass.js";
+import { UserInterface } from "../../../../mongoDb/user/userInterface";
+import { User } from "../../../../mongoDb/user/users";
+import { CustomError } from "../../../../sharedModules/errors/errorClass";
 
 export default async function createUser(newUserBody: UserInterface): Promise<UserInterface | Error> {
     const newUser = new User<UserInterface>(newUserBody);

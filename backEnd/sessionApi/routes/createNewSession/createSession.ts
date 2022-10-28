@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import { HydratedDocument } from "mongoose";
-import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty.js";
-import { SessionInterface } from "../../../mongoDb/sessions/sessionInterface.js";
-import { UserSession } from "../../../mongoDb/sessions/sessions.js";
-import addMongoEntries from "../../../sharedModules/mongoDb/addMongoDocument.js";
+import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty";
+import { SessionInterface } from "../../../mongoDb/sessions/sessionInterface";
+import { UserSession } from "../../../mongoDb/sessions/sessions";
+import addMongoEntries from "../../../sharedModules/mongoDb/addMongoDocument";
 import { sessionTokenAuthentification, getToken } from "../.././../sharedModules/jwt/jwtManagement";
 //FAIRE AUTHENTIFICATION
 const router = express.Router();

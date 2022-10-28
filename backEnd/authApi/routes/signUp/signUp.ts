@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
-import passwordConfirmation from "./modules/passwordConfirmation.js";
-import createUser from "./modules/createUser.js";
-import { UserInterface } from "../../../mongoDb/user/userInterface.js";
-import addMongoDocument from "../../../sharedModules/mongoDb/addMongoDocument.js";
-import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty.js";
-import dataValidation from "../../../sharedModules/dataValidation/validation.js";
+import passwordConfirmation from "./modules/passwordConfirmation";
+import createUser from "./modules/createUser";
+import { UserInterface } from "../../../mongoDb/user/userInterface";
+import addMongoDocument from "../../../sharedModules/mongoDb/addMongoDocument";
+import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty";
+import dataValidation from "../../../sharedModules/dataValidation/validation";
 
 const router = express.Router();
 

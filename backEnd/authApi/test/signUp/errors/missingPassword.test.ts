@@ -1,6 +1,6 @@
-import { missingPasswordObject } from "../signUpAssets.js";
+import { missingPasswordObject } from "../signUpAssets";
 import chai,{ expect } from "chai";
-import server from "../../../server.js";
+import server from "../../../server";
 
 
 export default function missingPasswordErrorTest() {

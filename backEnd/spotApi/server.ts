@@ -6,9 +6,9 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 //ROUTES 
-import addSpotRoute from "./routes/spotCreation/spotCreationRoute.js";
-import getOneSpot from "./routes/getOneSpot/getOneSpotRoute.js"
-import getAllSpot from "./routes/getAllSpot/getAllSpotRoute.js"
+import addSpotRoute from "./routes/spotCreation/spotCreationRoute";
+import getOneSpot from "./routes/getOneSpot/getOneSpotRoute"
+import getAllSpot from "./routes/getAllSpot/getAllSpotRoute"
 const server = express();
 console.log(process.env.PORT)
 process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;

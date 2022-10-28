@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
-import { UserInterface } from "../../mongoDb/user/userInterface.js";
-import { User } from "../../mongoDb/user/users.js";
-import getOneDocument from "../../sharedModules/mongoDb/getOneDocument.js";
-import { sessionTokenAuthentification } from "../../sharedModules/jwt/jwtManagement.js";
+import { UserInterface } from "../../mongoDb/user/userInterface";
+import { User } from "../../mongoDb/user/users";
+import getOneDocument from "../../sharedModules/mongoDb/getOneDocument";
+import { sessionTokenAuthentification } from "../../sharedModules/jwt/jwtManagement";
 const router = express.Router();
 
 router.get(`/`, async function (req: Request, res: Response): Promise<Response<JSON>> {

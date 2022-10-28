@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "User api microservice",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start:dev": "nodemon",
     "test":"mocha --loader=ts-node/esm --extension ts 'test/**/highOrder.test.ts'"

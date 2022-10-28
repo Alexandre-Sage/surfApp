@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { Schema, model, connect, disconnect } from "mongoose";
 import { UserInterface } from "./userInterface";
 import { randomBytes, pbkdf2Sync } from "crypto";
-import { CustomError } from "../../sharedModules/errors/errorClass.js";
+import { CustomError } from "../../sharedModules/errors/errorClass";
 dotenv.config()
 export const UserSchema = new Schema<UserInterface>({
     location: { type: String, required: true },

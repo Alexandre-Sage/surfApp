@@ -1,7 +1,7 @@
-import { missingUserNameObject } from "../signUpAssets.js";
+import { missingUserNameObject } from "../signUpAssets";
 
 import chai,{ expect } from "chai";
-import server from "../../../server.js";
+import server from "../../../server";
 
 
 export default function missingUserNameErrorTest() {

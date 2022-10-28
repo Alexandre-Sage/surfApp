@@ -1,6 +1,6 @@
 
 import chai,{ expect } from "chai";
-import server from "../../../server.js";
+import server from "../../../server";
 
 
 export default function logInWrongEmailErrorTest() {

@@ -1,5 +1,5 @@
 import validator from "validator";
-import { CustomError, CustomErrorInterface } from "../errors/errorClass.js";
+import { CustomError, CustomErrorInterface } from "../errors/errorClass";
 
 
 export default function dataValidation(body: object): Promise<boolean | CustomErrorInterface> {

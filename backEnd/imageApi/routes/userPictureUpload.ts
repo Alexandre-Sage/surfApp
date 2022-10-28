@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
-import { imageStorage, compressImage } from "../../sharedModules/upload/imageStorage.js";
-import addPicturePathToDb from "./pictureModules/addPicture.js";
-import { User } from "../../mongoDb/user/users.js";
-import { PictureObject } from "../../mongoDb/generalInterface/pictureObjectInterface.js";
+import { imageStorage, compressImage } from "../../sharedModules/upload/imageStorage";
+import addPicturePathToDb from "./pictureModules/addPicture";
+import { User } from "../../mongoDb/user/users";
+import { PictureObject } from "../../mongoDb/generalInterface/pictureObjectInterface";
 import multer from "multer";
-import { sessionTokenAuthentification, getToken } from "../../sharedModules/jwt/jwtManagement.js";
+import { sessionTokenAuthentification, getToken } from "../../sharedModules/jwt/jwtManagement";
 
 const router = express.Router();
 const { log, table, error } = console

@@ -1,5 +1,5 @@
 import mongoose, { connect, disconnect, HydratedDocument } from "mongoose";
-import { CustomError } from "../errors/errorClass.js";
+import { CustomError } from "../errors/errorClass";
 
 console.log("getAllDocument modified not tested")
 export default async function fetchAllDocument(mongoSchema: any, researchObject: object, field?: object, sortObject?: object): Promise<Document> {

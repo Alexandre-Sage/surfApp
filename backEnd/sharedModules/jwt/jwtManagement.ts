@@ -1,7 +1,7 @@
 import jwt, { JwtHeader, JwtPayload } from "jsonwebtoken";
 import { Request } from "express";
 import { Types } from "mongoose";
-import { CustomError } from "../errors/errorClass.js"
+import { CustomError } from "../errors/errorClass"
 export interface UserJsonDataInterface {
     userId: Types.ObjectId,
     userName: string,

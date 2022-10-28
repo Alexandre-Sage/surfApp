@@ -6,12 +6,12 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 //ROUTES 
-import signUp from "./routes/signUp/signUp.js";
-import logIn from "./routes/login/login.js";
-import testRoute from "./routes/testRoute.js"
+import signUp from "./routes/signUp/signUp";
+import logIn from "./routes/login/login";
+import testRoute from "./routes/testRoute"
 
 import mongoose from "mongoose";
-import { UserSchema } from "../mongoDb/user/users.js";
+import { UserSchema } from "../mongoDb/user/users";
 
 const server = express();
 console.log(process.env.PORT)

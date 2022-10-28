@@ -1,8 +1,7 @@
 import dotenv from "dotenv";
-import mongoose, { connect, disconnect, MongooseError } from "mongoose";
+import { connect,  MongooseError } from "mongoose";
 import { MongoServerError } from "mongodb";
-import { CustomError } from "../errors/errorClass.js";
-import {User, UserSchema} from "../../mongoDb/user/users.js"
+import { CustomError } from "../errors/errorClass";
 const { log } = console;
 dotenv.config()
 function mongoErrorHandling(error: MongoServerError, reject: Function) {

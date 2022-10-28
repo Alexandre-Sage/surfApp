@@ -1,5 +1,5 @@
 import { connect, disconnect } from "mongoose";
-import { CustomError } from "../errors/errorClass.js";
+import { CustomError } from "../errors/errorClass";
 
 export default async function fetchOneDocument(mongoSchema: any, researchObject: object, field?: object, sortObject?: object): Promise<any> {
     type ObjectKey = keyof typeof researchObject;

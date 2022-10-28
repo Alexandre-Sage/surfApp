@@ -1,6 +1,6 @@
 import { connect } from "mongoose";
-import { PictureObject } from "../../../mongoDb/generalInterface/pictureObjectInterface.js";
-import {CustomError} from "../../../sharedModules/errors/errorClass.js";
+import { PictureObject } from "../../../mongoDb/generalInterface/pictureObjectInterface";
+import {CustomError} from "../../../sharedModules/errors/errorClass";
 
 export default async function addPicturePathToDb(session: any, mongoSchema: any, pictureObject: PictureObject) {
     try {

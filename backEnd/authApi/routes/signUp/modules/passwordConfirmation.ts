@@ -1,5 +1,5 @@
-import { CustomError } from "../../../../sharedModules/errors/errorClass.js";
-import { CustomErrorInterface } from "../../../../sharedModules/errors/errorClass.js";
+import { CustomError } from "../../../../sharedModules/errors/errorClass";
+import { CustomErrorInterface } from "../../../../sharedModules/errors/errorClass";
 
 export default function passwordConfirmation(password: string, passwordConfirmation: string) {
     const error = new CustomError(

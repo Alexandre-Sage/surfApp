@@ -1,7 +1,7 @@
 import "mocha";
 import fs from "fs";
 import path from "path";
-import uploadUserImageSucessTest from "./userImageUpload/sucess.js";
+import uploadUserImageSucessTest from "./userImageUpload/sucess";
 
 
 describe("IMAGE API",()=>{

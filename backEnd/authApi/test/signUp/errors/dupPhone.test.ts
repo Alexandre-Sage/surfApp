@@ -1,5 +1,5 @@
-import server from "../../../server.js";
-import { dupPhoneObject } from "../signUpAssets.js";
+import server from "../../../server";
+import { dupPhoneObject } from "../signUpAssets";
 
 import { expect } from "chai";
 import chai from "chai";

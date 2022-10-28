@@ -1,10 +1,10 @@
-import server from "../../../server.js";
+import server from "../../../server";
 import chai, { assert, should, expect } from "chai";
 import chaiHttp from "chai-http"
 import { Suite, SuiteFunction } from "mocha";
-import getOneDocument from "../../../../sharedModules/mongoDb/getOneDocument.js";
-import { User } from "../../../../mongoDb/user/users.js";
-import { getAuthentificationToken } from "../../../../sharedModules/testModules/login.js";
+import getOneDocument from "../../../../sharedModules/mongoDb/getOneDocument";
+import { User } from "../../../../mongoDb/user/users";
+import { getAuthentificationToken } from "../../../../sharedModules/testModules/login";
 import registry from "../../../../../urlRegistry.mjs";
 import { Types } from "mongoose";
 const { devloppmentServer } = registry;

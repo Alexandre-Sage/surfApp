@@ -1,23 +1,23 @@
 import "mocha";
 import mongoose from "mongoose";
-import { User, UserSchema } from "../../mongoDb/user/users.js";
-import signUpTest from "./signUp/sucess/signUpSucess.test.js";
-import dupEmailErrorTest from "./signUp/errors/dupEmail.test.js"
-import dupUserNameErrorTest from "./signUp/errors/dupUsername.test.js";
-import dupPhoneErrorTest from "./signUp/errors/dupPhone.test.js";
-import invalidEmailErrorTest from "./signUp/errors/invalidMail.test.js";
-import invalidPhoneErrorTest from "./signUp/errors/invalidPhone.test.js";
-import missingEmailErrorTest from "./signUp/errors/missingEmail.test.js";
-import missingPasswordErrorTest from "./signUp/errors/missingPassword.test.js";
-import missingPhoneErrorTest from "./signUp/errors/missingPhone.test.js";
-import missingUserNameErrorTest from "./signUp/errors/missingUserName.test.js";
-import passwordConfirmationErrorTest from "./signUp/errors/passwordConfirmationError.test.js";
-import loginSucessTest from "./loginOld/sucess/loginSucess.test.js";
-import loginMissingEmailErrorTest from "./loginOld/error/emptyEmail.test.js";
-import loginMissingPasswordErrorTest from "./loginOld/error/emptyPassword.test.js";
-import loginInvalidEmailErrorTest from "./loginOld/error/invalidEmail.test.js";
-import logInWrongEmailErrorTest from "./loginOld/error/wrongEmail.test.js";
-import logInWrongPassworeErrorTest from "./loginOld/error/wrongPassword.test.js";
+import { User, UserSchema } from "../../mongoDb/user/users";
+import signUpTest from "./signUp/sucess/signUpSucess.test";
+import dupEmailErrorTest from "./signUp/errors/dupEmail.test"
+import dupUserNameErrorTest from "./signUp/errors/dupUsername.test";
+import dupPhoneErrorTest from "./signUp/errors/dupPhone.test";
+import invalidEmailErrorTest from "./signUp/errors/invalidMail.test";
+import invalidPhoneErrorTest from "./signUp/errors/invalidPhone.test";
+import missingEmailErrorTest from "./signUp/errors/missingEmail.test";
+import missingPasswordErrorTest from "./signUp/errors/missingPassword.test";
+import missingPhoneErrorTest from "./signUp/errors/missingPhone.test";
+import missingUserNameErrorTest from "./signUp/errors/missingUserName.test";
+import passwordConfirmationErrorTest from "./signUp/errors/passwordConfirmationError.test";
+import loginSucessTest from "./loginOld/sucess/loginSucess.test";
+import loginMissingEmailErrorTest from "./loginOld/error/emptyEmail.test";
+import loginMissingPasswordErrorTest from "./loginOld/error/emptyPassword.test";
+import loginInvalidEmailErrorTest from "./loginOld/error/invalidEmail.test";
+import logInWrongEmailErrorTest from "./loginOld/error/wrongEmail.test";
+import logInWrongPassworeErrorTest from "./loginOld/error/wrongPassword.test";
 const db =  mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
     autoIndex: true,
 });

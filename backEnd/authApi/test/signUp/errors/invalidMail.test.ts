@@ -1,6 +1,6 @@
 import chai,{ expect } from "chai";
-import server from "../../../server.js";
-import { invalidMailObject } from "../signUpAssets.js";
+import server from "../../../server";
+import { invalidMailObject } from "../signUpAssets";
 
 
 export default function invalidEmailErrorTest() {

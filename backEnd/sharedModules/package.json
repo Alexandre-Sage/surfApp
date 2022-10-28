@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "post-build":"cp package.json package-lock.json .env ../compiled/sharedModules && cd ../compiled/sharedModules && npm install --only=production"
+    "post-build": "cp package.json package-lock.json .env ../compiled/sharedModules && cd ../compiled/sharedModules && npm install --only=production"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/mongodb": "^4.0.7",
     "chai": "^4.3.6",
+    "cross-fetch": "^3.1.5",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.5",

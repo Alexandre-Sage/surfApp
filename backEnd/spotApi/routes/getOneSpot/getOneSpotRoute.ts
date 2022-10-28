@@ -1,8 +1,8 @@
 import express, { Router } from "express";
-import getOneDocument from "../../../sharedModules/mongoDb/getOneDocument.js";
-import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement.js";
+import getOneDocument from "../../../sharedModules/mongoDb/getOneDocument";
+import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement";
 
-import { Spot } from "../../../mongoDb/spots/spots.js";
+import { Spot } from "../../../mongoDb/spots/spots";
 //import sessionChecking from "../../modules/sessionManagement/sessionChecking";
 
 const router: Router = express.Router();

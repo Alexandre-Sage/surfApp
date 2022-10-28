@@ -1,6 +1,6 @@
-import { missingPhoneObject } from "../signUpAssets.js";
+import { missingPhoneObject } from "../signUpAssets";
 import chai,{ expect } from "chai";
-import server from "../../../server.js";
+import server from "../../../server";
 
 
 export default function missingPhoneErrorTest() {

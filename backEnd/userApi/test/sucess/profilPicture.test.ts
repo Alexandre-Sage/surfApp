@@ -1,17 +1,17 @@
-import server from "../../server.js";
+import server from "../../server";
 import chai, { request, assert, should, expect, } from "chai";
 import chaiHttp from "chai-http"
 import { Suite } from "mocha";
 import { Response } from "express"
 import { ServerResponse } from "http";
-import { getAuthentificationToken } from "../../../sharedModules/testModules/login.js"
+import { getAuthentificationToken } from "../../../sharedModules/testModules/login"
 
-import registry from "../../../../urlRegistry.mjs"
-const { devloppmentServer } = registry;
-import { objectPropertyAssertion } from "../../../sharedModules/testModules/assertionModule.js";
+//import registry from "../../../../urlRegistry.mjs"
+//const { devloppmentServer } = registry;
+import { objectPropertyAssertion } from "../../../sharedModules/testModules/assertionModule";
 
 chai.use(chaiHttp)
-const url = `${devloppmentServer.authApi}/logIn`
+const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 
 const data = [{
   location: 'TestOne',
