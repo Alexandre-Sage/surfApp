@@ -27,7 +27,7 @@ export default function LoginForm({ navigation }: LoginFormProps): JSX.Element {
   });
   /*Ajout du param a vérifier*/
   const sendAnswers = async () => {
-    authentificationFetch(`${process.env.DEVELOPMENT_AUTH_SERVER}/login`, answers)
+    authentificationFetch(`${process.env.DEVELOPMENT_SERVER}/auth/login`, answers)
       .then((res: any) => !res.error ? navigation.navigate("UserProfil") : console.log(res.error))
       .catch(err => console.error(err))
   };

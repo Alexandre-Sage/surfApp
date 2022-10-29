@@ -20,14 +20,14 @@ declare interface PictureInterface {
 
 export const useProfilHeaderInfo = (): [UserHeaderInterface[], () => void] => {
   const [headerInfo, setHeaderInfo] = useState<UserHeaderInterface[]>([] as UserHeaderInterface[])
-  const updateHeaderInfo = () => getFetch(`${process.env.DEVELOPMENT_USER_SERVER}/header`, setHeaderInfo)
+  const updateHeaderInfo = () => getFetch(`${process.env.DEVELOPMENT_SERVER}/user/header`, setHeaderInfo)
     .catch(error => setHeaderInfo(error));
   return [headerInfo, updateHeaderInfo];
 }
 
 export const useProfilPicture = (): [PictureInterface[], () => void] => {
   const [pictureInfo, setPictureInfo] = useState<PictureInterface[]>([]);
-  const updatePictureInfo = () => getFetch(`${process.env.DEVELOPMENT_USER_SERVER}/allPicture`, setPictureInfo)
+  const updatePictureInfo = () => getFetch(`${process.env.DEVELOPMENT_SERVER}/user/allPicture`, setPictureInfo)
     .catch(error => setPictureInfo(error));
   return [pictureInfo, updatePictureInfo]
 }

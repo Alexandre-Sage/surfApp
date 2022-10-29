@@ -6,41 +6,41 @@ import { getFetchFunction, postFetchFunction } from "../../modules/fetch/basicFe
 import styles from "../../styles/LandingPage/SignUpForm.style";
 
 declare interface SignUpAnswersInterface {
-    email: string,
-    phone: string,
-    firstName: string,
-    name: string,
-    userName: string,
-    location: string,
-    password: string,
-    confirmPassword: string,
+  email: string,
+  phone: string,
+  firstName: string,
+  name: string,
+  userName: string,
+  location: string,
+  password: string,
+  confirmPassword: string,
 }
 console.log(process.env.API_URL)
 export default function SignUpForm(): JSX.Element {
-    const [answers, setAnswers] = useState({
-        email: "",
-        phone: "",
-        firstName: "",
-        name: "",
-        userName: "",
-        location: "",
-        password: "",
-        confirmPassword: "",
-    });
-    const sendAnswers = async () => { console.log(JSON.stringify(answers)); await postFetchFunction(`${process.env.DEVELOPMENT_AUTH_SERVER}/signUp`, answers).then(res => console.log(res)).catch(err => console.log(err)) };
-    return (
-        <ScrollView >
-            <View style={styles.container}>
-                <Input name="Email" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-                <Input name="Phone" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-                <Input name="First name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-                <Input name="Name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-                <Input name="User name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-                <Input name="Location" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-                <Input name="Password" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-                <Input name="Confirm password" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-                <Button containerStyle={styles.button} text="Submit" onPressFunction={() => sendAnswers()} />
-            </View>
-        </ScrollView>
-    );
+  const [answers, setAnswers] = useState({
+    email: "",
+    phone: "",
+    firstName: "",
+    name: "",
+    userName: "",
+    location: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const sendAnswers = async () => { console.log(JSON.stringify(answers)); await postFetchFunction(`${process.env.DEVELOPMENT_SERVER}/auth/signUp`, answers).then(res => console.log(res)).catch(err => console.log(err)) };
+  return (
+    <ScrollView >
+      <View style={styles.container}>
+        <Input name="Email" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <Input name="Phone" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <Input name="First name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <Input name="Name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <Input name="User name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <Input name="Location" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <Input name="Password" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <Input name="Confirm password" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <Button containerStyle={styles.button} text="Submit" onPressFunction={() => sendAnswers()} />
+      </View>
+    </ScrollView>
+  );
 };
