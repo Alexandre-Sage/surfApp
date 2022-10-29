@@ -5,9 +5,17 @@ import { Suite } from "mocha";
 import { getAuthentificationToken } from "../../../sharedModules/testModules/login"
 import { createUser } from "../../../authApi/routes/signUp/modules/createUser"
 import { UserInterface } from "../../../mongoDb/user/userInterface";
+<<<<<<< HEAD
 //import registry from "../../../../urlRegistry"
 //const { devloppmentServer } = registry;
 import addMongoDocument from "../../../sharedModules/mongoDb/addMongoDocument"
+=======
+import { User } from "../../../mongoDb/user/users";
+//import registry from "../../../../urlRegistry"
+//const { devloppmentServer } = registry;
+import { addMongoDocument } from "../../../sharedModules/mongoDb/addMongoDocument"
+import { connect } from "mongoose";
+>>>>>>> @{-1}
 chai.use(chaiHttp)
 
 const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
@@ -35,10 +43,28 @@ const userUpdateObject = {
   lastConnection: new Date()
 } as UserInterface;
 
+<<<<<<< HEAD
+=======
+const deleteFromDb = async (mongoDocument: any, searchObject: any) => {
+  try {
+    await connect(`mongodb+srv://AlexandreSage:Alexandretroisdemacedoinelegrand@cluster0.adoon.mongodb.net/surfApp?retryWrites=true&w=majority`, {
+      autoIndex: true,
+    })
+    await mongoDocument.findOneAndDelete({ ...searchObject })
+  } catch (error) {
+    throw error
+  }
+}
+
+>>>>>>> @{-1}
 export function updateUserProfilSucessTest(): Suite {
   return describe.only("LOG IN AND UPDATE USER INFO  ", function () {
     before(async () => {
       try {
+<<<<<<< HEAD
+=======
+        await deleteFromDb(User, { userName: "updated" })
+>>>>>>> @{-1}
         const userToUpdate = await createUser(userObject);
         await addMongoDocument(userToUpdate)
       } catch (error) {
@@ -50,6 +76,7 @@ export function updateUserProfilSucessTest(): Suite {
       const credentials = { email: "test@testTwo.com", password: "test" };
       const responseMessage = "Profil sucessfully updated";
       const contentType = 'application/json; charset=utf-8';
+<<<<<<< HEAD
       //const contentLength = '126';
       try {
         const token: any = await getAuthentificationToken(url, credentials)
@@ -66,6 +93,21 @@ export function updateUserProfilSucessTest(): Suite {
         expect(body.message).to.be.eql(responseMessage);
         expect(body.error).to.be.eql(false)
         // expect(header).to.have.property('content-length').eql(contentLength);
+=======
+      const contentLength = '54';
+      try {
+        const token: any = await getAuthentificationToken(url, credentials)
+        const response = await agent
+          .post("/user/updateProfil")
+          .set("Authorization", `Bearer ${token.token}`)
+          .send(userUpdateObject)
+        const { header, body, error } = response;
+        expect(error).to.be.eql(false);
+        expect(response).to.have.property("status").eql(200);
+        expect(body.message).to.be.eql(responseMessage);
+        expect(body.error).to.be.eql(false)
+        expect(header).to.have.property('content-length').eql(contentLength);
+>>>>>>> @{-1}
         expect(header).to.have.property('content-type').eql(contentType);
         expect(header).to.have.property('access-control-allow-credentials').eql("true");
       } catch (error: any) {
