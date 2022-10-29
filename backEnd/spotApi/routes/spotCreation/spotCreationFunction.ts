@@ -1,5 +1,5 @@
-import addMongoDocument from "../../../sharedModules/mongoDb/addMongoDocument";
-import notEmptyCheck from "../../../sharedModules/dataValidation/notEmpty";
+import { addMongoDocument } from "../../../sharedModules/mongoDb/addMongoDocument";
+import { notEmptyCheck } from "../../../sharedModules/dataValidation/notEmpty";
 import { SpotInterface } from "../../../mongoDb/spots/spotInterface";
 import { Spot } from "../../../mongoDb/spots/spots";
 import { HydratedDocument } from "mongoose";
