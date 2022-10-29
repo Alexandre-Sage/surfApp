@@ -7,7 +7,7 @@ import { createUser } from "../../../authApi/routes/signUp/modules/createUser"
 import { UserInterface } from "../../../mongoDb/user/userInterface";
 //import registry from "../../../../urlRegistry"
 //const { devloppmentServer } = registry;
-import addMongoDocument from "../../../sharedModules/mongoDb/addMongoDocument"
+import { addMongoDocument } from "../../../sharedModules/mongoDb/addMongoDocument"
 chai.use(chaiHttp)
 
 const url = `https://development.alexandre-sage-dev.fr/auth/logIn`

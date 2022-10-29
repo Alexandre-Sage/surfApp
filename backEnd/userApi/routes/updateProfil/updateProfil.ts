@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { UserInterface } from "../../../mongoDb/user/userInterface";
 import { User } from "../../../mongoDb/user/users";
-import getOneDocument from "../../../sharedModules/mongoDb/getOneDocument";
+import { fetchOneDocument } from "../../../sharedModules/mongoDb/getOneDocument";
 import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement";
 import router from "../profilHeader";
 import { updateDocument } from "../../../sharedModules/mongoDb/updateDocument";
