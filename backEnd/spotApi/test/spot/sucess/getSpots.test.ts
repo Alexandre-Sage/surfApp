@@ -3,13 +3,10 @@ import chai, { expect } from "chai";
 import chaiHttp from "chai-http"
 import { Suite } from "mocha";
 import { getAuthentificationToken } from "../../../../sharedModules/testModules/login"
-import registry from "../../../../../urlRegistry.mjs"
-
-const { devloppmentServer } = registry;
 
 chai.use(chaiHttp)
 
-const url = `${devloppmentServer.authApi}/logIn`
+const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 
 export function getAllSucessTest(): Suite {
   return describe("LOG IN AND GET ALL SPOT", function () {

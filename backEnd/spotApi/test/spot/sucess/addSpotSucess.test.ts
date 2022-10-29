@@ -5,30 +5,28 @@ import { Suite, SuiteFunction } from "mocha";
 import getOneDocument from "../../../../sharedModules/mongoDb/getOneDocument";
 import { User } from "../../../../mongoDb/user/users";
 import { getAuthentificationToken } from "../../../../sharedModules/testModules/login";
-import registry from "../../../../../urlRegistry.mjs";
 import { Types } from "mongoose";
-const { devloppmentServer } = registry;
 
 
 
-const url = `${devloppmentServer.authApi}/logIn`
+const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 
 export function addSpotWithSucessTest(): Suite {
   chai.use(chaiHttp)
   return describe("LOG IN AND ADD SPOT SUCESFULL", function () {
     before(async () => {
       const newSpot = {
-        spotName: "Fuck",
-        country: "spotTest",
+        spotName: "port blanc",
+        country: "France",
         type: {
           waveType: "Shore break",
-          bottomType: "Reef",
+          bottomType: "Sand",
         },
         location: {
           type: "Point",
           coordinates: ["47.52408959", "-3.1545563"]
         },
-        orientation: ["N", "N/E", "NN/E"],
+        orientation: ["W", "N/W", "WN/W"],
         creationDate: new Date().toUTCString()
       };
       this.ctx.spot = newSpot;

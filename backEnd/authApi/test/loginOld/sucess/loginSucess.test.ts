@@ -1,4 +1,4 @@
-import server from "../../../server.js";
+import server from "../../../server";
 import chai, { request, assert, should, expect, } from "chai";
 import chaiHttp from "chai-http"
 import { Suite } from "mocha";
@@ -19,7 +19,7 @@ export default function loginSucessTest(): Suite {
             const credentials = { email: "test@testOne.com", password: "test" };
             const responseMessage = "Welcome back TestOne!";
             const contentType = 'application/json; charset=utf-8';
-            const contentLength = '49';
+            const contentLength = '264';
             try {
                 const response = await agent.post("/logIn").send(credentials);
                 const { header, body, error } = response;

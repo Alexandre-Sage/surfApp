@@ -1,5 +1,5 @@
-import server from "../../../server.js";
-import { userObject } from "../signUpAssets.js";
+import server from "../../../server";
+import { userObject } from "../signUpAssets";
 import chai, { request, assert, should, expect } from "chai";
 import chaiHttp from "chai-http"
 import { Suite, SuiteFunction } from "mocha";

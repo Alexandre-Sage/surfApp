@@ -3,17 +3,15 @@ import chai, { expect } from "chai";
 import chaiHttp from "chai-http"
 import { Suite } from "mocha";
 import { getAuthentificationToken } from "../../../../sharedModules/testModules/login"
-import registry from "../../../../../urlRegistry.mjs"
 import getOneDocument from "../../../../sharedModules/mongoDb/getOneDocument";
 import { User } from "../../../../mongoDb/user/users";
 import { Types } from "mongoose";
 import { Spot } from "../../../../mongoDb/spots/spots";
 
-const { devloppmentServer } = registry;
 
 chai.use(chaiHttp)
 
-const url = `${devloppmentServer.authApi}/logIn`
+const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 
 const getUserId = async (userName: string): Promise<Types.ObjectId> => {
   const researchObject = { userName: userName };
@@ -26,12 +24,11 @@ const getUserId = async (userName: string): Promise<Types.ObjectId> => {
 export function getOneSpotSucessTest(): Suite {
   return describe("LOG IN AND GET ONE SPOT", function () {
     before(async () => {
-      const researchObjectSpot = { spotName: "Fuck" }
+      const researchObjectSpot = { spotName: "port blanc" }
       const fieldObject = { _id: 1 };
       try {
         const userId = await getUserId("TestOne");
         const spot = await getOneDocument(Spot, researchObjectSpot);
-        //console.log(spot)
         this.ctx.spotId = spot._id;
         this.ctx.spot = spot;
 
@@ -43,16 +40,13 @@ export function getOneSpotSucessTest(): Suite {
       const credentials = { email: "test@testOne.com", password: "test" };
       const responseMessage = this.ctx.spot;
       const contentType = 'application/json; charset=utf-8';
-      //const contentLength = '126';
       try {
         const token: any = await getAuthentificationToken(url, credentials)
         const response = await agent.get(`/getSpot/${this.ctx.spotId}`).set("Authorization", `Bearer ${token.token}`);
         const { header, body, error } = response;
         expect(error).to.be.eql(false);
         expect(response).to.have.property("status").eql(200);
-        //expect(body).to.be.eql(responseMessage);
         expect(header).to.have.property('content-type').eql(contentType);
-        //expect(header).to.have.property('content-length').eql(contentLength);
         expect(header).to.have.property('access-control-allow-credentials').eql("true");
       } catch (error: any) {
         throw error
