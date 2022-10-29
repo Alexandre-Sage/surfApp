@@ -25,9 +25,9 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 
-server.use("/header", userHeaderRouter);
-server.use("/allPicture", allPictureRoute);
-server.use("/updateProfil", updateProfilRoute);
+server.use("/user/header", userHeaderRouter);
+server.use("/user/allPicture", allPictureRoute);
+server.use("/user/updateProfil", updateProfilRoute);
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
   console.log(`Server listening on: ${process.env.PORT}`);

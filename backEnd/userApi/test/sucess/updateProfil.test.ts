@@ -5,9 +5,11 @@ import { Suite } from "mocha";
 import { getAuthentificationToken } from "../../../sharedModules/testModules/login"
 import { createUser } from "../../../authApi/routes/signUp/modules/createUser"
 import { UserInterface } from "../../../mongoDb/user/userInterface";
+import { User } from "../../../mongoDb/user/users";
 //import registry from "../../../../urlRegistry"
 //const { devloppmentServer } = registry;
 import { addMongoDocument } from "../../../sharedModules/mongoDb/addMongoDocument"
+import { connect } from "mongoose";
 chai.use(chaiHttp)
 
 const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
@@ -35,10 +37,22 @@ const userUpdateObject = {
   lastConnection: new Date()
 } as UserInterface;
 
+const deleteFromDb = async (mongoDocument: any, searchObject: any) => {
+  try {
+    await connect(`mongodb+srv://AlexandreSage:Alexandretroisdemacedoinelegrand@cluster0.adoon.mongodb.net/surfApp?retryWrites=true&w=majority`, {
+      autoIndex: true,
+    })
+    await mongoDocument.findOneAndDelete({ ...searchObject })
+  } catch (error) {
+    throw error
+  }
+}
+
 export function updateUserProfilSucessTest(): Suite {
   return describe.only("LOG IN AND UPDATE USER INFO  ", function () {
     before(async () => {
       try {
+        await deleteFromDb(User, { userName: "updated" })
         const userToUpdate = await createUser(userObject);
         await addMongoDocument(userToUpdate)
       } catch (error) {
@@ -50,22 +64,19 @@ export function updateUserProfilSucessTest(): Suite {
       const credentials = { email: "test@testTwo.com", password: "test" };
       const responseMessage = "Profil sucessfully updated";
       const contentType = 'application/json; charset=utf-8';
-      //const contentLength = '126';
+      const contentLength = '54';
       try {
         const token: any = await getAuthentificationToken(url, credentials)
         const response = await agent
-          .post("/updateProfil")
+          .post("/user/updateProfil")
           .set("Authorization", `Bearer ${token.token}`)
           .send(userUpdateObject)
-        ///console.log(response)
         const { header, body, error } = response;
         expect(error).to.be.eql(false);
         expect(response).to.have.property("status").eql(200);
-        //expect(body[0]).to.have.property("creationDate");
-        //delete body.creationDate
         expect(body.message).to.be.eql(responseMessage);
         expect(body.error).to.be.eql(false)
-        // expect(header).to.have.property('content-length').eql(contentLength);
+        expect(header).to.have.property('content-length').eql(contentLength);
         expect(header).to.have.property('content-type').eql(contentType);
         expect(header).to.have.property('access-control-allow-credentials').eql("true");
       } catch (error: any) {

@@ -15,10 +15,10 @@ router.post("/", async (req: Request, res: Response) => {
   const token = getToken(req);
   try {
     const userData = await sessionTokenAuthentification(token);
-    const serchObject = { _id: userData.userId };
-    const fieldToUpdate = { ...req.body };
     await dataValidation(req.body)
     await notEmptyCheck(req.body)
+    const serchObject = { _id: userData.userId };
+    const fieldToUpdate = { ...req.body };
     await updateDocument(User, serchObject, fieldToUpdate)
     res.status(200).json({
       message: "Profil sucessfully updated",
