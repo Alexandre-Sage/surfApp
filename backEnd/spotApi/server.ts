@@ -25,9 +25,9 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 
-server.use("/newSpot", addSpotRoute);
-server.use("/getSpot", getOneSpot);
-server.use("/getAllSpots", getAllSpot);
+server.use("/spot/newSpot", addSpotRoute);
+server.use("/spot/getSpot", getOneSpot);
+server.use("/spot/getAllSpots", getAllSpot);
 
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
