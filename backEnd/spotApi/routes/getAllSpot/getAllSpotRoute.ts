@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement";
-import getAllDocument from "../../../sharedModules/mongoDb/getAllDocument";
+import { fetchAllDocument } from "../../../sharedModules/mongoDb/getAllDocument";
 import { Spot } from "../../../mongoDb/spots/spots";
 
 const router: Router = express.Router();
@@ -11,7 +11,7 @@ router.get("/", async function (req, res) {
   try {
     const userData = await sessionTokenAuthentification(token)
     const researchObject = { userId: userData.userId };
-    const spotInfo = await getAllDocument(Spot, researchObject, fieldObject);
+    const spotInfo = await fetchAllDocument(Spot, researchObject, fieldObject);
     res.status(200).json(
       spotInfo,
     );

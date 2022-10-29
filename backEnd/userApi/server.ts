@@ -8,6 +8,7 @@ import logger from "morgan";
 //ROUTES 
 import userHeaderRouter from "./routes/profilHeader";
 import allPictureRoute from "./routes/picture/userProfilPicture";
+import updateProfilRoute from "./routes/updateProfil/updateProfil"
 const server = express();
 console.log(process.env.PORT)
 process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;
@@ -26,6 +27,7 @@ server.use(express.json());
 
 server.use("/header", userHeaderRouter);
 server.use("/allPicture", allPictureRoute);
+server.use("/updateProfil", updateProfilRoute);
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
   console.log(`Server listening on: ${process.env.PORT}`);

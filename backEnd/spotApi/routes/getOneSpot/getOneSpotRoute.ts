@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import getOneDocument from "../../../sharedModules/mongoDb/getOneDocument";
+import { fetchOneDocument } from "../../../sharedModules/mongoDb/getOneDocument";
 import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement";
 
 import { Spot } from "../../../mongoDb/spots/spots";
@@ -13,7 +13,7 @@ router.get("/:spotId", async function (req, res) {
   try {
     const userData = await sessionTokenAuthentification(token);
     const researchObject = { userId: userData.userId, _id: spotId };
-    const spotInfo = await getOneDocument(Spot, researchObject);
+    const spotInfo = await fetchOneDocument(Spot, researchObject);
     res.status(200).json(spotInfo);
   } catch (error: any) {
     console.log(error)
