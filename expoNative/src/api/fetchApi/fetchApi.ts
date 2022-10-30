@@ -45,9 +45,11 @@ async function sendFileFetch(url: string, formData: FormData, callBack?: Functio
       },
     });
     const json = await serverResponse.json()
+    console.log("json", json)
     if (callBack) return callBack(json);
     else return json
   } catch (error: any) {
+    console.log(error)
     Alert.alert(error.message)
     return error
   }
@@ -65,6 +67,7 @@ async function authentificationFetch(url: string, body: object): Promise<string>
     await setStoredData("JWT-TOKEN", response.token);
     return response.message;
   } catch (error) {
+    console.log(error)
     throw error
   }
 

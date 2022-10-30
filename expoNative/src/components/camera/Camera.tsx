@@ -23,14 +23,18 @@ export default function UserCamera({ navigation }: CameraProps): JSX.Element {
   const [permission, setPermission] = Camera.useCameraPermissions();
   const previewPath = newPictures[0] ? newPictures[newPictures.length - 1].uri : "/"
   if (!permission?.granted) setPermission()
+  console.log(newPictures)
   return (
     <View>
       <Camera
-        useCamera2Api={true} autoFocus={true} ref={async (ref) => { setCamera(ref!) }}
+        /*useCamera2Api={true} autoFocus={true}*/ ref={async (ref) => { setCamera(ref!) }}
         type={type} focusDepth={0} flashMode={flash} ratio={ratio}
         style={styles.container}
       >
-        <TouchableOpacity style={styles.preview} onPress={() => navigation.navigate("Preview")}>
+        <TouchableOpacity
+          style={styles.preview}
+          onPress={() => navigation.navigate("Preview", { images: newPictures })}
+        >
           <Image source={{ uri: previewPath }} style={styles.preview} />
         </TouchableOpacity>
         <CameraButtons
