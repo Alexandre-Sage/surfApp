@@ -25,13 +25,26 @@ export const CameraButtons = ({ flashActived, camera, flashStatus, setRatio, cam
   const imagePath = `${process.env.API_LAN}/images/assets/flash.svg`
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.flashButton} onPress={() => flashActived(flashStatus === 0 ? 1 : 0)}>
-        <SvgUri fill={"white"} uri={imagePath} style={styles.flashSvg} />
+      <TouchableOpacity
+        style={styles.flashButton}
+        onPress={() => flashActived(flashStatus === 0 ? 1 : 0)}
+      >
+        <SvgUri
+          fill={"white"}
+          uri={imagePath}
+          style={styles.flashSvg}
+        />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.takePicturebutton} onPress={() => takePicture(camera, cameraAction)} />
+      <TouchableOpacity
+        style={styles.takePicturebutton}
+        onPress={() => takePicture(camera, cameraAction)}
+      />
       <View style={styles.ratioListContainer} >
         {displayRatios ? <RatiosList setRatio={setRatio} camera={camera} /> : null}
-        <TouchableOpacity onPress={() => handleDisplayRatios()} style={styles.ratiosListButton} >
+        <TouchableOpacity
+          onPress={() => handleDisplayRatios()}
+          style={styles.ratiosListButton}
+        >
           <Text>Picture size</Text>
         </TouchableOpacity>
       </View>

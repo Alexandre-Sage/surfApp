@@ -2,29 +2,18 @@ import React, { useEffect } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, View, Alert, ScrollView } from 'react-native';
 import { RootStackParamList } from '../../../App';
-import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { uploadImageFromLocalFiles, getPictureList, deleteNewPicture } from '../../redux/slices/picture/pictureSlice';
 import { PictureSideScroller } from './PictureSideScroller';
 import Button from '../buttons/Button';
-import { sendFileFetch } from '../../modules/fetch/basicFetch';
-import { deleteCameraPicture } from '../../redux/slices/camera/cameraSlice';
+import { sendFileFetch } from '../../api/fetchApi/fetchApi';
 import styles from "../../styles/componentAdditional/Preview.style";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getSpotList } from '../../redux/slices/spot/spotSlice';
 import { useNewPicture } from '../../api/cameraApi/cameraApi';
 
 export type PreviewProps = NativeStackScreenProps<RootStackParamList, "Preview">
 
-export default function Preview({ navigation }: PreviewProps): JSX.Element {
-  //const { newPicture } = useAppSelector((state) => state.picture);
-  //const { cameraPicture } = useAppSelector((state) => state.camera)
-  const [newPictures, updateNewPicture] = useNewPicture();
-  //const dispatch = useAppDispatch();
-  //const allPictures = [...newPicture, ...cameraPicture];
-  //const addNewPicture = () => {
-  //    dispatch(uploadImageFromLocalFiles());
-  //};
-  const url = "/userProfil/uploadPicture";
+export default function Preview({ navigation, route }: PreviewProps): JSX.Element {
+  const [newPictures, updateNewPicture] = useNewPicture(route.params.images);
+  const url = `${process.env.DEVELOPMENT_SERVER}/image/userImageUpload`
   //TO MOVE
   const uploadPictureFunction = async (url: string, pictureUri: string, pictureName: string, callBack?: Function): Promise<Response> => {
     const formData: FormData = new FormData();
@@ -38,6 +27,7 @@ export default function Preview({ navigation }: PreviewProps): JSX.Element {
     try {
       return await sendFileFetch(url, formData, callBack);
     } catch (error) {
+      console.log(error)
       throw error
     }
   };
@@ -60,7 +50,7 @@ export default function Preview({ navigation }: PreviewProps): JSX.Element {
             pictureFunction={uploadPictureFunction}
           />
           <View style={styles.buttonContainer}>
-            <Button aditionalStyles={styles.button} text={"Upload all"} onPressFunction={() => uploadAll(allPictures).then(() => dispatch(getSpotList()))} />
+            <Button aditionalStyles={styles.button} text={"Upload all"} onPressFunction={() => uploadAll([])} />
             <Button aditionalStyles={styles.button} text={"Add picture"} onPressFunction={() => console.log("ok")} />
           </View>
         </View>

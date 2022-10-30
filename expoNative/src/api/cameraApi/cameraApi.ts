@@ -1,10 +1,11 @@
 import { Camera, CameraCapturedPicture } from "expo-camera";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
-let camera: Camera;
+//let camera: Camera;
 
-export const useNewPicture = (): [CameraCapturedPicture[], (pictures: CameraCapturedPicture) => void] => {
-  const [newPictures, setNewPictures] = useState<CameraCapturedPicture[]>([]);
+export const useNewPicture = (pictures?: CameraCapturedPicture[]):
+  [CameraCapturedPicture[], (pictures: CameraCapturedPicture) => void] => {
+  const [newPictures, setNewPictures] = useState<CameraCapturedPicture[]>(pictures || []);
   const updateNewPicture = (picture: CameraCapturedPicture) => setNewPictures([...newPictures, picture]);
   return [newPictures, updateNewPicture]
 }
@@ -14,7 +15,7 @@ export const takePicture = async (camera: Camera, callBack: Function): Promise<v
     const picture = await camera.takePictureAsync(/*{ onPictureSaved: async (p) => console.log(p) }*/)
     callBack(picture)
   } catch (error: any) {
-    console.error("camera slice takePicture", error)
+    console.error("takePicture", error)
     throw error
   }
 };
@@ -24,7 +25,7 @@ export const useFlash = () => {
 
 }
 
-export const useGetRatios = async (): Promise<[string[], (ratio: string[]) => void]> => {
+export const useGetRatios = async (camera: Camera): Promise<[string[], (ratio: string[]) => void]> => {
   const [ratios, setRatios] = useState<string[]>([]);
   setRatios(await camera.getSupportedRatiosAsync())
   return [ratios, setRatios]

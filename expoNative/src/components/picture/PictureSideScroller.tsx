@@ -12,8 +12,14 @@ interface PictureSideScrollerProps {
 }
 
 export const PictureSideScroller = ({ pictures, styles, isPreview, pictureFunction }: PictureSideScrollerProps): JSX.Element => {
+  console.log(pictures)
   const pictureJsx = pictures.map((picture, key): ReactNode => (
-    <TouchablePicture key={key} imagePath={picture.path ? `${process.env.API_LAN}/${picture.path}` : picture.uri} style={styles.picture} isPreview={isPreview} previewFunction={pictureFunction ? pictureFunction : () => { }} />
+    <TouchablePicture
+      key={key}
+      imagePath={picture.path ? `${process.env.API_LAN}/${picture.path}` : picture.uri}
+      style={styles.picture}
+      isPreview={isPreview}
+      previewFunction={pictureFunction ? pictureFunction : () => { }} />
   ));
   return (
     <View style={styles.scrollContainer}>

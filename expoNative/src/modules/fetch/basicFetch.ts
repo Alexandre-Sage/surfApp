@@ -52,7 +52,7 @@ async function postFetchFunction(url: string, body: object): Promise<Response> {
  */
 async function sendFileFetch(url: string, formData: FormData, callBack?: Function): Promise<Response> {
   try {
-    const serverResponse = await fetch(`${process.env.API_LAN}${url}`, {
+    const serverResponse = await fetch(url, {
       method: 'POST',
       credentials: "include",
       body: formData,

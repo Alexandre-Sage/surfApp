@@ -25,9 +25,8 @@ export default function LoginForm({ navigation }: LoginFormProps): JSX.Element {
     email: "test@testOne.com",
     password: "test"
   });
-  /*Ajout du param a vérifier*/
   const sendAnswers = async () => {
-    authentificationFetch(`${process.env.DEVELOPMENT_SERVER}/auth/login`, answers)
+    authentificationFetch(`${process.env.DEVELOPMENT_SERVER}/auth/logIn`, answers)
       .then((res: any) => !res.error ? navigation.navigate("UserProfil") : console.log(res.error))
       .catch(err => console.error(err))
   };

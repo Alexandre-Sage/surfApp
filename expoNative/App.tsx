@@ -13,12 +13,13 @@ import Preview from "./src/components/picture/Preview";
 import { Header } from "./src/components/header/Header";
 import { FullScreenProps } from "./src/components/picture/FullScreen";
 import Gallery from "./src/screens/userProfil/picture/Gallery";
+import { CameraCapturedPicture } from "expo-camera";
 export type RootStackParamList = {
   LandingPage: undefined,
   UserProfil: undefined,
   Gallery: undefined,
   Camera: undefined,
-  Preview: undefined,
+  Preview: { images: Array<CameraCapturedPicture> },
   FullScreen: { imagePath: string; },
 }
 const Stack = createStackNavigator<RootStackParamList>();
@@ -54,7 +55,14 @@ export default function App() {
           }
         >
           <Stack.Screen name="LandingPage" component={LandingPage} options={{ title: "Welcome" }} />
-          <Stack.Screen name="UserProfil" component={UserProfil} options={{ headerStyle: { ...profilHeaderStyle }, headerTitle: () => <Header title={"Profil"} /> }} />
+          <Stack.Screen
+            name="UserProfil"
+            component={UserProfil}
+            options={{
+              headerStyle: { ...profilHeaderStyle },
+              headerTitle: () => <Header title={"Profil"} />
+            }}
+          />
           <Stack.Screen name="Gallery" component={Gallery} />
           <Stack.Screen name="FullScreen" component={FullScreen} />
           <Stack.Screen name="Preview" component={Preview} />
