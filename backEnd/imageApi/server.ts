@@ -23,7 +23,11 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 
+<<<<<<< HEAD
 server.use("/imageApi/userImageUpload", userImageUpload);
+=======
+server.use("/image/userimageUpload", userImageUpload);
+>>>>>>> 905b118 (fix: url update)
 //server.use("/allPicture",allPictureRoute);
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
