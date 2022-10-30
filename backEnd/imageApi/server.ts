@@ -23,7 +23,7 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
 server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 
-server.use("/image/userimageUpload", userImageUpload);
+server.use("/imageApi/userImageUpload", userImageUpload);
 //server.use("/allPicture",allPictureRoute);
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {

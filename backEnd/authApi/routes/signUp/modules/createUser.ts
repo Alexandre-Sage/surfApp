@@ -13,9 +13,6 @@ export async function createUser(newUserBody: UserInterface): Promise<UserInterf
       "Something wrong happen please try again.",
       "USER HASH PASSWORD ERROR",
       400
-    );
-    );
-
+    )
   }
-
 };
