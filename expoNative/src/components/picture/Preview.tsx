@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, View, Alert, ScrollView } from 'react-native';
 import { RootStackParamList } from '../../../App';
 import { PictureSideScroller } from './PictureSideScroller';
-import Button from '../buttons/Button';
+import { Button } from '../buttons/Button';
 import { sendFileFetch } from '../../api/fetchApi/fetchApi';
 import styles from "../../styles/componentAdditional/Preview.style";
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -34,11 +34,11 @@ export default function Preview({ navigation, route }: PreviewProps): JSX.Elemen
   const uploadAll = async (picturesArray: Array<any>) => {
     picturesArray.forEach(async (picture, index) => {
       await uploadPictureFunction(url, picture.uri, "userPicture");
-      //dispatch(deleteNewPicture(picture.uri))
-      //dispatch(deleteCameraPicture(picture.uri))
+      updateNewPicture([] as any)
+
     });
   };////////
-
+  console.log(newPictures)
   return (
     <SafeAreaView>
       <ScrollView style={styles.container} >
@@ -50,7 +50,7 @@ export default function Preview({ navigation, route }: PreviewProps): JSX.Elemen
             pictureFunction={uploadPictureFunction}
           />
           <View style={styles.buttonContainer}>
-            <Button aditionalStyles={styles.button} text={"Upload all"} onPressFunction={() => uploadAll([])} />
+            <Button aditionalStyles={styles.button} text={"Upload all"} onPressFunction={() => uploadAll(newPictures)} />
             <Button aditionalStyles={styles.button} text={"Add picture"} onPressFunction={() => console.log("ok")} />
           </View>
         </View>

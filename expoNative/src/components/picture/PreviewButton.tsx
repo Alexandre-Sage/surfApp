@@ -1,8 +1,6 @@
 import React from "react"
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import styles from "../../styles/componentAdditional/TouchablePicture.style";
-import { deleteNewPicture, getPictureList } from "../../redux/slices/picture/pictureSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hook"
 interface PreviewButtonProps {
   uploadFunction: Function,
   deleteFunction?: Function,
@@ -11,12 +9,12 @@ interface PreviewButtonProps {
 };
 
 export const PreviewButton = ({ uploadFunction, deleteFunction, imagePath }: PreviewButtonProps) => {
-  const url = `${process.env.DEVELOPMENT_IMAGE_SERVER}/imageApi/userImageUpload`;
+  const url = `${process.env.DEVELOPMENT_SERVER}/image/userImageUpload`;
   const uploadPicture = async (imagePath: string) => {
     try {
       await uploadFunction(url, imagePath, "UserImage");
     } catch (error: any) {
-      Alert.alert(error)
+      console.log(error)
     }
   }
   return (

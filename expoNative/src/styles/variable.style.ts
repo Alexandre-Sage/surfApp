@@ -8,10 +8,10 @@ const borderRadius = 3;
 const paragrapheSize = 16;
 const titleSize = 24;
 export {
-    backgroundColor,
-    fontColor,
-    borderColor,
-    borderRadius,
-    paragrapheSize,
-    titleSize
+  backgroundColor,
+  fontColor,
+  borderColor,
+  borderRadius,
+  paragrapheSize,
+  titleSize
 }
