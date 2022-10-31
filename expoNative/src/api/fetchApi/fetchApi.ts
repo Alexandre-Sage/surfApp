@@ -32,7 +32,7 @@ async function postFetchFunction(url: string, body: object): Promise<Response> {
     .catch(serverError => serverError)
 };
 
-async function sendFileFetch(url: string, formData: FormData, callBack?: Function): Promise<Response> {
+async function sendFileFetch(url: string, formData: FormData, callBack?: Function): Promise<any> {
   const token = await getStoredData("JWT-TOKEN")
   try {
     const serverResponse = await fetch(url, {
@@ -45,17 +45,15 @@ async function sendFileFetch(url: string, formData: FormData, callBack?: Functio
       },
     });
     const json = await serverResponse.json()
-    console.log("json", json)
+    if (json.error) throw json as Error;
     if (callBack) return callBack(json);
     else return json
   } catch (error: any) {
-    console.log(error)
-    Alert.alert(error.message)
-    return error
+    throw error
   }
 }
 
-async function authentificationFetch(url: string, body: object): Promise<string> {
+async function authentificationFetch(url: string, body: object): Promise<any> {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -64,10 +62,10 @@ async function authentificationFetch(url: string, body: object): Promise<string>
         "Content-Type": "application/json",
       }
     }).then(response => response.json());
+    if (response.error) throw response as Error;
     await setStoredData("JWT-TOKEN", response.token);
-    return response.message;
+    return response;
   } catch (error) {
-    console.log(error)
     throw error
   }
 

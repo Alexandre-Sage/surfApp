@@ -1,18 +1,21 @@
 import { View } from "react-native";
 import React, { useState, useEffect } from "react";
 import styles from "../../../styles/userProfil/Picture.style";
-import Button from "../../../components/buttons/Button";
+import { Button } from "../../../components/buttons/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddPictureButton } from "./AddPictureButton";
 import { PictureSideScroller } from "../../../components/picture/PictureSideScroller";
 import { useProfilPicture } from "../../../api/userApi/userApi";
+import { uploadFromLocalFiles } from "../../../api/pictureHook/pictrueApi";
 import { Camera } from "expo-camera";
+import { useNewPicture } from "../../../api/cameraApi/cameraApi";
 declare interface PictureProps {
   navigation: any
 }
 export default function Picture({ navigation }: PictureProps) {
   const [addPicturePressed, setAddPicturePressed] = useState<boolean>(false);
   const [pictureInfo, updatePictureInfo] = useProfilPicture();
+  const [newPictures, updateNewPictures] = useNewPicture([])
   useEffect(() => {
     updatePictureInfo();
   }, []);
@@ -21,17 +24,19 @@ export default function Picture({ navigation }: PictureProps) {
     navigation.navigate("Camera")
   };
   const uploadFromFilesFunction = async () => {
-    let sucess = false;
-    do {
-      try {
-        //await dispatch(uploadImageFromLocalFiles());
-        sucess = true
-      } catch (error) {
-        console.log(error)
-      }
-    } while (!sucess) navigation.navigate("Preview");
+    try {
+      const picture = await uploadFromLocalFiles(updateNewPictures)
+      navigation.navigate("Preview", {
+        images: [
+          ...newPictures,
+          picture
+        ]
+      });
+    } catch (error) {
+      console.log(error)
+    }
   };
-
+  console.log(newPictures)
   return (
     <SafeAreaView>
       <View style={styles.container}>

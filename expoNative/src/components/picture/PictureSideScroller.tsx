@@ -12,7 +12,6 @@ interface PictureSideScrollerProps {
 }
 
 export const PictureSideScroller = ({ pictures, styles, isPreview, pictureFunction }: PictureSideScrollerProps): JSX.Element => {
-  console.log(pictures)
   const pictureJsx = pictures.map((picture, key): ReactNode => (
     <TouchablePicture
       key={key}
