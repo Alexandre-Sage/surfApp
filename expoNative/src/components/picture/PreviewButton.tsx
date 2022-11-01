@@ -1,8 +1,9 @@
+import { ImageInfo } from "expo-image-picker";
 import React from "react"
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import styles from "../../styles/componentAdditional/TouchablePicture.style";
 interface PreviewButtonProps {
-  uploadFunction: Function,
+  uploadFunction?: (param: ImageInfo["uri"]) => void,
   deleteFunction?: Function,
   imagePath: string,
 
@@ -10,18 +11,11 @@ interface PreviewButtonProps {
 
 export const PreviewButton = ({ uploadFunction, deleteFunction, imagePath }: PreviewButtonProps) => {
   const url = `${process.env.DEVELOPMENT_SERVER}/image/userImageUpload`;
-  const uploadPicture = async (imagePath: string) => {
-    try {
-      await uploadFunction(url, imagePath, "UserImage");
-    } catch (error: any) {
-      console.log(error)
-    }
-  }
   return (
     <View style={styles.previewButtonContainer}>
       <TouchableOpacity
         style={styles.previewButton}
-        onPress={() => uploadPicture(imagePath)}
+        onPress={() => uploadFunction?.(imagePath)}
       >
         <Text style={styles.previewButtonText}  >
           Upload single

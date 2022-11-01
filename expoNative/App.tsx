@@ -14,12 +14,13 @@ import { Header } from "./src/components/header/Header";
 import { FullScreenProps } from "./src/components/picture/FullScreen";
 import Gallery from "./src/screens/userProfil/picture/Gallery";
 import { CameraCapturedPicture } from "expo-camera";
+import { ImageInfo } from "expo-image-picker";
 export type RootStackParamList = {
   LandingPage: undefined,
   UserProfil: undefined,
   Gallery: undefined,
   Camera: undefined,
-  Preview: { images: Array<CameraCapturedPicture> },
+  Preview: { images: Array<Omit<ImageInfo, 'cancelled'> | ImageInfo> },
   FullScreen: { imagePath: string; },
 }
 const Stack = createStackNavigator<RootStackParamList>();

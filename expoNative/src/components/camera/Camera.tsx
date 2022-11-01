@@ -5,7 +5,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../App';
 import { CameraButtons } from './CameraButtons';
 import { useAppSelector, useAppDispatch } from '../../redux/hook';
-import { takePicture, useNewPicture } from '../../api/cameraApi/cameraApi';
+import { takePicture } from '../../api/cameraApi/cameraApi';
+import { useNewPicture } from '../../api/pictureHook/pictrueApi';
 //import styles from '../../../styles/LandingPage/LandingPage.style';
 
 export type CameraProps = NativeStackScreenProps<RootStackParamList, "Camera">

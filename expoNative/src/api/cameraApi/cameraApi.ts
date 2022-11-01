@@ -1,14 +1,7 @@
 import { Camera, CameraCapturedPicture } from "expo-camera";
+import { ImageInfo } from "expo-image-picker";
 import { useMemo, useState } from "react";
 
-//let camera: Camera;
-
-export const useNewPicture = (pictures?: CameraCapturedPicture[]):
-  [CameraCapturedPicture[], (pictures: CameraCapturedPicture) => void] => {
-  const [newPictures, setNewPictures] = useState<CameraCapturedPicture[]>(pictures || []);
-  const updateNewPicture = (picture: CameraCapturedPicture) => setNewPictures([...newPictures, picture]);
-  return [newPictures, updateNewPicture]
-}
 export const takePicture = async (camera: Camera, callBack: Function): Promise<void> => {
   //const [newPictures, updateNewPicture] = useNewPicture();
   try {

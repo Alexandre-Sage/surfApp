@@ -1,3 +1,4 @@
+import { ImageInfo } from "expo-image-picker";
 import React, { ReactNode } from "react";
 import { Image, ImageStyle, ScrollView, StyleSheet, StyleSheetProperties, View, ViewStyle } from "react-native";
 import { TouchablePicture } from "./TouchablePicture"
@@ -8,7 +9,7 @@ interface PictureSideScrollerProps {
     picture: ImageStyle
   },
   isPreview?: boolean
-  pictureFunction?: Function,
+  pictureFunction?: (param: ImageInfo["uri"]) => void,
 }
 
 export const PictureSideScroller = ({ pictures, styles, isPreview, pictureFunction }: PictureSideScrollerProps): JSX.Element => {

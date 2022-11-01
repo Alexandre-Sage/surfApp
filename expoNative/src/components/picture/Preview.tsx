@@ -7,37 +7,33 @@ import { Button } from '../buttons/Button';
 import { sendFileFetch } from '../../api/fetchApi/fetchApi';
 import styles from "../../styles/componentAdditional/Preview.style";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNewPicture } from '../../api/cameraApi/cameraApi';
-
+import { useNewPicture, uploadPictureToServer } from '../../api/pictureHook/pictrueApi';
+import { ErrorModal, useError } from '../modals/ErrorModal';
+import { ImageInfo } from 'expo-image-picker';
 export type PreviewProps = NativeStackScreenProps<RootStackParamList, "Preview">
 
 export default function Preview({ navigation, route }: PreviewProps): JSX.Element {
-  const [newPictures, updateNewPicture] = useNewPicture(route.params.images);
+  const [newPictures, updateNewPicture, removeNewPicture] = useNewPicture(route.params.images as ImageInfo[]);
+  const { errorMessage, setErrorMessage, setToggleErrorModal, toggleErrorModal } = useError()
   const url = `${process.env.DEVELOPMENT_SERVER}/image/userImageUpload`
   //TO MOVE
-  const uploadPictureFunction = async (url: string, pictureUri: string, pictureName: string, callBack?: Function): Promise<Response> => {
-    const formData: FormData = new FormData();
-    const splitedImageUri: Array<string> = pictureUri.split(".");
-    const imageType: string = splitedImageUri[splitedImageUri.length - 1];
-    formData.append("image", {
-      uri: pictureUri,
-      type: `image/${imageType}`,
-      name: pictureName
-    });
+  const uploadPictureFunction = async (pictureUri: ImageInfo["uri"]) => {
     try {
-      return await sendFileFetch(url, formData, callBack);
+      await uploadPictureToServer(url, pictureUri, "userPicture");
+      removeNewPicture(pictureUri);
     } catch (error) {
-      console.log(error)
-      throw error
+      setErrorMessage("Something went wrong uploading picture please try again");
+      setToggleErrorModal();
+      return;
     }
-  };
+  }
+
   const uploadAll = async (picturesArray: Array<any>) => {
     picturesArray.forEach(async (picture, index) => {
-      await uploadPictureFunction(url, picture.uri, "userPicture");
+      await uploadPictureFunction(picture.uri);
       updateNewPicture([] as any)
-
     });
-  };////////
+  };
   console.log(newPictures)
   return (
     <SafeAreaView>
@@ -55,6 +51,11 @@ export default function Preview({ navigation, route }: PreviewProps): JSX.Elemen
           </View>
         </View>
       </ScrollView>
+      <ErrorModal
+        message={errorMessage}
+        displayModal={toggleErrorModal}
+        close={setToggleErrorModal}
+      />
     </SafeAreaView>
   );
 };

@@ -8,7 +8,7 @@ import { PictureSideScroller } from "../../../components/picture/PictureSideScro
 import { useProfilPicture } from "../../../api/userApi/userApi";
 import { uploadFromLocalFiles } from "../../../api/pictureHook/pictrueApi";
 import { Camera } from "expo-camera";
-import { useNewPicture } from "../../../api/cameraApi/cameraApi";
+import { useNewPicture } from "../../../api/pictureHook/pictrueApi";
 declare interface PictureProps {
   navigation: any
 }
