@@ -67,4 +67,4 @@ export class Server {
   }
 }
 export const routes = [hourlyWavesForecast, tideForecast];
-(async () => await new Server(routes, 5000).startServer())
+new Server(routes, 5000).startServer()
