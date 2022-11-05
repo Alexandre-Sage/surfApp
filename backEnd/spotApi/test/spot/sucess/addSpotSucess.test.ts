@@ -2,7 +2,6 @@ import server from "../../../server";
 import chai, { assert, should, expect } from "chai";
 import chaiHttp from "chai-http"
 import { Suite, SuiteFunction } from "mocha";
-import getOneDocument from "../../../../sharedModules/mongoDb/getOneDocument";
 import { User } from "../../../../mongoDb/user/users";
 import { getAuthentificationToken } from "../../../../sharedModules/testModules/login";
 import { Types } from "mongoose";
@@ -41,8 +40,9 @@ export function addSpotWithSucessTest(): Suite {
       const contentLength = '50';
       try {
         const token: any = await getAuthentificationToken(url, credentials);
-        const response = await agent.post("/newSpot").send(this.ctx.spot).set("Authorization", `Bearer ${token.token}`);
+        const response = await agent.post("/spot/newSpot").send(this.ctx.spot).set("Authorization", `Bearer ${token.token}`);
         const { header, body, error } = response;
+        console.log(response)
         expect(error).to.be.eql(false);
         expect(response).to.have.property("status").eql(200);
         expect(body).to.have.property("message").eql(responseMessage);

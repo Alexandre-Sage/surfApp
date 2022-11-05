@@ -18,7 +18,7 @@ export function getAllSucessTest(): Suite {
       //const contentLength = '126';
       try {
         const token: any = await getAuthentificationToken(url, credentials)
-        const response = await agent.get(`/getAllSpots`).set("Authorization", `Bearer ${token.token}`);
+        const response = await agent.get(`/spot/getAllSpots`).set("Authorization", `Bearer ${token.token}`);
         const { header, body, error } = response;
         expect(error).to.be.eql(false);
         expect(response).to.have.property("status").eql(200);

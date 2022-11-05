@@ -11,6 +11,7 @@ export async function fetchAllDocument(mongoSchema: any, researchObject: object,
       autoIndex: true,
     });
     const document = await mongoSchema.find(researchObject, field ? field : undefined).sort(sortObject ? sortObject : undefined);
+    console.log(document)
     return document ? Promise.resolve(document) : Promise.reject(new CustomError(
       errorMessage,
       "FETCH ALL DOCUMENT ERROR",

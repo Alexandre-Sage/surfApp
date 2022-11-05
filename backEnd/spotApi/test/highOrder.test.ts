@@ -11,13 +11,13 @@ const db = mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
 db.model("Spot", SpotSchema);
 
 describe("################################## SPOT API TEST SUITE ##################################", () => {
-  before(async () => {
-    try {
-      await db.models.Spot.deleteMany()
-    } catch (error) {
-      throw error
-    };
-  });
+  //before(async () => {
+  //  try {
+  //    await db.models.Spot.deleteMany()
+  //  } catch (error) {
+  //    throw error
+  //  };
+  //});
   describe("Should say Hello World", () => {
     addSpotWithSucessTest();
     getOneSpotSucessTest();

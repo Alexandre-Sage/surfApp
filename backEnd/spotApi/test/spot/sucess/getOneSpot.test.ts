@@ -3,7 +3,7 @@ import chai, { expect } from "chai";
 import chaiHttp from "chai-http"
 import { Suite } from "mocha";
 import { getAuthentificationToken } from "../../../../sharedModules/testModules/login"
-import getOneDocument from "../../../../sharedModules/mongoDb/getOneDocument";
+import { fetchOneDocument } from "../../../../sharedModules/mongoDb/getOneDocument";
 import { User } from "../../../../mongoDb/user/users";
 import { Types } from "mongoose";
 import { Spot } from "../../../../mongoDb/spots/spots";
@@ -16,7 +16,7 @@ const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 const getUserId = async (userName: string): Promise<Types.ObjectId> => {
   const researchObject = { userName: userName };
   const fieldObject = { _id: 1 };
-  const userData = await getOneDocument(User, researchObject, fieldObject);
+  const userData = await fetchOneDocument(User, researchObject, fieldObject);
   return userData._id;
 }
 
@@ -28,7 +28,7 @@ export function getOneSpotSucessTest(): Suite {
       const fieldObject = { _id: 1 };
       try {
         const userId = await getUserId("TestOne");
-        const spot = await getOneDocument(Spot, researchObjectSpot);
+        const spot = await fetchOneDocument(Spot, researchObjectSpot);
         this.ctx.spotId = spot._id;
         this.ctx.spot = spot;
 
@@ -42,7 +42,7 @@ export function getOneSpotSucessTest(): Suite {
       const contentType = 'application/json; charset=utf-8';
       try {
         const token: any = await getAuthentificationToken(url, credentials)
-        const response = await agent.get(`/getSpot/${this.ctx.spotId}`).set("Authorization", `Bearer ${token.token}`);
+        const response = await agent.get(`/spot/getSpot/${this.ctx.spotId}`).set("Authorization", `Bearer ${token.token}`);
         const { header, body, error } = response;
         expect(error).to.be.eql(false);
         expect(response).to.have.property("status").eql(200);
