@@ -8,7 +8,6 @@ declare interface HeaderPropsInterface {
 };
 export default function Header(props: HeaderPropsInterface): JSX.Element {
   const { displayLoginForm } = props;
-  console.log(process.env.DEVELOPMENT_SERVER)
   const logoPath = `${process.env.DEVELOPMENT_IMAGE_SERVER}/images/assets/logo.svg`
   return (
     <TouchableOpacity style={styles.returnButton} onPress={() => displayLoginForm()}>

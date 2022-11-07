@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import { fetchOneDocument } from "../../../sharedModules/mongoDb/getOneDocument";
 import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement";
 
-import { Spot } from "../../../mongoDb/spots/spots";
+import { Spot } from "../../../mongoDb/spots/spot";
 //import sessionChecking from "../../modules/sessionManagement/sessionChecking";
 
 const router: Router = express.Router();

@@ -4,17 +4,26 @@ import { getStoredData, setStoredData } from "../asyncStorage/asyncStorage";
 
 async function getFetch(url: string, callBack?: Function): Promise<Response> {
   const token = await getStoredData("JWT-TOKEN");
-  return fetch(url, {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-  })
-    .then(serverResponse => serverResponse.json())
-    .then(json => callBack ? callBack(json) : json)
-    .catch(serverError => serverError);
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    console.log(response)
+    const json = await response.json()
+    return callBack ? callBack(json) : json
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+  //return 
+  //  .then(serverResponse => serverResponse.json())
+  //  .then(json => callBack ? callBack(json) : json)
+  //  .catch(serverError => console.log(serverError));
 }
 
 async function postFetchFunction(url: string, body: object): Promise<Response> {

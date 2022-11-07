@@ -8,19 +8,21 @@ import Picture from "./picture/Picture";
 import styles from "../../styles/userProfil/UserProfil.style"
 
 import { useUserLocation } from "../../api/userApi/userApi";
+import { getFetch } from "../../api/fetchApi/fetchApi";
 
 type UserProfilProps = NativeStackScreenProps<RootStackParamList, "UserProfil">
 
 export default function UserProfil({ route, navigation }: UserProfilProps): JSX.Element {
   const [currentLocation, updateCurrentLocation] = useUserLocation();
   useEffect(() => { updateCurrentLocation() }, [])
+
   return (
     <SafeAreaView>
       <ScrollView nestedScrollEnabled={true}>
         <View style={styles.userProfilContainer}>
           <ProfilHeader />
           <Picture navigation={navigation} />
-          {/* <Spot currentLocation={currentLocation} /> */}
+          <Spot currentLocation={currentLocation} />
         </View>
       </ScrollView>
     </SafeAreaView>

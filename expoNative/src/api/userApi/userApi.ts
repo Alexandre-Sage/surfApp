@@ -22,7 +22,6 @@ export const useProfilHeaderInfo = (): [UserHeaderInterface[], () => void] => {
   const [headerInfo, setHeaderInfo] = useState<UserHeaderInterface[]>([] as UserHeaderInterface[])
   const updateHeaderInfo = () => getFetch(`${process.env.DEVELOPMENT_SERVER}/user/header`, setHeaderInfo)
     .catch(error => setHeaderInfo(error));
-  console.log(headerInfo)
   return [headerInfo, updateHeaderInfo];
 }
 

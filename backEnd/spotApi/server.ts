@@ -15,7 +15,7 @@ process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;
 server.set("trust proxy", 1);
 
 server.use(cors({
-  origin: [`${process.env.FRONT_END}`, `${process.env.HOST}`],
+  origin: "*",
   methods: ["GET", "POST"],
   credentials: true
 }));

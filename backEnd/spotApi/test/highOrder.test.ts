@@ -1,6 +1,6 @@
 import "mocha";
 import mongoose from "mongoose";
-import { SpotSchema } from "../../mongoDb/spots/spots";
+import { SpotSchema } from "../../mongoDb/spots/spot";
 import { addSpotWithSucessTest } from "./spot/sucess/addSpotSucess.test";
 import { getOneSpotSucessTest } from "./spot/sucess/getOneSpot.test";
 import { getAllSucessTest } from "./spot/sucess/getSpots.test";

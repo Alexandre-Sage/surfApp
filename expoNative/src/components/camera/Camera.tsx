@@ -24,7 +24,6 @@ export default function UserCamera({ navigation }: CameraProps): JSX.Element {
   const [permission, setPermission] = Camera.useCameraPermissions();
   const previewPath = newPictures[0] ? newPictures[newPictures.length - 1].uri : "/"
   if (!permission?.granted) setPermission()
-  console.log(newPictures)
   return (
     <View>
       <Camera

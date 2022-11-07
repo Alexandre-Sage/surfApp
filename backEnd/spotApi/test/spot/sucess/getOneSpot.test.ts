@@ -6,7 +6,7 @@ import { getAuthentificationToken } from "../../../../sharedModules/testModules/
 import { fetchOneDocument } from "../../../../sharedModules/mongoDb/getOneDocument";
 import { User } from "../../../../mongoDb/user/users";
 import { Types } from "mongoose";
-import { Spot } from "../../../../mongoDb/spots/spots";
+import { Spot } from "../../../../mongoDb/spots/spot";
 
 
 chai.use(chaiHttp)
