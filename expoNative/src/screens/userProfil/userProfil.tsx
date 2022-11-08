@@ -15,7 +15,6 @@ type UserProfilProps = NativeStackScreenProps<RootStackParamList, "UserProfil">
 export default function UserProfil({ route, navigation }: UserProfilProps): JSX.Element {
   const [currentLocation, updateCurrentLocation] = useUserLocation();
   useEffect(() => { updateCurrentLocation() }, [])
-
   return (
     <SafeAreaView>
       <ScrollView nestedScrollEnabled={true}>

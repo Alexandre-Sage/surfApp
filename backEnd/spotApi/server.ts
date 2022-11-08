@@ -9,10 +9,18 @@ import logger from "morgan";
 import addSpotRoute from "./routes/spotCreation/spotCreationRoute";
 import getOneSpot from "./routes/getOneSpot/getOneSpotRoute"
 import getAllSpot from "./routes/getAllSpot/getAllSpotRoute"
+import { SpotSchema } from "../mongoDb/spots/spot";
+import mongoose from "mongoose";
 const server = express();
 console.log(process.env.PORT)
 process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;
-server.set("trust proxy", 1);
+//server.set("trust proxy", 1);
+const db = mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
+  autoIndex: true,
+});
+db.model("Spot", SpotSchema);
+server.locals.db = db;
+
 
 server.use(cors({
   origin: "*",
@@ -21,7 +29,7 @@ server.use(cors({
 }));
 
 server.use(express.static(`${process.cwd()}/src`))
-server.use(bodyParser.urlencoded({ extended: true, limit: "50M" }));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 

@@ -5,10 +5,10 @@ import { addSpotWithSucessTest } from "./spot/sucess/addSpotSucess.test";
 import { getOneSpotSucessTest } from "./spot/sucess/getOneSpot.test";
 import { getAllSucessTest } from "./spot/sucess/getSpots.test";
 
-const db = mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
-  autoIndex: true,
-});
-db.model("Spot", SpotSchema);
+//const db = mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
+//  autoIndex: true,
+//});
+//db.model("Spot", SpotSchema);
 
 describe("################################## SPOT API TEST SUITE ##################################", () => {
   //before(async () => {

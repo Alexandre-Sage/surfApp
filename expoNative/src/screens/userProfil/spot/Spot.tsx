@@ -16,24 +16,31 @@ declare interface SpotPropsInterface {
 
 
 export default function Spot({ currentLocation }: SpotPropsInterface): JSX.Element {
-  //const dispatch = useAppDispatch();
   const { latitude, longitude } = currentLocation;
+  //const dispatch = useAppDispatch();
   //const { spotList } = useAppSelector((state) => state.spot);
-  const [spots, updateSpotList] = useSpotList();
+  //const [spots, updateSpotList] = useSpotList();
+  const dispatch = useAppDispatch();
+  const { spotList } = useAppSelector((state) => state.spot);
   useEffect(() => {
-    console.log("use")
-    //updateSpotList();
-    const token = getStoredData("JWT-TOKEN");
-    console.log(token)
-    fetch(`http://127.0.0.1:3500/spot/getAllSpots`, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzVjZjFmNTlkZWVhNjM4ZDcyYTc5M2MiLCJ1c2VyTmFtZSI6IlRlc3RPbmUiLCJpYXQiOjE2Njc3MzI1OTQsImV4cCI6MTY2ODU5NjU5NH0.PXkQXd6KIyR6eV-WVeNWrtE2Bvn48j4bRf4j7nx4bdE`
-      }
-    }).then(res => console.log("res", JSON.stringify(res))).catch(err => console.log({ err: JSON.stringify(err) }))
-    //${process.env.DEVELOPMENT_SPOT_SERVER}
-  }, []);
+    dispatch(getSpotList());
+  }, [latitude, longitude]);
+  console.log(spotList)
+
+  //useEffect(() => {
+  //console.log("use")
+  //updateSpotList();
+  //const token = getStoredData("JWT-TOKEN");
+  //console.log(token)
+  // fetch(`http://127.0.0.1:3500/spot/getAllSpots`, {
+  //   method: 'GET',
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzVjZjFmNTlkZWVhNjM4ZDcyYTc5M2MiLCJ1c2VyTmFtZSI6IlRlc3RPbmUiLCJpYXQiOjE2Njc3MzI1OTQsImV4cCI6MTY2ODU5NjU5NH0.PXkQXd6KIyR6eV-WVeNWrtE2Bvn48j4bRf4j7nx4bdE`
+  //   }
+  // }).then(res => console.log("res", JSON.stringify(res))).catch(err => console.log({ err: JSON.stringify(err) }))
+  //${process.env.DEVELOPMENT_SPOT_SERVER}
+  //}, []);
   //fetch(`http://127.0.0.1:3500/spot/getAllSpots`, {
   //  method: 'GET',
   //  headers: {
