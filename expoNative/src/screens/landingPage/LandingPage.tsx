@@ -29,7 +29,7 @@ export default function LandingPage({ route, navigation }: LandingPageProps): JS
     <View style={styles.container}>
       {signUpForm ? <SignUpForm /> : <Header displayLoginForm={() => displayLoginForm()} />}
       <View style={styles.subContainer}>
-        {loginForm ? <LoginForm navigation={navigation} /> : null}
+        {loginForm ? <LoginForm /> : null}
         {buttons ? <Buttons displayLoginForm={() => displayLoginForm()} displaySignUpForm={() => displaySignUpForm()} /> : null}
       </View>
     </View>

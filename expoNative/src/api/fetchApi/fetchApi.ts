@@ -13,11 +13,9 @@ async function getFetch(url: string, callBack?: Function): Promise<Response> {
         "Authorization": `Bearer ${token}`
       }
     });
-    console.log(response)
     const json = await response.json()
     return callBack ? callBack(json) : json
   } catch (error) {
-    console.log(error)
     throw error
   }
   //return 

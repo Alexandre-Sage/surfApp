@@ -7,13 +7,11 @@ import { store } from "./src/redux/store";
 import LandingPage from "./src/screens/landingPage/LandingPage";
 import UserProfil from "./src/screens/userProfil/userProfil";
 import UserCamera from "./src/components/camera/Camera";
-//import Preview from "./src/components/camera/Preview";
 import FullScreen from "./src/components/picture/FullScreen";
 import Preview from "./src/components/picture/Preview";
-import { Header } from "./src/components/header/Header";
-import { FullScreenProps } from "./src/components/picture/FullScreen";
+import AddSpotScreen from "./src/screens/userProfil/spot/AddSpot";
 import Gallery from "./src/screens/userProfil/picture/Gallery";
-import { CameraCapturedPicture } from "expo-camera";
+import { Header } from "./src/components/header/Header";
 import { ImageInfo } from "expo-image-picker";
 export type RootStackParamList = {
   LandingPage: undefined,
@@ -22,6 +20,7 @@ export type RootStackParamList = {
   Camera: undefined,
   Preview: { images: Array<Omit<ImageInfo, 'cancelled'> | ImageInfo> },
   FullScreen: { imagePath: string; },
+  AddSpot: undefined
 }
 const Stack = createStackNavigator<RootStackParamList>();
 if (Platform.OS === "android") {
@@ -68,6 +67,7 @@ export default function App() {
           <Stack.Screen name="FullScreen" component={FullScreen} />
           <Stack.Screen name="Preview" component={Preview} />
           <Stack.Screen name="Camera" component={UserCamera} />
+          <Stack.Screen name="AddSpot" component={AddSpotScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

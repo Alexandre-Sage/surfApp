@@ -15,7 +15,6 @@ export const RatiosList = ({ camera, setRatio }: RatiosListProps): JSX.Element =
 
 
   }, [])
-  console.log(ratios)
   const ratioListJsx = ratios?.map((ratio, key): JSX.Element => (
     <TouchableOpacity key={key} onPress={() => setRatio(ratio)} >
       <Text>{ratio}</Text>

@@ -4,7 +4,7 @@ import { getFetch } from "../fetchApi/fetchApi"
 export const useSpotList = (): [SpotListInterface[], () => void] => {
   try {
     const [spots, setSpots] = useState<SpotListInterface[]>([] as SpotListInterface[])
-    const updateSpotList = async () => await getFetch(`http://127.0.0.1:3500/spot/getAllSpots`, setSpots).catch(err => console.log(err))
+    const updateSpotList = async () => await getFetch(`${process.env.DEVELOPMENT_SERVER}/spot/getAllSpots`, setSpots).catch(err => console.log(err))
     return [spots, updateSpotList];
   } catch (error) {
     console.log(error)

@@ -36,7 +36,6 @@ export default function Picture({ navigation }: PictureProps) {
       console.log(error)
     }
   };
-  console.log(newPictures)
   return (
     <SafeAreaView>
       <View style={styles.container}>

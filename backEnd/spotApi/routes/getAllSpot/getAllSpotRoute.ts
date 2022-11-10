@@ -11,6 +11,7 @@ router.get("/", async function (req, res) {
     const userData = await sessionTokenAuthentification(token)
     const researchObject = { userId: userData.userId };
     const spotInfo = await fetchAllDocument("Spot", researchObject, fieldObject);
+    console.log(spotInfo)
     res.status(200).json(
       spotInfo,
     );

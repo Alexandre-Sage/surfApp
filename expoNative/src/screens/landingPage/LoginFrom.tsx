@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { Button } from "../../components/buttons/Button";
-import Input from "../../components/inputs/Input"
+import { TxtInput } from "../../components/inputs/Input"
 import { authentificationFetch } from "../../api/fetchApi/fetchApi";
 import styles from "../../styles/LandingPage/LoginFrom.style";
 import { RootStackParamList } from "../../../App"
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ErrorModal, useError } from "../../components/modals/ErrorModal";
@@ -19,11 +19,12 @@ declare interface LoginResponseInterface extends Response {
   error: boolean
 }
 
-type LoginFormProps = NativeStackScreenProps<RootStackParamList>;
+type LoginFormProps = Omit<NativeStackScreenProps<RootStackParamList | any>, "route">;
 
 
 
-export function LoginForm({ navigation }: LoginFormProps): JSX.Element {
+export function LoginForm(): JSX.Element {
+  const { navigate, replace } = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { errorMessage, setErrorMessage, toggleErrorModal, setToggleErrorModal } = useError()
   const [answers, setAnswers] = useState({
     email: "test@testOne.com",
@@ -32,18 +33,26 @@ export function LoginForm({ navigation }: LoginFormProps): JSX.Element {
   const sendAnswers = async () => {
     try {
       const auth = await authentificationFetch(`${process.env.DEVELOPMENT_SERVER}/auth/logIn`, answers)
-      navigation.navigate("UserProfil")
+      navigate("UserProfil")
     } catch (error: any) {
       setErrorMessage(error.message)
       setToggleErrorModal()
-      console.log(toggleErrorModal, errorMessage)
     }
   };
   return (
     <SafeAreaView>
       <View style={styles.formContainer}>
-        <Input name="Email" state={answers} setState={(value: LoginAnswersInterface) => setAnswers(value)} defaultValue={"test@testOne.com"} />
-        <Input name="Password" state={answers} setState={(value: LoginAnswersInterface) => setAnswers(value)} />
+        <TxtInput
+          name="Email"
+          state={answers}
+          setState={(value: LoginAnswersInterface) => setAnswers(value)}
+          defaultValue={"test@testOne.com"}
+        />
+        <TxtInput
+          name="Password"
+          state={answers}
+          setState={(value: LoginAnswersInterface) => setAnswers(value)}
+        />
         <Button text="Submit" onPressFunction={() => sendAnswers()} />
         <ErrorModal message={errorMessage} displayModal={toggleErrorModal} close={setToggleErrorModal} />
       </View>

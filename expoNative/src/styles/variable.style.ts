@@ -7,11 +7,17 @@ const borderColor = "rgba(75,159,196,0.3)";
 const borderRadius = 3;
 const paragrapheSize = 16;
 const titleSize = 24;
+
+const devBorder: any = {
+  borderColor: "red",
+  borderWidth: "2"
+}
 export {
   backgroundColor,
   fontColor,
   borderColor,
   borderRadius,
   paragrapheSize,
-  titleSize
+  titleSize,
+  devBorder
 }
