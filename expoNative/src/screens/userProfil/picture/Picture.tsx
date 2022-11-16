@@ -46,7 +46,7 @@ export default function Picture({ navigation }: PictureProps) {
             uploadFromFilesFunction={uploadFromFilesFunction}
           /> : null}
           <View style={styles.buttonsContainer}>
-            <Button text={"Gallery"} aditionalStyles={styles.button} onPressFunction={() => navigation.navigate("Gallery")} />
+            <Button text={"Gallery"} aditionalStyles={styles.button} onPressFunction={() => /*navigation.navigate("Gallery")*/console.log("gallery")} />
             <Button text={"Add picture"} aditionalStyles={styles.button} onPressFunction={() => displayPopUp()} />
           </View>
         </View>

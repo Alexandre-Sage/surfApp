@@ -2,8 +2,6 @@ import React from "react";
 import { Platform, UIManager } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { Provider } from "react-redux";
-import { store } from "./src/redux/store";
 import LandingPage from "./src/screens/landingPage/LandingPage";
 import UserProfil from "./src/screens/userProfil/userProfil";
 import UserCamera from "./src/components/camera/Camera";
@@ -39,38 +37,36 @@ const profilHeaderStyle = {
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="LandingPage"
-          screenOptions={
-            {
-              headerStyle: {
-                backgroundColor: "rgba(30, 30, 30, 1)",
-                borderTopWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.3)"
-              },
-              headerTintColor: '#fff'
-            }
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="LandingPage"
+        screenOptions={
+          {
+            headerStyle: {
+              backgroundColor: "rgba(30, 30, 30, 1)",
+              borderTopWidth: 1,
+              borderColor: "rgba(255, 255, 255, 0.3)"
+            },
+            headerTintColor: '#fff'
           }
-        >
-          <Stack.Screen name="LandingPage" component={LandingPage} options={{ title: "Welcome" }} />
-          <Stack.Screen
-            name="UserProfil"
-            component={UserProfil}
-            options={{
-              headerStyle: { ...profilHeaderStyle },
-              headerTitle: () => <Header title={"Profil"} />
-            }}
-          />
-          <Stack.Screen name="Gallery" component={Gallery} />
-          <Stack.Screen name="FullScreen" component={FullScreen} />
-          <Stack.Screen name="Preview" component={Preview} />
-          <Stack.Screen name="Camera" component={UserCamera} />
-          <Stack.Screen name="AddSpot" component={AddSpotScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+        }
+      >
+        <Stack.Screen name="LandingPage" component={LandingPage} options={{ title: "Welcome" }} />
+        <Stack.Screen
+          name="UserProfil"
+          component={UserProfil}
+          options={{
+            headerStyle: { ...profilHeaderStyle },
+            headerTitle: () => <Header title={"Profil"} />
+          }}
+        />
+        <Stack.Screen name="Gallery" component={Gallery} />
+        <Stack.Screen name="FullScreen" component={FullScreen} />
+        <Stack.Screen name="Preview" component={Preview} />
+        <Stack.Screen name="Camera" component={UserCamera} />
+        <Stack.Screen name="AddSpot" component={AddSpotScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

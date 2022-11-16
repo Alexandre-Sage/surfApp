@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getFetch } from "../../api/fetchApi/fetchApi";
 import { getCurrentPositionAsync, requestForegroundPermissionsAsync } from "expo-location";
 import { CurrentLocationInterface } from "../../interfaces/currentLocation";
@@ -20,7 +20,7 @@ declare interface PictureInterface {
 
 export const useProfilHeaderInfo = (): [UserHeaderInterface[], () => void] => {
   const [headerInfo, setHeaderInfo] = useState<UserHeaderInterface[]>([] as UserHeaderInterface[])
-  const updateHeaderInfo = () => getFetch(`${process.env.DEVELOPMENT_SERVER}/user/header`, setHeaderInfo)
+  const updateHeaderInfo = async () => await getFetch(`${process.env.DEVELOPMENT_SERVER}/user/header`, setHeaderInfo)
     .catch(error => setHeaderInfo(error));
   return [headerInfo, updateHeaderInfo];
 }
@@ -40,6 +40,9 @@ export const useUserLocation = (): [CurrentLocationInterface, () => void] => {
   const updateCurrentLocation = () => getCurrentPositionAsync({})
     .then(location => setCurrentLocation({ ...location.coords }))
     .catch(error => setCurrentLocation(error))
+  useMemo(() => {
+    updateCurrentLocation();
+  }, [])
   return [currentLocation, updateCurrentLocation];
 };
 

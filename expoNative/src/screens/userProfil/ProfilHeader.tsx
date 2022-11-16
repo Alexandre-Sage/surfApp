@@ -3,7 +3,6 @@ import { View, Text } from "react-native";
 import styles from "../../styles/userProfil/ProfilHeader.style";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useProfilHeaderInfo } from "../../api/userApi/userApi";
-import { getFetch } from "../../api/fetchApi/fetchApi";
 
 export const ProfilHeader = () => {
   const [headerInfo, updateHeaderInfo] = useProfilHeaderInfo()

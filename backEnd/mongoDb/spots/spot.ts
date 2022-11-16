@@ -14,19 +14,17 @@ const SpotSchema = new Schema<SpotInterface>({
     coordinates: [{ type: String, required: true }]
   },
   orientation: [{ type: String, required: true }],
-  optimalConditions: [
-    {
-      wind: {
-        strength: { type: String, required: false },
-        orientation: { type: String, required: false }
-      },
-      swell: {
-        size: { type: String, required: false },
-        period: { type: String, required: false },
-        orientation: { type: String, required: false }
-      }
+  optimalConditions: {
+    wind: {
+      strength: { type: String, required: false },
+      orientation: { type: String, required: false }
+    },
+    swell: {
+      size: { type: String, required: false },
+      period: { type: String, required: false },
+      orientation: [{ type: String, required: false }]
     }
-  ],
+  },
   picture: [
     {
       path: { type: String, required: false },

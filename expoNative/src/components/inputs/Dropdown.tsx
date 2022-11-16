@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import React, { ReactNode, useState } from "react";
+import { SafeAreaView, StyleProp, StyleSheet, StyleSheetProperties, Text, TouchableOpacity, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler";
-
+import Svg, { SvgUri, SvgFromUri } from "react-native-svg";
+import { styles } from "../../styles/input/dropDown.style"
 interface DropdownInputProps {
   listItemToMap: any[],
   action: (value: string) => void,
@@ -35,7 +36,8 @@ export const DropdownInput = ({ listItemToMap, action, name }: DropdownInputProp
       <View style={styles.mainView}>
         <View style={styles.buttonView}>
           <TouchableOpacity style={styles.button} onPress={() => setList(!displayList)}>
-            <Text>{name}</Text>
+            <Text style={styles.buttonText}>{name}</Text>
+            <SvgUri width={20} height={20} uri={`${process.env.DEVELOPMENT_IMAGE_SERVER}/images/assets/polygon.svg`} />
           </TouchableOpacity>
         </View>
         <DropDownList
@@ -44,19 +46,12 @@ export const DropdownInput = ({ listItemToMap, action, name }: DropdownInputProp
           display={displayList}
         />
       </View>
-
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  safeView: {},
-  mainView: {},
-  buttonView: {},
-  button: {},
-  scrollView: {},
-  listCtn: {},
-  listItem: {},
-  listItemText: {}
+const test: StyleProp<Object> = {
+  borderWidth: 1,
+  borderColor: "red",
+}
 
-});
