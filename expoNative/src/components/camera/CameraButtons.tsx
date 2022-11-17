@@ -1,12 +1,11 @@
 import { Camera } from "expo-camera";
 import React, { useState } from "react";
-import { Image, StyleProp, Text, TouchableOpacity, View } from 'react-native';
-import { useAppSelector, useAppDispatch } from '../../redux/hook';
+import { StyleProp, Text, TouchableOpacity, View } from 'react-native';
 //import { takePicture, setFlash } from '../../redux/slices/camera/cameraSlice';
-import { takePicture } from "../../api/cameraApi/cameraApi";
-import { RatiosList } from './RatiosList';
 import { SvgUri } from "react-native-svg";
-import styles from "../../styles/camera/CameraButtons.style"
+import { takePicture } from "../../api/cameraApi/cameraApi";
+import styles from "../../styles/camera/CameraButtons.style";
+import { RatiosList } from './RatiosList';
 //import { setFlash } from "../../redux/slices/camera/cameraSlice";
 export interface CameraButtonsProps {
   flashActived: (number: number) => void,

@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { View, ScrollView, SafeAreaView } from "react-native";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from "../../../App"
+import React, { useState } from "react";
+import { SafeAreaView, ScrollView, View } from "react-native";
+import { RootStackParamList } from "../../../App";
+import styles from "../../styles/userProfil/UserProfil.style";
+import Picture from "./picture/Picture";
 import { ProfilHeader } from "./ProfilHeader";
 import Spot from "./spot/Spot";
-import Picture from "./picture/Picture";
-import styles from "../../styles/userProfil/UserProfil.style"
 
-import { useUserLocation } from "../../api/userApi/userApi";
-import { getFetch } from "../../api/fetchApi/fetchApi";
 
 
 type UserProfilProps = NativeStackScreenProps<RootStackParamList, "UserProfil">

@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import React, { useState, useEffect } from "react";
 import styles from "../../../styles/userProfil/Picture.style";
-import { Button } from "../../../components/buttons/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddPictureButton } from "./AddPictureButton";
 import { PictureSideScroller } from "../../../components/picture/PictureSideScroller";
@@ -9,6 +8,7 @@ import { useProfilPicture } from "../../../api/userApi/userApi";
 import { uploadFromLocalFiles } from "../../../api/pictureHook/pictrueApi";
 import { Camera } from "expo-camera";
 import { useNewPicture } from "../../../api/pictureHook/pictrueApi";
+import { Button } from "@sage/surf-app-ui-lib";
 declare interface PictureProps {
   navigation: any
 }

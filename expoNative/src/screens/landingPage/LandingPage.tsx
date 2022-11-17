@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { View, LayoutAnimation } from "react-native";
-import { NavigatorScreenParams, useNavigation } from "@react-navigation/native";
-import { StackScreenProps } from "@react-navigation/stack";
-import styles from "../../styles/LandingPage/LandingPage.style";
-import { LoginForm } from "./LoginFrom";
-import Buttons from "./Buttons";
-import SignUpForm from "./SignUpForm";
-import Header from "./Header";
-import { RootStackParamList } from "../../../App"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useState } from "react";
+import { LayoutAnimation, View } from "react-native";
+import { RootStackParamList } from "../../../App";
+import styles from "../../styles/LandingPage/LandingPage.style";
+import Buttons from "./Buttons";
+import Header from "./Header";
+import { LoginForm } from "./LoginFrom";
+import SignUpForm from "./SignUpForm";
 export type LandingPageProps = NativeStackScreenProps<RootStackParamList, "LandingPage">
 
 export default function LandingPage({ route, navigation }: LandingPageProps): JSX.Element {

@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import UserProfilMap from "./map/UserProfilMap";
 import { View, LayoutAnimation, Text, StyleSheet } from "react-native";
-import { useModal } from '../../../components/modals/Modal';
+import { useModal, Button } from '@sage/surf-app-ui-lib';
 import { SpotListModal } from './spotList/SpotListModal';
 import { useSpotList } from '../../../api/spotApi/spotApi';
-import { Button } from '../../../components/buttons/Button';
 import { SpotButtons } from './SpotButtons';
 import { useUserLocation } from '../../../api/userApi/userApi';
 import { useMap } from '../../../components/map/SurfAppMap';

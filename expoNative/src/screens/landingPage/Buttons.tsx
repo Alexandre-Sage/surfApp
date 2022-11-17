@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../../components/buttons/Button";
+import { Button } from "@sage/surf-app-ui-lib"
 import Or from "./Or";
 
 declare interface LandingPageButtonsPropsInterface {

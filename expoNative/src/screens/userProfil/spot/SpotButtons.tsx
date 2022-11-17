@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Button } from '@sage/surf-app-ui-lib';
 import React from 'react';
 import { View } from 'react-native';
 import { RootStackParamList } from '../../../../App';
-import { Button } from '../../../components/buttons/Button';
 
 
 export const SpotButtons = (): JSX.Element => {

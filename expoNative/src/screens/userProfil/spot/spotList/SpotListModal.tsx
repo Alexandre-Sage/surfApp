@@ -1,6 +1,6 @@
 import React from 'react';
 import { } from 'react-native';
-import { Modal, useModal, ModalProps } from '../../../../components/modals/Modal';
+import { Modal, useModal, ModalProps } from '@sage/surf-app-ui-lib';
 import { CurrentLocationInterface } from '../../../../interfaces/currentLocation';
 import { SpotListInterface } from '../../../../interfaces/spotInterfaces';
 import { SpotList } from './SpotList';

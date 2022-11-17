@@ -4,7 +4,7 @@ import { useState } from "react";
 import { sendFileFetch } from "../fetchApi/fetchApi";
 
 
-export const useNewPicture = (pictures?: ImageInfo[]):
+export const useNewPicture = (pictures?: CameraCapturedPicture[]):
   [CameraCapturedPicture[], (pictures: CameraCapturedPicture) => void, (picture: CameraCapturedPicture["uri"]) => void] => {
   const [newPictures, setNewPictures] = useState<CameraCapturedPicture[]>([...pictures!] || []);
   const updateNewPicture = (picture: CameraCapturedPicture) => setNewPictures([...newPictures, picture]);

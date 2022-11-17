@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View } from "react-native";
-import { Button } from "../../components/buttons/Button";
-import { TxtInput } from "../../components/inputs/Input";
+import { Button, TxtInput } from "@sage/surf-app-ui-lib";
 import { getFetchFunction, postFetchFunction } from "../../modules/fetch/basicFetch";
 import styles from "../../styles/LandingPage/SignUpForm.style";
 
@@ -31,14 +30,54 @@ export default function SignUpForm(): JSX.Element {
   return (
     <ScrollView >
       <View style={styles.container}>
-        <TxtInput name="Email" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-        <TxtInput name="Phone" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-        <TxtInput name="First name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-        <TxtInput name="Name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-        <TxtInput name="User name" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-        <TxtInput name="Location" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-        <TxtInput name="Password" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
-        <TxtInput name="Confirm password" state={answers} setState={(value: SignUpAnswersInterface) => setAnswers(value)} />
+        <TxtInput
+          name="email"
+          title="Email"
+          state={answers}
+          setState={setAnswers}
+        />
+        <TxtInput
+          name="phone"
+          title="Phone"
+          state={answers}
+          setState={setAnswers}
+        />
+        <TxtInput
+          name="firstName"
+          title="First name"
+          state={answers}
+          setState={setAnswers}
+        />
+        <TxtInput
+          name="name"
+          title="Name"
+          state={answers}
+          setState={setAnswers}
+        />
+        <TxtInput
+          name="userName"
+          title="User name"
+          state={answers}
+          setState={setAnswers}
+        />
+        <TxtInput
+          name="location"
+          title="Location"
+          state={answers}
+          setState={setAnswers}
+        />
+        <TxtInput
+          name="password"
+          title="Password"
+          state={answers}
+          setState={setAnswers}
+        />
+        <TxtInput
+          name="confirmPassword"
+          title="Confirm password"
+          state={answers}
+          setState={setAnswers}
+        />
         <Button containerStyle={styles.button} text="Submit" onPressFunction={() => sendAnswers()} />
       </View>
     </ScrollView>

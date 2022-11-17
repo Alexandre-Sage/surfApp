@@ -16,7 +16,9 @@ declare interface InputProps {
   defaultValue?: string
   keyboardType?: any
 }
-
+/**
+ * @deprecated TxtInput use TxtInput from TxtInput.tsx 
+ * */
 export const TxtInput = (props: InputProps): JSX.Element => {
   const { name, onValueChange, state, setState, defaultValue } = props;
   const keyboardType = props.keyboardType ? props.keyboardType : "default";

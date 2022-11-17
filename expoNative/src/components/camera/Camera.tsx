@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { Camera, CameraType } from "expo-camera";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Camera, CameraType } from "expo-camera";
+import React, { useState } from 'react';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from '../../../App';
-import { CameraButtons } from './CameraButtons';
-import { useAppSelector, useAppDispatch } from '../../redux/hook';
-import { takePicture } from '../../api/cameraApi/cameraApi';
 import { useNewPicture } from '../../api/pictureHook/pictrueApi';
+import { CameraButtons } from './CameraButtons';
 //import styles from '../../../styles/LandingPage/LandingPage.style';
 
 export type CameraProps = NativeStackScreenProps<RootStackParamList, "Camera">
@@ -14,7 +12,7 @@ export type CameraProps = NativeStackScreenProps<RootStackParamList, "Camera">
 export default function UserCamera({ navigation }: CameraProps): JSX.Element {
   //LOCAL STATES
   const [camera, setCamera] = useState<Camera>({} as Camera);
-  const [newPictures, updateNewPicture] = useNewPicture();
+  const [newPictures, updateNewPicture] = useNewPicture([]);
   const [flash, setFlash] = useState<number>(0)
   const [ratio, setRatio] = useState<string>();
   const [type, setType] = useState(CameraType.back);

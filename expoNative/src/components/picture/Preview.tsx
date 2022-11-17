@@ -3,17 +3,18 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, View, Alert, ScrollView } from 'react-native';
 import { RootStackParamList } from '../../../App';
 import { PictureSideScroller } from './PictureSideScroller';
-import { Button } from '../buttons/Button';
+import { Button } from '@sage/surf-app-ui-lib';
 import { sendFileFetch } from '../../api/fetchApi/fetchApi';
 import styles from "../../styles/componentAdditional/Preview.style";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNewPicture, uploadPictureToServer } from '../../api/pictureHook/pictrueApi';
-import { ErrorModal, useError } from '../modals/ErrorModal';
+import { ErrorModal, useError } from '@sage/surf-app-ui-lib';
 import { ImageInfo } from 'expo-image-picker';
+import { CameraCapturedPicture } from 'expo-camera';
 export type PreviewProps = NativeStackScreenProps<RootStackParamList, "Preview">
 
 export default function Preview({ navigation, route }: PreviewProps): JSX.Element {
-  const [newPictures, updateNewPicture, removeNewPicture] = useNewPicture(route.params.images as ImageInfo[]);
+  const [newPictures, updateNewPicture, removeNewPicture] = useNewPicture(route.params.images as CameraCapturedPicture[]);
   const { errorMessage, setErrorMessage, setToggleErrorModal, toggleErrorModal } = useError()
   const url = `${process.env.DEVELOPMENT_SERVER}/image/userImageUpload`
   //TO MOVE

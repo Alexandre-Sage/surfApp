@@ -2,28 +2,27 @@ import React, { useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from '../../../../App';
-import { Button } from '../../../components/buttons/Button';
-import { DropdownInput } from '../../../components/inputs/Dropdown';
-import { CheckBox } from "../../../components/inputs/CheckBox"
-import { TxtInput } from '../../../components/inputs/Input';
+import { Button, CheckBox, DropdownInput, TxtInput } from '@sage/surf-app-ui-lib';
 import { styles } from '../../../styles/spots/addSpot.style';
 import Or from '../../landingPage/Or';
-//import styles from '../../../styles/LandingPage/LandingPage.style';
+import { useUserLocation } from '../../../api/userApi/userApi';
+import { InputFunctionParam } from '../../../components/inputs/inputAction';
 type AddSpotScreenProps = NativeStackScreenProps<RootStackParamList, "AddSpot">
 
 interface AddSpotFormInterface {
   spotName: string;
   country: string;
+  location: any;
+  orientation: string[] | []
   type: {
     waveType: string;
     bottomType: string;
   };
-  orientation: string[]
 
 };
 
 
-const CardinalPointCheckBox = ({ title }: { title: string }): JSX.Element => {
+const CardinalPointCheckBox = ({ title, name, state, action }: { title: string, name: string, state: any, action: any }): JSX.Element => {
   const orientations: any[] = ["N", "S", "E", "W", "NW", "SE", "NE", "SW"]
   return (
     <View style={styles.spotOrientationContainer}>
@@ -32,7 +31,12 @@ const CardinalPointCheckBox = ({ title }: { title: string }): JSX.Element => {
       </View>
       <View style={styles.spotOrientation}>
         {orientations.map(orientation => (
-          <CheckBox key={orientation} action={() => console.log("check")} value={orientation} />
+          <CheckBox multipleChoice
+            state={state}
+            name={name}
+            key={orientation}
+            action={action}
+            value={orientation} />
         ))}
       </View>
     </View>
@@ -43,25 +47,60 @@ export default function AddSpotScreen(): JSX.Element {
   const [userAnswers, setUserAnswers] = useState<AddSpotFormInterface>({} as AddSpotFormInterface)
   const waveTypesArray: string[] = ["Point break", "Shore break", "Slab", "River mouth"];
   const bottomTypesArray: string[] = ["Sand", "Reef", "Mixed"];
-  console.log(userAnswers)
+  const [userLocation, setLocation] = useUserLocation()
+  console.log({ userAnswers })
+  const getUserLocation = () => {
+    setLocation();
+    setUserAnswers({
+      ...userAnswers,
+      location: {
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude
+      }
+    })
+  };
+  const setWaveType = ({ name, value }: InputFunctionParam) =>
+    setUserAnswers({
+      ...userAnswers,
+      type: {
+        ...userAnswers.type,
+        [name]: value
+      }
+    });
+
   return (
     <SafeAreaView style={styles.safeView}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <View style={styles.spotInfoCtn}>
-            <TxtInput name={"Spot name"} setState={setUserAnswers} state={userAnswers} />
-            <TxtInput name={"Country"} setState={setUserAnswers} state={userAnswers} />
+            <TxtInput name={"spotName"} title={"Spot name"} setState={setUserAnswers} state={userAnswers} />
+            <TxtInput name={"country"} title="Country" setState={setUserAnswers} state={userAnswers} />
           </View>
           <View style={styles.spotTypeCtn}>
             <View style={styles.addSpotTitle}>
               <Text style={styles.addSpotTxt}>Spot type</Text>
             </View>
             <View style={styles.spotTypeInputCtn} >
-              <DropdownInput action={() => { }} listItemToMap={waveTypesArray} name="Wave type" />
-              <DropdownInput action={() => { }} listItemToMap={bottomTypesArray} name="Bottom type" />
+              <DropdownInput
+                action={setWaveType}
+                listItemToMap={waveTypesArray}
+                title="Wave type"
+                name='waveType'
+              />
+              <DropdownInput
+                action={setWaveType}
+                listItemToMap={bottomTypesArray}
+                title="Bottom type"
+                name="bottomType"
+              />
             </View>
           </View>
-          <CardinalPointCheckBox title="Orientation" />
+          <CardinalPointCheckBox
+            name="orientation"
+            title="Orientation"
+            action={setUserAnswers}
+            state={userAnswers}
+          />
 
           <View style={styles.locationCtn}>
             <View style={styles.addSpotTitle}>
@@ -71,19 +110,30 @@ export default function AddSpotScreen(): JSX.Element {
             </View>
             <View style={styles.locationInputCtn}>
               <TxtInput
+                title='Manual'//A modifier par un button
                 name='Manual'
                 setState={() => { }}
                 state={{}}
               />
               <Or />
               <Button
-                onPressFunction={() => { }}
+                onPressFunction={getUserLocation}
                 text="Current Location"
               />
             </View>
           </View>
-          <CardinalPointCheckBox title="Optimal waves (You can add this later)" />
-          <CardinalPointCheckBox title="Optimal winds (You can add this later)" />
+          <CardinalPointCheckBox
+            name='optimalWave'
+            title="Optimal waves (You can add this later)"
+            action={setUserAnswers}
+            state={userAnswers}
+          />
+          <CardinalPointCheckBox
+            name="optimalWinds"
+            title="Optimal winds (You can add this later)"
+            action={setUserAnswers}
+            state={userAnswers}
+          />
 
           <View style={styles.spotPictureCtn}>
             <View style={styles.addSpotTitle}>

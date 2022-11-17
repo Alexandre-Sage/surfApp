@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
-import { Button } from "../../components/buttons/Button";
-import { TxtInput } from "../../components/inputs/Input"
+// import { TxtInput } from "../../components/inputs/Input"
 import { authentificationFetch } from "../../api/fetchApi/fetchApi";
 import styles from "../../styles/LandingPage/LoginFrom.style";
 import { RootStackParamList } from "../../../App"
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ErrorModal, useError } from "../../components/modals/ErrorModal";
+import { ErrorModal, useError, Button, TxtInput } from "@sage/surf-app-ui-lib"
 declare interface LoginAnswersInterface {
   email: string,
   password: string
@@ -28,7 +27,7 @@ export function LoginForm(): JSX.Element {
   const { errorMessage, setErrorMessage, toggleErrorModal, setToggleErrorModal } = useError()
   const [answers, setAnswers] = useState({
     email: "test@testOne.com",
-    password: "test"
+    password: ""
   });
   const sendAnswers = async () => {
     try {
@@ -43,15 +42,16 @@ export function LoginForm(): JSX.Element {
     <SafeAreaView>
       <View style={styles.formContainer}>
         <TxtInput
-          name="Email"
+          name="email"
+          title="Email"
           state={answers}
-          setState={(value: LoginAnswersInterface) => setAnswers(value)}
-          defaultValue={"test@testOne.com"}
+          setState={setAnswers}
         />
         <TxtInput
-          name="Password"
+          name="password"
+          title="Password"
           state={answers}
-          setState={(value: LoginAnswersInterface) => setAnswers(value)}
+          setState={setAnswers}
         />
         <Button text="Submit" onPressFunction={() => sendAnswers()} />
         <ErrorModal message={errorMessage} displayModal={toggleErrorModal} close={setToggleErrorModal} />
