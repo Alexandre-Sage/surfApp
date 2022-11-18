@@ -33,7 +33,8 @@ export default function Spot({ enableMainScroll }: SpotPropsInterface): JSX.Elem
         spotList={spots}
         mapLocation={mapLocation}
         setMapLocation={setMapLocation}
-        currentLocation={currentLocation} />
+        currentLocation={currentLocation}
+      />
       <SpotButtons />
     </View>
   );

@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { backgroundColor, fontColor } from "../variable.style"
+import { backgroundColor, columnFullCenter, fontColor } from "../variable.style"
 
 const styles = StyleSheet.create({
-    userProfilContainer: {
-        backgroundColor: backgroundColor,
-        justifyContent: "center",
-        alignItems: "center"
-    }
+  userProfilContainer: {
+    backgroundColor: backgroundColor,
+    ...columnFullCenter
+    //justifyContent: "center",
+    //alignItems: "center"
+  }
 });
 export default styles;

@@ -36,7 +36,7 @@ async function postFetchFunction(url: string, body: object): Promise<Response> {
     body: JSON.stringify(body)
   })
     .then(serverResponse => serverResponse.json())
-    .catch(serverError => serverError)
+    .catch(serverError => JSON.stringify(serverError))
 };
 
 async function sendFileFetch(url: string, formData: FormData, callBack?: Function): Promise<any> {

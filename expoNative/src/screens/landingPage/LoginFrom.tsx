@@ -27,7 +27,7 @@ export function LoginForm(): JSX.Element {
   const { errorMessage, setErrorMessage, toggleErrorModal, setToggleErrorModal } = useError()
   const [answers, setAnswers] = useState({
     email: "test@testOne.com",
-    password: ""
+    password: "test"
   });
   const sendAnswers = async () => {
     try {

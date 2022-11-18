@@ -43,6 +43,11 @@ const mixin = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center"
   },
+  columnJustifySpaceBetween: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   border: {
     borderRadius: borderRadius,
     borderColor: borderColor,
@@ -58,6 +63,7 @@ export const rowFullCenter = mixin.rowFullCenter;
 export const border = mixin.border;
 export const paragraph = mixin.paragraph;
 export const columnJustifySpaceAround = mixin.columnJustifySpaceAround;
+export const columnJustifySpaceBetween = mixin.columnJustifySpaceBetween;
 export {
   backgroundColor,
   fontColor,

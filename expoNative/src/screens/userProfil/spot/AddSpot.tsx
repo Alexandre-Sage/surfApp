@@ -7,8 +7,8 @@ import { styles } from '../../../styles/spots/addSpot.style';
 import Or from '../../landingPage/Or';
 import { useUserLocation } from '../../../api/userApi/userApi';
 import { InputFunctionParam } from '../../../components/inputs/inputAction';
+import { postFetchFunction } from '../../../api/fetchApi/fetchApi';
 type AddSpotScreenProps = NativeStackScreenProps<RootStackParamList, "AddSpot">
-
 interface AddSpotFormInterface {
   spotName: string;
   country: string;
@@ -109,11 +109,9 @@ export default function AddSpotScreen(): JSX.Element {
               </Text>
             </View>
             <View style={styles.locationInputCtn}>
-              <TxtInput
-                title='Manual'//A modifier par un button
-                name='Manual'
-                setState={() => { }}
-                state={{}}
+              <Button
+                text='Choose location'
+                onPressFunction={() => { }}
               />
               <Or />
               <Button
@@ -149,7 +147,10 @@ export default function AddSpotScreen(): JSX.Element {
 
           <View style={styles.createCtn}>
             <Button
-              onPressFunction={() => { }}
+              onPressFunction={async () => {
+                const test = await postFetchFunction(`${process.env.DEVELOPMENT_SERVER}/spot/newSpot`, userAnswers)
+                console.log(test)
+              }}
               text="Create"
             />
           </View>

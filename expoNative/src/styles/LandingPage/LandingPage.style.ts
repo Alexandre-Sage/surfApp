@@ -1,23 +1,26 @@
 import { StyleSheet } from 'react-native';
-import { backgroundColor, fontColor } from "../variable.style"
+import { backgroundColor, columnFullCenter, fontColor } from "../variable.style"
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: backgroundColor,
-    alignItems: "center",
-    justifyContent: "center",
+    ...columnFullCenter
+    //alignItems: "center",
+    //justifyContent: "center",
   },
   returnButton: {
-    alignItems: "center",
-    justifyContent: "center",
+    //alignItems: "center",
+    //justifyContent: "center",
     marginBottom: 15,
-    marginTop: 15
+    marginTop: 15,
+    ...columnFullCenter
   },
   subContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1
+    //alignItems: "center",
+    //justifyContent: "center",
+    flex: 1,
+    ...columnFullCenter
 
   },
   title: {
