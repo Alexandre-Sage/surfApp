@@ -8,10 +8,7 @@ export interface SpotInterface {
   spotName: String,
   country: String,
   type: WaveTypeObject,
-  location: {
-    latitude: string,
-    longitude: string
-  },
+  location: GeoJsonObject,
   orientation: Array<String>,
   optimalConditions: {
     wind: {

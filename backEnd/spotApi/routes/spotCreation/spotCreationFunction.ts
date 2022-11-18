@@ -6,10 +6,11 @@ import { HydratedDocument } from "mongoose";
 
 
 export default async function spotCreation(requestBody: SpotInterface, userId: any) {
-  const { location, type, orientation, ...bodyCopy } = requestBody;
+  //const { location, type, orientation, ...bodyCopy } = requestBody;
   try {
     //await notEmptyCheck(location)
     //await notEmptyCheck(bodyCopy);
+    console.log("here", requestBody)
     const newSpot: HydratedDocument<SpotInterface> = new Spot<SpotInterface>({
       ...requestBody,
       userId,
