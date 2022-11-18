@@ -10,7 +10,11 @@ export default async function spotCreation(requestBody: SpotInterface, userId: a
   try {
     //await notEmptyCheck(location)
     //await notEmptyCheck(bodyCopy);
-    const newSpot: HydratedDocument<SpotInterface> = new Spot<SpotInterface>({ ...requestBody, userId });
+    const newSpot: HydratedDocument<SpotInterface> = new Spot<SpotInterface>({
+      ...requestBody,
+      userId,
+      creationDate: new Date(Date.now())
+    });
     const document = await addMongoDocument(newSpot);
     return document;
   } catch (error: any) {
