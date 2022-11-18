@@ -10,8 +10,8 @@ const SpotSchema = new Schema<SpotInterface>({
     bottomType: { type: String, required: true },
   },
   location: {
-    type: { type: String, required: true },
-    coordinates: [{ type: String, required: true }]
+    longitude: [{ type: String, required: true }],
+    latitude: [{ type: String, required: true }]
   },
   orientation: [{ type: String, required: true }],
   optimalConditions: {
