@@ -56,7 +56,7 @@ export default function AddSpotScreen(): JSX.Element {
     setUserAnswers({
       ...userAnswers,
       location: {
-        //...userAnswers.location,
+        type: "Point",
         coordinates: {
           latitude: userLocation.latitude,
           longitude: userLocation.longitude
