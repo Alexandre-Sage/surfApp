@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from '../../../../App';
-import { Button, CheckBox, DropdownInput, TxtInput } from '@sage/surf-app-ui-lib';
+import { Button, CheckBox, DropdownInput, TxtInput, Modal, useModal, ErrorModal, useError } from '@sage/surf-app-ui-lib';
 import { styles } from '../../../styles/spots/addSpot.style';
 import Or from '../../landingPage/Or';
 import { useUserLocation } from '../../../api/userApi/userApi';
@@ -44,18 +44,24 @@ const CardinalPointCheckBox = ({ title, name, state, action }: { title: string, 
 }
 
 export default function AddSpotScreen(): JSX.Element {
-  const [userAnswers, setUserAnswers] = useState<AddSpotFormInterface>({} as AddSpotFormInterface)
-  const waveTypesArray: string[] = ["Point break", "Shore break", "Slab", "River mouth"];
-  const bottomTypesArray: string[] = ["Sand", "Reef", "Mixed"];
   const [userLocation, setLocation] = useUserLocation()
-  console.log({ userAnswers })
+  const [userAnswers, setUserAnswers] = useState<AddSpotFormInterface>({} as AddSpotFormInterface)
+  const [toggleModal, setToggleModal] = useModal();
+  const [modalMessage, setModalMessage] = useState<string>()
+  const { errorMessage, setErrorMessage, setToggleErrorModal, toggleErrorModal } = useError();
+  const bottomTypesArray: string[] = ["Sand", "Reef", "Mixed"];
+  const waveTypesArray: string[] = ["Point break", "Shore break", "Slab", "River mouth"];
   const getUserLocation = () => {
     setLocation();
     setUserAnswers({
       ...userAnswers,
       location: {
-        latitude: userLocation.latitude,
-        longitude: userLocation.longitude
+        //...userAnswers.location,
+        coordinates: {
+          latitude: userLocation.latitude,
+          longitude: userLocation.longitude
+        }
+
       }
     })
   };
@@ -67,7 +73,21 @@ export default function AddSpotScreen(): JSX.Element {
         [name]: value
       }
     });
-
+  const senAnswersToServer = async () => {
+    const url = `${process.env.DEVELOPMENT_SERVER}/spot/newSpot`;
+    try {
+      const { error, serverResponse } = await postFetchFunction(url, userAnswers)
+      if (error) {
+        setErrorMessage(serverResponse);
+        setToggleErrorModal();
+      }
+      setModalMessage(serverResponse)
+      setToggleModal()
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
+  console.log({ userAnswers })
   return (
     <SafeAreaView style={styles.safeView}>
       <ScrollView style={styles.scrollView}>
@@ -147,16 +167,23 @@ export default function AddSpotScreen(): JSX.Element {
 
           <View style={styles.createCtn}>
             <Button
-              onPressFunction={async () => {
-                const test = await postFetchFunction(`${process.env.DEVELOPMENT_SERVER}/spot/newSpot`, userAnswers)
-                console.log(test)
-              }}
+              onPressFunction={async () => await senAnswersToServer()}
               text="Create"
             />
           </View>
-
         </View>
       </ScrollView>
+      <Modal
+        toggleModal={toggleModal}
+        onClose={setToggleModal}
+      >
+        <View><Text>{"HERE"}</Text></View>
+      </Modal>
+      <ErrorModal
+        close={setToggleErrorModal}
+        displayModal={toggleErrorModal}
+        message={errorMessage}
+      />
     </SafeAreaView>
   );
 };

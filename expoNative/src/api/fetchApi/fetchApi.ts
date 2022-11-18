@@ -24,19 +24,26 @@ async function getFetch(url: string, callBack?: Function): Promise<Response> {
   //  .catch(serverError => console.log(serverError));
 }
 
-async function postFetchFunction(url: string, body: object): Promise<Response> {
-  const token = await getStoredData("JWT-TOKEN");
-  return fetch(url, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    },
-    body: JSON.stringify(body)
-  })
-    .then(serverResponse => serverResponse.json())
-    .catch(serverError => JSON.stringify(serverError))
+async function postFetchFunction(url: string, body: object) {
+  try {
+    const token = await getStoredData("JWT-TOKEN");
+    const serverResponse = await fetch(url, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    });
+    const jsonResponse = await serverResponse.json()
+    return { serverResponse: jsonResponse.message, error: jsonResponse.error }
+  } catch (error: any) {
+    return { serverResponse: error.message, error: error.error }
+  }
+
+  //.then(serverResponse => serverResponse.json())
+  //.catch(serverError => JSON.stringify(serverError))
 };
 
 async function sendFileFetch(url: string, formData: FormData, callBack?: Function): Promise<any> {
