@@ -7,6 +7,7 @@ import { fetchOneDocument } from "../../../../sharedModules/mongoDb/getOneDocume
 import { User } from "../../../../mongoDb/user/users";
 import { Types } from "mongoose";
 import { Spot } from "../../../../mongoDb/spots/spot";
+import { expectCt } from "helmet";
 
 
 chai.use(chaiHttp)
@@ -31,8 +32,7 @@ export function getOneSpotSucessTest(): Suite {
         const spot = await fetchOneDocument(Spot, researchObjectSpot);
         this.ctx.spotId = spot._id;
         this.ctx.spot = spot;
-
-      } catch (err) { console.log(err) };
+      } catch (err) { throw err };
     })
 
     it("Should log in and get one spot json info", async () => {
@@ -47,6 +47,7 @@ export function getOneSpotSucessTest(): Suite {
         expect(error).to.be.eql(false);
         expect(response).to.have.property("status").eql(200);
         expect(header).to.have.property('content-type').eql(contentType);
+        //expect(body).to.be.eql(responseMessage)
         expect(header).to.have.property('access-control-allow-credentials').eql("true");
       } catch (error: any) {
         throw error

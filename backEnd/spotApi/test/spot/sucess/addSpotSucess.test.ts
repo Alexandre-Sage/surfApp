@@ -26,6 +26,14 @@ export function addSpotWithSucessTest(): Suite {
           coordinates: ["47.52408959", "-3.1545563"]
         },
         orientation: ["W", "N/W", "WN/W"],
+        optimalConditions: {
+          wind: {
+
+          },
+          swell: {
+
+          }
+        },
         creationDate: new Date().toUTCString()
       };
       this.ctx.spot = newSpot;
@@ -42,7 +50,6 @@ export function addSpotWithSucessTest(): Suite {
         const token: any = await getAuthentificationToken(url, credentials);
         const response = await agent.post("/spot/newSpot").send(this.ctx.spot).set("Authorization", `Bearer ${token.token}`);
         const { header, body, error } = response;
-        console.log(response)
         expect(error).to.be.eql(false);
         expect(response).to.have.property("status").eql(200);
         expect(body).to.have.property("message").eql(responseMessage);

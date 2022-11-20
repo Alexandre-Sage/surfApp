@@ -4,9 +4,9 @@ import { GeoJsonObject } from "../generalInterface/geoJsonInterface"
 import { PictureObject } from "../generalInterface/pictureObjectInterface"
 import { Document } from "mongoose";
 export interface SpotInterface {
-  userId: String,
-  spotName: String,
-  country: String,
+  userId: string,
+  spotName: string,
+  country: string,
   type: WaveTypeObject,
   location: GeoJsonObject,
   orientation: Array<String>,
@@ -21,7 +21,7 @@ export interface SpotInterface {
       orientation: string[],
     }
   },
-  sessions: Array<String>,
+  sessions: Array<string>,
   creationDate: Date,
   picture: PictureObject,
   save: () => Promise<Document<unknown, any, SpotInterface>>

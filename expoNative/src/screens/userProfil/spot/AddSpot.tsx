@@ -76,9 +76,10 @@ export default function AddSpotScreen(): JSX.Element {
       if (error) {
         setErrorMessage(serverResponse);
         setToggleErrorModal();
+      } else if (!error) {
+        setModalMessage(serverResponse)
+        setToggleModal()
       }
-      setModalMessage(serverResponse)
-      setToggleModal()
     } catch (error: any) {
       console.log(error)
     }

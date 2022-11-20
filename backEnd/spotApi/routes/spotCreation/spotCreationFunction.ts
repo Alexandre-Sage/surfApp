@@ -3,14 +3,29 @@ import { notEmptyCheck } from "../../../sharedModules/dataValidation/notEmpty";
 import { SpotInterface } from "../../../mongoDb/spots/spotInterface";
 import { Spot } from "../../../mongoDb/spots/spot";
 import { HydratedDocument } from "mongoose";
-
-
-export default async function spotCreation(requestBody: SpotInterface, userId: any) {
-  //const { location, type, orientation, ...bodyCopy } = requestBody;
+import validator from "validator"
+export const spotValidatior = async (requestBody: SpotInterface): Promise<boolean> => {
+  const { location, type, orientation, sessions, optimalConditions, ...bodyCopy } = requestBody;
+  const { isEmpty } = validator;
+  const validationPromise = [notEmptyCheck(bodyCopy), notEmptyCheck(location.type), notEmptyCheck(type)]
   try {
-    //await notEmptyCheck(location)
-    //await notEmptyCheck(bodyCopy);
-    console.log("here", requestBody)
+    await Promise.all(validationPromise)
+    location.coordinates.forEach(item => isEmpty(item as string))
+    orientation.forEach(item => isEmpty(item as string));
+    if (optimalConditions && optimalConditions.swell) {
+      //await notEmptyCheck(optimalConditions.swell)
+      //await notEmptyCheck(optimalConditions.wind)
+    }
+    return true
+  } catch (error) {
+    console.log(error)
+    return Promise.reject(error)
+  }
+}
+
+
+export async function spotCreation(requestBody: SpotInterface, userId: any) {
+  try {
     const newSpot: HydratedDocument<SpotInterface> = new Spot<SpotInterface>({
       ...requestBody,
       userId,
