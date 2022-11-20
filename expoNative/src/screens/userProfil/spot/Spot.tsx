@@ -20,6 +20,9 @@ export default function Spot({ enableMainScroll }: SpotPropsInterface): JSX.Elem
   const [currentLocation, setCurrentLocation] = useUserLocation();
   const { mapLocation, setMapLocation, mapEnabled, setMapEnabled } = useMap()
   const { latitude, longitude } = currentLocation;
+  const test = () => {
+    scrollTo
+  }
   useEffect(() => { setSpotList() }, []);
   const displayModal = (): void => {
     enableMainScroll();
@@ -28,7 +31,17 @@ export default function Spot({ enableMainScroll }: SpotPropsInterface): JSX.Elem
   return (
     <View style={styles.view}>
       <Button onPressFunction={() => displayModal()} text={""} />
-      <SpotListModal setMapLocation={setMapLocation} toggleModal={toggleModal} spotList={spots} onClose={displayModal} />
+      <SpotListModal
+        style={{
+          position: "absolute",
+          borderWidth: 5,
+          borderColor: "red",
+        }}
+        setMapLocation={setMapLocation}
+        toggleModal={toggleModal}
+        spotList={spots}
+        onClose={displayModal}
+      />
       <UserProfilMap
         spotList={spots}
         mapLocation={mapLocation}

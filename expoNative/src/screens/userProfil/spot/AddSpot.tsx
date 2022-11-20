@@ -171,6 +171,7 @@ export default function AddSpotScreen(): JSX.Element {
         </View>
       </ScrollView>
       <Modal
+        style={{}}
         toggleModal={toggleModal}
         onClose={setToggleModal}
       >

@@ -13,6 +13,11 @@ interface SpotListModalProps extends Omit<ModalProps, "children"> {
 export const SpotListModal = ({ toggleModal, spotList, onClose, setMapLocation }: SpotListModalProps) => {
   return (
     <Modal
+      style={{
+        position: "absolute",
+        borderWidth: 1,
+        borderColor: "red",
+      }}
       onClose={onClose}
       toggleModal={toggleModal}
     >
