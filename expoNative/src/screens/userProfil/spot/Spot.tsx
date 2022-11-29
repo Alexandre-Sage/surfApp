@@ -20,6 +20,7 @@ export default function Spot({ enableMainScroll }: SpotPropsInterface): JSX.Elem
   const [currentLocation, setCurrentLocation] = useUserLocation();
   const { mapLocation, setMapLocation, mapEnabled, setMapEnabled } = useMap()
   const { latitude, longitude } = currentLocation;
+  //FINIR LE SCROLL POUR LA MODALE
   const test = () => {
     scrollTo
   }
