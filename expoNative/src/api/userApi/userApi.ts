@@ -27,7 +27,7 @@ export const useProfilHeaderInfo = (): [UserHeaderInterface[], () => void] => {
 
 export const useProfilPicture = (): [PictureInterface[], () => void] => {
   const [pictureInfo, setPictureInfo] = useState<PictureInterface[]>([]);
-  const updatePictureInfo = () => getFetch(`${process.env.DEVELOPMENT_SERVER}/user/allPicture`, setPictureInfo)
+  const updatePictureInfo = () => getFetch(`${process.env.DEVELOPMENT_SERVER}/image/allUserProfilPicture`, setPictureInfo)
     .catch(error => setPictureInfo(error));
   return [pictureInfo, updatePictureInfo]
 }

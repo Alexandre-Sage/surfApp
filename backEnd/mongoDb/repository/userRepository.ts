@@ -19,8 +19,9 @@ function mongoErrorHandling(error: MongoServerError) {
 };
 
 interface UserRepositoryInterface {
-  createNewUser: ({ newUserData }: { newUserData: UserInterface }) => Promise<void | Error>
-  getUserData: ({ email }: { email: string }) => Promise<UserInterface | null>
+  createNewUser: ({ newUserData }: { newUserData: UserInterface }) => Promise<void | Error>;
+  getUserDataByEmailForAuthentification: ({ email }: { email: string }) => Promise<UserInterface | null>;
+  getUserProfilData: ({ fieldObject, userId }: { userId: UserInterface["_id"], fieldObject: Object }) => Promise<UserInterface | null>
 }
 
 export class UserRepository implements UserRepositoryInterface {
@@ -38,12 +39,20 @@ export class UserRepository implements UserRepositoryInterface {
     }
   };
 
-  getUserData = async ({ email }: { email: string }): Promise<UserInterface | null> => {
+  getUserDataByEmailForAuthentification = async ({ email }: { email: string }): Promise<UserInterface | null> => {
     try {
-      return await this.userModel.findOne({ email })
+      return await this.userModel.findOne({ email }, { _id: 1, userName: 1, salt: 1, password: 1 })
     } catch (error) {
       throw error
     }
+  };
+
+  getUserProfilData = async ({ userId, fieldObject }: { userId: UserInterface["_id"], fieldObject: Object }): Promise<UserInterface | null> => {
+    try {
+      return await this.userModel.findOne({ userId }, { ...fieldObject })
+    } catch (err) {
+      throw new CustomError("Something wrong happened please retry", "getUserProfilData error", 400)
+    };
   };
 
   updateUserData = () => { };

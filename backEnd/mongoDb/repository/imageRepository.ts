@@ -1,8 +1,7 @@
-import { Database, database } from "../server/database";
-import { Connection, Model, Schema } from "mongoose";
-import { ImageInterface, ImageSchema, Images } from "../images/image";
-import { UserInterface } from "../user/userInterface";
+import { Model, Schema } from "mongoose";
+import { ImageInterface, Images } from "../images/image";
 import { SpotInterface } from "../spots/spotInterface";
+import { UserInterface } from "../user/userInterface";
 
 interface RepositoryParams {
   userId: UserInterface["_id"];

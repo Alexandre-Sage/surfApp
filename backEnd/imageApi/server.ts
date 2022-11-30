@@ -5,10 +5,10 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import {database} from "../mongoDb/server/database";
+import { database } from "../mongoDb/server/database";
 //ROUTES 
 import userImageUpload from "./routes/userPictureUpload";
-//import allPictureRoute from "./routes/picture/userProfilPicture";
+import userProfilPicture from "./routes/getUserProfilPicture";
 //declare module Express{
 //  
 //}
@@ -30,7 +30,7 @@ server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 
 server.use("/image/userImageUpload", userImageUpload);
-//server.use("/allPicture",allPictureRoute);
+server.use("/image/allUserProfilPicture", userProfilPicture);
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {
   console.log(`Server listening on: ${process.env.PORT}`);

@@ -5,7 +5,7 @@ import { PictureObject } from "../generalInterface/pictureObjectInterface"
 import { Document, Types } from "mongoose";
 export interface SpotInterface {
   _id: Types.ObjectId,
-  userId: string,
+  userId?: Types.ObjectId,
   spotName: string,
   country: string,
   type: WaveTypeObject,

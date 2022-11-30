@@ -16,35 +16,18 @@ export const UserSchema = new Schema<UserInterface>({
     creationDate: { type: Date, default: Date.now, required: true },
     lastConnection: { type: Date, default: Date.now, required: true },
 });
-/**
- * First User schema method hashPassword:
- * This function hash the new user password with SHA512 algorithm and add salt it. 
- * @param password the password to hash has to be a string.  
- */
-
 UserSchema.methods.hashPassword = async function (password: string) {
 
     this.salt = randomBytes(25).toString("hex");
     this.password = pbkdf2Sync(password, this.salt, 1000, 64, "sha512").toString("hex");
 };
-
-/**
- * Second User schema method checkPassword.
- * Check if the provided string match the databse stored password. 
- * @param password string provided as login password by the user.
- * @returns a promise that resolves with true if the password and the provided string match or 
- * reject it with an error if they don't.  
- */
-
-UserSchema.methods.checkPassword = function (password: string): Promise<any> {
+UserSchema.methods.checkPassword = async function (password: string): Promise<void> {
     const hashedPassword = pbkdf2Sync(password, this.salt, 1000, 64, "sha512").toString("hex");
-    return new Promise((resolve: Function, reject: Function) => (
-        this.password === hashedPassword ? resolve(true) : reject(new CustomError(
-            "Invalid password",
-            "USER SCHEMA PASSWORD VALIDATION ERROR",
-            400
-        ))
-    ));
+    if (this.password !== hashedPassword) throw new CustomError(
+        "Invalid password",
+        "USER SCHEMA PASSWORD VALIDATION ERROR",
+        400
+    )
 };
 export const User = model<UserInterface>("User", UserSchema);
 //connect(`${process.env.MONGO_ATLAS}`, {

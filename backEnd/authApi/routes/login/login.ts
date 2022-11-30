@@ -18,7 +18,6 @@ router.post("/", async function (req: Request, res: Response): Promise<Response>
       error: false
     });
   } catch (error: any) {
-    //console.log(error)
     return res.status(error.httpStatus).json({
       message: error.message,
       error: true

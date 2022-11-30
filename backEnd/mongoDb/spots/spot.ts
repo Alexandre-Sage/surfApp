@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { SpotInterface } from "./spotInterface";
 
 const SpotSchema = new Schema<SpotInterface>({
-  userId: { type: String, required: true },
+  userId: { type: Types.ObjectId, required: true },
   spotName: { type: String, required: true },
   country: { type: String, required: true },
   type: {
