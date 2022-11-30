@@ -11,7 +11,7 @@ export default function missingPasswordErrorTest() {
             const contentType='application/json; charset=utf-8';
             const contentLength= process.env.NODE_ENV==="developpment"?'58':'56';
             try {
-                const response = await agent.post("/signUp").send(missingPasswordObject)
+                const response = await agent.post("/auth/signUp").send(missingPasswordObject)
                 const { header, body, clientError,serverError }=response;
                 expect(clientError).to.be.eql(true);
                 expect(serverError).to.be.eql(false);

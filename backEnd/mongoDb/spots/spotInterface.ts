@@ -2,8 +2,9 @@ import { WaveTypeObject } from "../generalInterface/WaveTypeInterface";
 import { OptimalConditionsObj } from "../generalInterface/optimalConditionInterface";
 import { GeoJsonObject } from "../generalInterface/geoJsonInterface"
 import { PictureObject } from "../generalInterface/pictureObjectInterface"
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 export interface SpotInterface {
+  _id: Types.ObjectId,
   userId: string,
   spotName: string,
   country: string,

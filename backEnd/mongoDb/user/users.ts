@@ -13,13 +13,6 @@ export const UserSchema = new Schema<UserInterface>({
     phone: { type: String, required: true, unique: true, index: true, dropDups: false },
     password: { type: String, required: true },
     salt: { type: String, required: true },
-    picture: [
-        {
-            path: { type: String, required: false },
-            place: { type: String, required: false },
-            uploadDate: { type: Date, required: false }
-        }
-    ],
     creationDate: { type: Date, default: Date.now, required: true },
     lastConnection: { type: Date, default: Date.now, required: true },
 });
@@ -30,6 +23,7 @@ export const UserSchema = new Schema<UserInterface>({
  */
 
 UserSchema.methods.hashPassword = async function (password: string) {
+
     this.salt = randomBytes(25).toString("hex");
     this.password = pbkdf2Sync(password, this.salt, 1000, 64, "sha512").toString("hex");
 };
@@ -53,10 +47,10 @@ UserSchema.methods.checkPassword = function (password: string): Promise<any> {
     ));
 };
 export const User = model<UserInterface>("User", UserSchema);
-connect(`${process.env.MONGO_ATLAS}`, {
-    autoIndex: true,
-}).then(() => User.createIndexes())
-    .catch(err => console.log(err))
-    //.finally(() => disconnect())
+//connect(`${process.env.MONGO_ATLAS}`, {
+//    autoIndex: true,
+//}).then(() => User.createIndexes())
+//    .catch(err => console.log(err))
+//    //.finally(() => disconnect())
 //export {UserSchema};
 

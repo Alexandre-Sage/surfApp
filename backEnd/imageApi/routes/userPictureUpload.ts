@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import { imageStorage, compressImage } from "../../sharedModules/upload/imageStorage";
-import addPicturePathToDb from "./pictureModules/addPicture";
 import { User } from "../../mongoDb/user/users";
 import { PictureObject } from "../../mongoDb/generalInterface/pictureObjectInterface";
 import multer from "multer";
 import { sessionTokenAuthentification, getToken } from "../../sharedModules/jwt/jwtManagement";
+import { database } from "../../mongoDb/server/database";
 
 const router = express.Router();
 const { log, table, error } = console
@@ -21,22 +21,25 @@ const createDbImagePath = (string: string | undefined, splitCharactere: string, 
    return newString;
 };
 
+
 router.post("/", imageStorage.single("image"), async function (req: Request, res: Response, next: any): Promise<Response<JSON>> {
-   console.log(req.file)
+   //console.log(req.file)
    const fileCopy = { ...req.file }
    const { path, destination, originalname } = fileCopy;
-   const dataBasePath: string | Error = createDbImagePath(path, "/", 0, 1, "/")
-   const pictureObj: PictureObject = { path: `${dataBasePath}_compressed`, place: "test", date: Date.now() };
+   const dataBasePath = createDbImagePath(path, "/", 0, 1, "/")
+   const imageData = { path: `${dataBasePath}_compressed`, uploadDate: new Date() };
    const token = getToken(req)
    try {
-      const checkTokenIntegrity = await sessionTokenAuthentification(`${token}`);
+      const userId =(await sessionTokenAuthentification(`${token}`)).userId;
       compressImage(`${path}`);
-      await addPicturePathToDb(checkTokenIntegrity, User, pictureObj)
+      database.imageRepository.addUserImage({userId,imageData})
+      //await addPicturePathToDb(checkTokenIntegrity, User, pictureObj)
       return res.status(200).json({
          message: "You're image was successfully uploaded.",
          error: false
       });
    } catch (error: any) {
+      console.log(error)
       return res.status(error.httpStatus).json({
          message: error.message,
          error: true

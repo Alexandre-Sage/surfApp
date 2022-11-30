@@ -1,10 +1,6 @@
-import { UserInterface } from "../../../../mongoDb/user/userInterface";
-import { User } from "../../../../mongoDb/user/users";
-import { fetchOneDocument } from "../../../../sharedModules/mongoDb/getOneDocument";
-import { setSessionToken } from "../../../../sharedModules/jwt/jwtManagement";
-
+import { database } from "../../../../mongoDb/server/database";
 import { CustomError } from "../../../../sharedModules/errors/errorClass";
-import { Types } from "mongoose";
+import { setSessionToken } from "../../../../sharedModules/jwt/jwtManagement";
 
 interface AuthentificationInterface {
   sessionToken: string,
@@ -16,7 +12,8 @@ interface AuthentificationInterface {
 export const createAuthentification = async (password: string, email: string): Promise<AuthentificationInterface> => {
   const researchObject = { email: email };
   try {
-    const user: UserInterface = await fetchOneDocument(User, researchObject);
+    const user = await database.userRepository.getUserData({ email })
+    if (!user) throw new CustomError(`email: ${email} not found please retry`, "CREATE AUTHENTIFICATION", 400);
     const tokenExpirations = `${3600 * 24 * 10}s`;
     await user.checkPassword(password);
     const tokenData = {

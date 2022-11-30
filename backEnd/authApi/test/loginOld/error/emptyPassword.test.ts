@@ -12,7 +12,7 @@ export default function loginMissingPasswordErrorTest() {
             const credentials = { email: "test@testOne.com", password: "" };
 
             try {
-                const response = await agent.post("/logIn").send(credentials)
+                const response = await agent.post("/auth/logIn").send(credentials)
                 const { header, body, clientError,serverError }=response;
                 expect(clientError).to.be.eql(true);
                 expect(serverError).to.be.eql(false);

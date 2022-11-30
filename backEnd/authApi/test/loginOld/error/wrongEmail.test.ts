@@ -12,7 +12,7 @@ export default function logInWrongEmailErrorTest() {
             const contentLength= process.env.NODE_ENV==="developpment"?'58':'79';
             const credentials = { email: "inexisting@testOne.com", password: "qsdqsd" };
             try {
-                const response = await agent.post("/logIn").send(credentials)
+                const response = await agent.post("/auth/logIn").send(credentials)
                 const { header, body, clientError,serverError }=response;
                 expect(clientError).to.be.eql(true);
                 expect(serverError).to.be.eql(false);

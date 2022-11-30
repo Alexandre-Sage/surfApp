@@ -1,9 +1,12 @@
-import { model, Schema, Types } from "mongoose";
+import { ObjectId } from "mongodb";
+import { Model, model, Models, Schema, Types } from "mongoose";
+import { SpotInterface } from "../spots/spotInterface";
+import { UserInterface } from "../user/userInterface";
 
 export interface ImageInterface {
-  userId: string,
-  spotId?: string
-  uploadDate: Date
+  userId?: UserInterface["_id"];
+  spotId?: SpotInterface["_id"];
+  uploadDate: Date;
 }
 const ImageSchema = new Schema<ImageInterface>({
   userId: { type: String, required: true },

@@ -13,7 +13,7 @@ describe("SIGN UP DUPLICATE EMAIL ERROR",function(){
             const contentType='application/json; charset=utf-8';
             const contentLength= process.env.NODE_ENV==="developpment"?'58':'70';
             try {
-                const response = await agent.post("/signUp").send(dupMailObject)
+                const response = await agent.post("/auth/signUp").send(dupMailObject)
                 const { header, body, clientError,serverError }=response;
                 expect(clientError).to.be.eql(true);
                 expect(serverError).to.be.eql(false);

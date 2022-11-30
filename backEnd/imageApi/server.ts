@@ -5,9 +5,15 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
+import {database} from "../mongoDb/server/database";
 //ROUTES 
 import userImageUpload from "./routes/userPictureUpload";
 //import allPictureRoute from "./routes/picture/userProfilPicture";
+//declare module Express{
+//  
+//}
+
+
 const server = express();
 console.log(process.env.PORT)
 process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;

@@ -18,7 +18,7 @@ import loginMissingPasswordErrorTest from "./loginOld/error/emptyPassword.test";
 import loginInvalidEmailErrorTest from "./loginOld/error/invalidEmail.test";
 import logInWrongEmailErrorTest from "./loginOld/error/wrongEmail.test";
 import logInWrongPassworeErrorTest from "./loginOld/error/wrongPassword.test";
-const db =  mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
+const db = mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
     autoIndex: true,
 });
 db.model("User", UserSchema);
@@ -26,14 +26,14 @@ db.model("User", UserSchema);
 describe("################################## AUTH API TEST SUITE ##################################", async function () {
     before(async () => {
         console.log("before")
-        try{
+        try {
             await db.models.User.deleteMany()
-        }catch(error) {
+        } catch (error) {
             throw error
         };
     });
-    describe("I) SIGN UP ROUTES TEST SUITE",function(){
-        signUpTest();
+    describe("I) SIGN UP ROUTES TEST SUITE", function () {
+        require("./signUp/sucess/signUpSucess.test")
         dupUserNameErrorTest();
         missingUserNameErrorTest();
         invalidEmailErrorTest();
@@ -45,7 +45,7 @@ describe("################################## AUTH API TEST SUITE ###############
         missingPasswordErrorTest();
         passwordConfirmationErrorTest();
     });
-    describe("II) LOG IN ROUTES TEST SUITE",function(){
+    describe("II) LOG IN ROUTES TEST SUITE", function () {
         loginSucessTest();
         loginMissingPasswordErrorTest();
         logInWrongPassworeErrorTest()

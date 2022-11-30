@@ -11,7 +11,6 @@ export interface UserInterface {
     phone: string,
     password: string,
     salt: string,
-    picture: Array<PictureObject>
     creationDate: Date,
     lastConnection: Date,
     hashPassword: (password: string) => Promise<string>,

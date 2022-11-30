@@ -5,16 +5,23 @@ import { UserInterface } from "../../../mongoDb/user/userInterface";
 import { addMongoDocument } from "../../../sharedModules/mongoDb/addMongoDocument";
 import { notEmptyCheck } from "../../../sharedModules/dataValidation/notEmpty";
 import { dataValidation } from "../../../sharedModules/dataValidation/validation";
-
+import { database } from "../../../mongoDb/server/database";
 const router = express.Router();
 
-router.post("/", async function (req: Request, res: Response) {
+interface RequestBody extends UserInterface {
+  confirmPassword: string
+};
+
+
+type RequestInterface = Request<never, unknown, RequestBody>;
+
+router.post("/", async function (req: RequestInterface, res: Response) {
   try {
+    const { confirmPassword, ...newUserData } = req.body;
     await notEmptyCheck(req.body);
     await dataValidation(req.body);
-    await passwordConfirmation(req.body.password, req.body.confirmPassword)
-    const newUser: UserInterface | Error = await createUser(req.body);
-    await addMongoDocument(newUser);
+    await passwordConfirmation(newUserData.password, confirmPassword)
+    const test = await database.userRepository.createNewUser({ newUserData })
     res.status(200).json({
       message: "User was sucessfully created",
       error: false

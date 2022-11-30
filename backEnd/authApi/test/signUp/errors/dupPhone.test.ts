@@ -12,7 +12,7 @@ export default function dupPhoneErrorTest(){
             const contentType='application/json; charset=utf-8';
             const contentLength= process.env.NODE_ENV==="developpment"?'58':'64';
             try {
-                const response = await agent.post("/signUp").send(dupPhoneObject)
+                const response = await agent.post("/auth/signUp").send(dupPhoneObject)
                 const { header, body, clientError,serverError }=response;
                 expect(clientError).to.be.eql(true);
                 expect(serverError).to.be.eql(false);

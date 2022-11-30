@@ -20,23 +20,23 @@ export default function uploadUserImageSucessTest(): Suite {
         it("Should log in and get user header json info", async () => {
             const agent = chai.request.agent(server);
             const credentials = { email: "test@testOne.com", password: "test" };
-            const responseMessage = data;
+            const responseMessage = { message: "You're image was successfully uploaded.", error: false };
             const contentType = 'application/json; charset=utf-8';
-            const contentLength = '126';
+            const contentLength = '67';
             const boundary = Math.random();
             try {
                 const token:any= await getAuthentificationToken(url,credentials)
-                const response = await agent.post("/userImageUpload")
+                const response = await agent.post("/image/userImageUpload")
                     .set("Authorization", `Bearer ${token.token}`)
                     .set('Content-Type', 'multipart/form-data; boundary=' + boundary)
                     .attach("image", fs.readFileSync(filePath), fileName);
                 const { header, body, error } = response;
                 expect(error).to.be.eql(false);
                 expect(response).to.have.property("status").eql(200);
-                //expect(body).to.be.eql(responseMessage);
+                expect(body).to.be.eql(responseMessage);
                 expect(header).to.have.property('content-type').eql(contentType);
-                //expect(header).to.have.property('content-length').eql(contentLength);
-                //expect(header).to.have.property('access-control-allow-credentials').eql("true");
+                expect(header).to.have.property('content-length').eql(contentLength);
+                expect(header).to.have.property('access-control-allow-credentials').eql("true");
             } catch (error: any) {
                 throw error
             };

@@ -11,7 +11,7 @@ export default function logInWrongPassworeErrorTest() {
             const contentLength= process.env.NODE_ENV==="developpment"?'58':'43';
             const credentials = { email: "test@testOne.com", password: "testee" };
             try {
-                const response = await agent.post("/logIn").send(credentials)
+                const response = await agent.post("/auth/logIn").send(credentials)
                 const { header, body, clientError,serverError }=response;
                 expect(clientError).to.be.eql(true);
                 expect(serverError).to.be.eql(false);

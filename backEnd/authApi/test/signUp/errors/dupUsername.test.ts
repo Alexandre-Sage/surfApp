@@ -11,7 +11,7 @@ export default function dupUserNameErrorTest(){
             const contentType='application/json; charset=utf-8';
             const contentLength= process.env.NODE_ENV==="developpment"?'58':'64';
             try {
-                const response = await agent.post("/signUp").send(userObject)
+                const response = await agent.post("/auth/signUp").send(userObject)
                 const { header, body, clientError,serverError }=response;
                 expect(clientError).to.be.eql(true);
                 expect(serverError).to.be.eql(false);

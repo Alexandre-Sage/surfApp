@@ -11,7 +11,7 @@ export default function loginMissingEmailErrorTest() {
             const contentLength= process.env.NODE_ENV==="developpment"?'58':'53';
             const credentials={ email: "", password: "dqsdqds" };
             try {
-                const response = await agent.post("/logIn").send(credentials)
+                const response = await agent.post("/auth/logIn").send(credentials)
                 const { header, body, clientError,serverError }=response;
                 expect(clientError).to.be.eql(true);
                 expect(serverError).to.be.eql(false);
