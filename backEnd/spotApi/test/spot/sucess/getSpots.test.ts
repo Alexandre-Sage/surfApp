@@ -8,30 +8,30 @@ chai.use(chaiHttp)
 
 const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 
-export function getAllSucessTest(): Suite {
-  return describe("LOG IN AND GET ALL SPOT", function () {
-    it("Should log in and get all spot json info", async () => {
-      const agent = chai.request.agent(server);
-      const credentials = { email: "test@testOne.com", password: "test" };
-      //const responseMessage = this.ctx.spot;
-      const contentType = 'application/json; charset=utf-8';
-      //const contentLength = '126';
-      try {
-        const token: any = await getAuthentificationToken(url, credentials)
-        const response = await agent.get(`/spot/getAllSpots`).set("Authorization", `Bearer ${token.token}`);
-        const { header, body, error } = response;
-        expect(error).to.be.eql(false);
-        expect(response).to.have.property("status").eql(200);
-        //expect(body).to.be.eql(responseMessage);
-        expect(header).to.have.property('content-type').eql(contentType);
-        //expect(header).to.have.property('content-length').eql(contentLength);
-        expect(header).to.have.property('access-control-allow-credentials').eql("true");
-      } catch (error: any) {
-        throw error
-      };
-    });
+export default describe("LOG IN AND GET ALL SPOT", function () {
+  it("Should log in and get all spot json info", async () => {
+    const agent = chai.request.agent(server);
+    const credentials = { email: "test@testOne.com", password: "test" };
+    //const responseMessage = this.ctx.spot;
+    const contentType = 'application/json; charset=utf-8';
+    //const contentLength = '126';
+    try {
+      const token: any = await getAuthentificationToken(url, credentials)
+      const response = await agent.get(`/spot/getAllSpots`).set("Authorization", `Bearer ${token.token}`);
+      const { header, body, error } = response;
+      console.log(body)
+      expect(error).to.be.eql(false);
+      expect(response).to.have.property("status").eql(200);
+      //expect(body).to.be.eql(responseMessage);
+      expect(header).to.have.property('content-type').eql(contentType);
+      //expect(header).to.have.property('content-length').eql(contentLength);
+      expect(header).to.have.property('access-control-allow-credentials').eql("true");
+    } catch (error: any) {
+      throw error
+    };
   });
-};
+});
+
 
 
 //import server from "../../../../server";

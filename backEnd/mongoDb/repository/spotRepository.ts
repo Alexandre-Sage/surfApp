@@ -8,7 +8,7 @@ import { UserInterface } from "../user/userInterface";
 interface SpotRepositoryInterface {
   getSpotsByUserId: ({ }: { userId: UserInterface["_id"], selectedField: Object }) => Promise<SpotInterface[]>
   createNewSpot: ({ }: { newSpotData: SpotInterface, userId: UserInterface["_id"] }) => Promise<void>;
-  getSpotById: ({ }: { spotId: SpotInterface["_id"], selectedField: Object }) => Promise<SpotInterface | null>
+  getSpotById: ({ }: { spotId: SpotInterface["_id"], selectedField?: Object }) => Promise<SpotInterface | null>
 }
 
 
@@ -35,11 +35,13 @@ export class SpotRepository implements SpotRepositoryInterface {
       throw new CustomError("Something went wrong please retry", "GET SPOTS BY USER ID", 500)
     }
   };
-  getSpotById = async ({ spotId, selectedField }: { spotId: SpotInterface["_id"], selectedField: Object }): Promise<SpotInterface | null> => {
+  getSpotById = async ({ spotId, selectedField }: { spotId: SpotInterface["_id"], selectedField?: Object }): Promise<SpotInterface | null> => {
     try {
       return await this.spotModel.findById(spotId, { ...selectedField })
     } catch (error) {
       throw new CustomError("Something went wrong please retry", "GET SPOT BY USER ID", 500)
     }
   };
+  //TEST ONLY
+  getSpotBySpotName = async (spotName: string) => await this.spotModel.findOne({ spotName })
 }

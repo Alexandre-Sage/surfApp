@@ -1,18 +1,22 @@
-import express, { Router } from "express";
-import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement";
-import { fetchAllDocument } from "../../../sharedModules/mongoDb/getAllDocument";
-
+import express, { Request, Response, Router } from "express";
+import { database } from "../../../mongoDb/server/database";
+import { SpotInterface } from "../../../mongoDb/spots/spotInterface";
+import { ErrorResponseInterface } from "../../../sharedModules/errors/errorClass";
+import { getToken, sessionTokenAuthentification } from "../../../sharedModules/jwt/jwtManagement";
 const router: Router = express.Router();
 
-router.get("/", async function (req, res) {
+
+type ResponseType = Response<SpotInterface[] | ErrorResponseInterface>;
+type RequestType = Request<never, unknown, never>;
+router.get("/", async function (req: RequestType, res: ResponseType) {
   const token = getToken(req);
-  const fieldObject = { _id: 1, spotName: 1, location: 1 };
+  const selectedField = { _id: 1, spotName: 1, location: 1 };
   try {
-    const userData = await sessionTokenAuthentification(token)
-    const researchObject = { userId: userData.userId };
-    const spotInfo = await fetchAllDocument("Spot", researchObject, fieldObject);
+    const userId = (await sessionTokenAuthentification(token)).userId
+    const spotsInfo = await database.spotRepository.getSpotsByUserId({ userId, selectedField })
+    const test = "here"
     res.status(200).json(
-      spotInfo,
+      spotsInfo,
     );
   } catch (error: any) {
     console.log(error)

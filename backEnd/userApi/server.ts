@@ -7,7 +7,6 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 //ROUTES 
 import userHeaderRouter from "./routes/profilHeader";
-import allPictureRoute from "./routes/picture/userProfilPicture";
 import updateProfilRoute from "./routes/updateProfil/updateProfil"
 const server = express();
 console.log(process.env.PORT)
@@ -26,7 +25,6 @@ server.use(cookieParser(process.env.COOKIE_SECRET))
 server.use(express.json());
 
 server.use("/user/header", userHeaderRouter);
-server.use("/user/allPicture", allPictureRoute);
 server.use("/user/updateProfil", updateProfilRoute);
 const httpServer = http.createServer(server);
 httpServer.listen(process.env.PORT, () => {

@@ -8,53 +8,45 @@ import { User } from "../../../../mongoDb/user/users";
 import { Types } from "mongoose";
 import { Spot } from "../../../../mongoDb/spots/spot";
 import { expectCt } from "helmet";
+import { database } from "../../../../mongoDb/server/database";
 
 
 chai.use(chaiHttp)
 
 const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 
-const getUserId = async (userName: string): Promise<Types.ObjectId> => {
-  const researchObject = { userName: userName };
-  const fieldObject = { _id: 1 };
-  const userData = await fetchOneDocument(User, researchObject, fieldObject);
-  return userData._id;
-}
 
+export default describe("LOG IN AND GET ONE SPOT", function () {
+  before(async () => {
+    try {
+      //const userId = (await database.userRepository.getUserByUserName({ userName, requiredFields }))._id
+      //const userName = "TestOne";
+      const spot = await database.spotRepository.getSpotBySpotName("port blanc");
+      this.ctx.spotId = spot?._id;
+      this.ctx.spot = spot;
+    } catch (err) { throw err };
+  })
 
-export function getOneSpotSucessTest(): Suite {
-  return describe("LOG IN AND GET ONE SPOT", function () {
-    before(async () => {
-      const researchObjectSpot = { spotName: "port blanc" }
-      const fieldObject = { _id: 1 };
-      try {
-        const userId = await getUserId("TestOne");
-        const spot = await fetchOneDocument(Spot, researchObjectSpot);
-        this.ctx.spotId = spot._id;
-        this.ctx.spot = spot;
-      } catch (err) { throw err };
-    })
-
-    it("Should log in and get one spot json info", async () => {
-      const agent = chai.request.agent(server);
-      const credentials = { email: "test@testOne.com", password: "test" };
-      const responseMessage = this.ctx.spot;
-      const contentType = 'application/json; charset=utf-8';
-      try {
-        const token: any = await getAuthentificationToken(url, credentials)
-        const response = await agent.get(`/spot/getSpot/${this.ctx.spotId}`).set("Authorization", `Bearer ${token.token}`);
-        const { header, body, error } = response;
-        expect(error).to.be.eql(false);
-        expect(response).to.have.property("status").eql(200);
-        expect(header).to.have.property('content-type').eql(contentType);
-        //expect(body).to.be.eql(responseMessage)
-        expect(header).to.have.property('access-control-allow-credentials').eql("true");
-      } catch (error: any) {
-        throw error
-      };
-    });
+  it("Should log in and get one spot json info", async () => {
+    const agent = chai.request.agent(server);
+    const credentials = { email: "test@testOne.com", password: "test" };
+    const responseMessage = this.ctx.spot;
+    const contentType = 'application/json; charset=utf-8';
+    try {
+      const token: any = await getAuthentificationToken(url, credentials)
+      const response = await agent.get(`/spot/getSpot/${this.ctx.spotId}`).set("Authorization", `Bearer ${token.token}`);
+      const { header, body, error } = response;
+      expect(error).to.be.eql(false);
+      expect(response).to.have.property("status").eql(200);
+      expect(header).to.have.property('content-type').eql(contentType);
+      //expect(body).to.be.eql(responseMessage)
+      expect(header).to.have.property('access-control-allow-credentials').eql("true");
+    } catch (error: any) {
+      throw error
+    };
   });
-};
+});
+
 
 
 

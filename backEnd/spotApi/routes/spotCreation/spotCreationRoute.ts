@@ -1,23 +1,25 @@
 import express, { Request, Response } from "express";
+import { database } from "../../../mongoDb/server/database";
+import { SpotInterface } from "../../../mongoDb/spots/spotInterface";
+import { UserInterface } from "../../../mongoDb/user/userInterface";
 import { sessionTokenAuthentification, getToken } from "../../../sharedModules/jwt/jwtManagement";
-import { spotCreation, spotValidatior } from "./spotCreationFunction";
-//import { Session } from "express-session";
-//import sessionChecking from "../../modules/sessionManagement/sessionChecking";
-//import { csurfChecking } from "../../modules/cookies/csurf";
+import { spotValidatior } from "./spotCreationFunction";
 const router = express.Router();
-
-router.post("/", async function (req, res) {
+//AJOUTER OBJECT BODY DANS LE FRONT
+type RequestType = Request<never, unknown, { newSpotData: SpotInterface }>;
+type ResponseType = Response<{ message: string, error: boolean }>;
+router.post("/", async function (req: RequestType, res: ResponseType) {
   const token = getToken(req);
+  const { newSpotData } = req.body;
   try {
-    const userData = await sessionTokenAuthentification(token)
-    await spotValidatior(req.body)
-    await spotCreation(req.body, userData.userId);
+    const userId = (await sessionTokenAuthentification(token)).userId
+    await spotValidatior(newSpotData)
+    database.spotRepository.createNewSpot({ userId, newSpotData })
     return res.status(200).json({
       message: "Spot added with sucess",
       error: false
     })
   } catch (error: any) {
-    //console.log(error);
     return res.status(error.httpStatus).json({
       message: error.message,
       error: true

@@ -6,6 +6,7 @@ import { getAuthentificationToken } from "../../../sharedModules/testModules/log
 import { createUser } from "../../../authApi/routes/signUp/modules/createUser"
 import { UserInterface } from "../../../mongoDb/user/userInterface";
 import { User } from "../../../mongoDb/user/users";
+import { database } from "../../../mongoDb/server/database";
 //import registry from "../../../../urlRegistry"
 //const { devloppmentServer } = registry;
 import { addMongoDocument } from "../../../sharedModules/mongoDb/addMongoDocument"
@@ -48,43 +49,43 @@ const deleteFromDb = async (mongoDocument: any, searchObject: any) => {
   }
 }
 
-export function updateUserProfilSucessTest(): Suite {
-  return describe.only("LOG IN AND UPDATE USER INFO  ", function () {
-    before(async () => {
-      try {
-        await deleteFromDb(User, { userName: "updated" })
-        const userToUpdate = await createUser(userObject);
-        await addMongoDocument(userToUpdate)
-      } catch (error) {
-        throw error
-      }
-    });
-    it("Should log in and get user header json info", async () => {
-      const agent = chai.request.agent(server);
-      const credentials = { email: "test@testTwo.com", password: "test" };
-      const responseMessage = "Profil sucessfully updated";
-      const contentType = 'application/json; charset=utf-8';
-      const contentLength = '54';
-      try {
-        const token: any = await getAuthentificationToken(url, credentials)
-        const response = await agent
-          .post("/user/updateProfil")
-          .set("Authorization", `Bearer ${token.token}`)
-          .send(userUpdateObject)
-        const { header, body, error } = response;
-        expect(error).to.be.eql(false);
-        expect(response).to.have.property("status").eql(200);
-        expect(body.message).to.be.eql(responseMessage);
-        expect(body.error).to.be.eql(false)
-        expect(header).to.have.property('content-length').eql(contentLength);
-        expect(header).to.have.property('content-type').eql(contentType);
-        expect(header).to.have.property('access-control-allow-credentials').eql("true");
-      } catch (error: any) {
-        throw error
-      };
-    });
+export default describe("LOG IN AND UPDATE USER INFO  ", function () {
+  before(async () => {
+    try {
+      database.userRepository.createNewUser({ newUserData: userObject });
+      database.userRepository.hardDeleteUserByUserName("updated");
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   });
-};
+  it("Should log in and get user header json info", async () => {
+    const agent = chai.request.agent(server);
+    const credentials = { email: "test@testTwo.com", password: "test" };
+    const responseMessage = "Profil sucessfully updated";
+    const contentType = 'application/json; charset=utf-8';
+    const contentLength = '54';
+    try {
+      const token: any = await getAuthentificationToken(url, credentials)
+      console.log(token)
+      const response = await agent
+        .post("/user/updateProfil")
+        .set("Authorization", `Bearer ${token.token}`)
+        .send(userUpdateObject)
+      const { header, body, error } = response;
+      expect(error).to.be.eql(false);
+      expect(response).to.have.property("status").eql(200);
+      expect(body.message).to.be.eql(responseMessage);
+      expect(body.error).to.be.eql(false)
+      expect(header).to.have.property('content-length').eql(contentLength);
+      expect(header).to.have.property('content-type').eql(contentType);
+      expect(header).to.have.property('access-control-allow-credentials').eql("true");
+    } catch (error: any) {
+      throw error
+    };
+  });
+});
+
 
 
 

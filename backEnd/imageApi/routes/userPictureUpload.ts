@@ -30,9 +30,9 @@ router.post("/", imageStorage.single("image"), async function (req: Request, res
    const imageData = { path: `${dataBasePath}_compressed`, uploadDate: new Date() };
    const token = getToken(req)
    try {
-      const userId =(await sessionTokenAuthentification(`${token}`)).userId;
+      const userId = (await sessionTokenAuthentification(`${token}`)).userId;
       compressImage(`${path}`);
-      database.imageRepository.addUserImage({userId,imageData})
+      database.imageRepository.addUserImage({ userId, imageData })
       //await addPicturePathToDb(checkTokenIntegrity, User, pictureObj)
       return res.status(200).json({
          message: "You're image was successfully uploaded.",
@@ -46,27 +46,4 @@ router.post("/", imageStorage.single("image"), async function (req: Request, res
       });
    };
 });
-
 export default router;
-
-
-
-/*
-    try {
-        const input = fs.createReadStream(`${path}`);
-        const output = fs.createWriteStream(`${destination}/${session.userName}.gz`);
-
-        const zipper = archiver("tar", {
-            gzip: true,
-            store: true,
-            zlib: { level: 9 }
-        });
-        zipper.pipe(output)
-        console.log(zipper)
-        zipper.append(input, { name: `${originalname}` });
-        await zipper.finalize()
-
-    } catch (error) {
-        console.log(error)
-    }
-    */

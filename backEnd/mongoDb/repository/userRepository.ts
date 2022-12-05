@@ -21,7 +21,10 @@ function mongoErrorHandling(error: MongoServerError) {
 interface UserRepositoryInterface {
   createNewUser: ({ newUserData }: { newUserData: UserInterface }) => Promise<void | Error>;
   getUserDataByEmailForAuthentification: ({ email }: { email: string }) => Promise<UserInterface | null>;
-  getUserProfilData: ({ fieldObject, userId }: { userId: UserInterface["_id"], fieldObject: Object }) => Promise<UserInterface | null>
+  getUserProfilData: ({ requiredFields, userId }: { userId: UserInterface["_id"], requiredFields: Object }) => Promise<UserInterface | null>
+  updateUserData: ({ userId, updatedUserData }: { userId: UserInterface["_id"], updatedUserData: UserInterface }) => Promise<void>
+  hardDeleteUserById: ({ userId }: { userId: UserInterface["_id"] }) => Promise<void>;
+  getUserByUserName: ({ userName, requiredFields }: { userName: UserInterface["userName"], requiredFields: Object }) => Promise<UserInterface>
 }
 
 export class UserRepository implements UserRepositoryInterface {
@@ -47,13 +50,44 @@ export class UserRepository implements UserRepositoryInterface {
     }
   };
 
-  getUserProfilData = async ({ userId, fieldObject }: { userId: UserInterface["_id"], fieldObject: Object }): Promise<UserInterface | null> => {
+  getUserProfilData = async ({ userId, requiredFields }: { userId: UserInterface["_id"], requiredFields: Object }): Promise<UserInterface | null> => {
     try {
-      return await this.userModel.findOne({ userId }, { ...fieldObject })
+      return await this.userModel.findOne({ userId }, { ...requiredFields })
     } catch (err) {
       throw new CustomError("Something wrong happened please retry", "getUserProfilData error", 400)
     };
   };
+  getUserByUserName = async ({ userName, requiredFields }: { userName: UserInterface["userName"], requiredFields: Object }): Promise<UserInterface> => {
+    try {
+      return (await this.userModel.find({ userName }, { ...requiredFields }))[0]
+    } catch (error) {
+      throw new CustomError("Something wrong happened please retry", "getUserProfilData error", 400)
+    }
+  }
+  updateUserData = async ({ userId, updatedUserData }: { userId: UserInterface["_id"], updatedUserData: UserInterface }) => {
+    try {
+      await this.userModel.findOneAndUpdate({ _id: userId }, { ...updatedUserData }, {
+        returnOriginal: false,
+        new: false,
+      })
+    } catch (error) {
+      throw new CustomError("Something wrong happened please retry", "upddateUserData error", 400)
+    }
+  };
 
-  updateUserData = () => { };
+
+
+
+
+
+  hardDeleteUserById = async ({ userId }: { userId: UserInterface["_id"] }) => {
+    try {
+      await this.userModel.findByIdAndDelete(userId)
+    } catch (error) {
+      throw new CustomError("Something wrong happened please retry", "hard delete user error", 400)
+    }
+  };
+
+  //ONLY FOR UNIT TEST
+  hardDeleteUserByUserName = async (userName: string) => await this.userModel.deleteOne({ userName })
 }

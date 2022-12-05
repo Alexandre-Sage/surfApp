@@ -1,14 +1,6 @@
 import "mocha";
 import mongoose from "mongoose";
 import { SpotSchema } from "../../mongoDb/spots/spot";
-import { addSpotWithSucessTest } from "./spot/sucess/addSpotSucess.test";
-import { getOneSpotSucessTest } from "./spot/sucess/getOneSpot.test";
-import { getAllSucessTest } from "./spot/sucess/getSpots.test";
-
-//const db = mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
-//  autoIndex: true,
-//});
-//db.model("Spot", SpotSchema);
 
 describe("################################## SPOT API TEST SUITE ##################################", () => {
   //before(async () => {
@@ -19,8 +11,8 @@ describe("################################## SPOT API TEST SUITE ###############
   //  };
   //});
   describe("Should say Hello World", () => {
-    addSpotWithSucessTest();
-    getOneSpotSucessTest();
-    getAllSucessTest();
+    require("./spot/sucess/addSpotSucess.test")
+    require("./spot/sucess/getOneSpot.test")
+    require("./spot/sucess/getSpots.test")
   });
 });
