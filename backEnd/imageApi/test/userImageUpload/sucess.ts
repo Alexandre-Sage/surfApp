@@ -3,21 +3,21 @@ import server from "../../server";
 import chai, { request, assert, should, expect, } from "chai";
 import chaiHttp from "chai-http"
 import { Suite } from "mocha";
-import {getAuthentificationToken} from "../../../sharedModules/testModules/login"
+import { getAuthentificationToken } from "../../../sharedModules/testModules/login"
 const filePath = `test/userImageUpload/image.jpg`
-const fileName= "image.jpg"
+const fileName = "image.jpg"
 chai.use(chaiHttp)
-const data=[{
+const data = [{
     location: 'TestOne',
     name: 'TestOne',
     firstName: 'TestOne',
     userName: 'TestOne',
     creationDate: "2022-10-16T10:38:17.000Z"
 }]
-const url=`https://development.alexandre-sage-dev.fr/auth/logIn`
+const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 export default function uploadUserImageSucessTest(): Suite {
-    return describe.only("LOG IN AND  UPLOAD AN IMAGE", function () {
-        it("Should log in and get user header json info", async () => {
+    return describe("LOG IN AND  UPLOAD AN IMAGE", function () {
+        it("Should log in and post a new user image", async () => {
             const agent = chai.request.agent(server);
             const credentials = { email: "test@testOne.com", password: "test" };
             const responseMessage = { message: "You're image was successfully uploaded.", error: false };
@@ -25,7 +25,7 @@ export default function uploadUserImageSucessTest(): Suite {
             const contentLength = '67';
             const boundary = Math.random();
             try {
-                const token:any= await getAuthentificationToken(url,credentials)
+                const token: any = await getAuthentificationToken(url, credentials)
                 const response = await agent.post("/image/userImageUpload")
                     .set("Authorization", `Bearer ${token.token}`)
                     .set('Content-Type', 'multipart/form-data; boundary=' + boundary)

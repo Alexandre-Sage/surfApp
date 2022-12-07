@@ -11,8 +11,7 @@ router.get(`/`, async function (req: Request, res: Response): Promise<Response<I
   const pictureFieldObject = { picture: 1, _id: 0 };
   try {
     const { userId } = await sessionTokenAuthentification(`${token}`);
-    const pictures = database.imageRepository.getUserImagesByUserId({ userId })
-    console.log(pictures)
+    const pictures = await database.imageRepository.getUserImagesByUserId({ userId });
     return res.status(200).json(pictures);
   } catch (error: any) {
     return res.status(error.httpStatus).json({
