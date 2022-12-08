@@ -6,10 +6,13 @@ import uploadUserImageSucessTest from "./userImageUpload/sucess";
 
 describe("IMAGE API", () => {
     describe("1) IMAGE UPLOAD", () => {
-        uploadUserImageSucessTest();
+        require("./userImageUpload/sucess")
     });
     describe("II) GET USER PROFIL IMAGE", () => {
         require("./userProfilImage/getAllUserProfilImages.test")
+    })
+    describe("III) SPOT IMAGE UPLOAD", () => {
+        require("./spotImage/spotImageUpload.test")
     })
 });
 
