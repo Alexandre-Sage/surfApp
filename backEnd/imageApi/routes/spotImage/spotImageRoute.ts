@@ -6,14 +6,11 @@ import { getToken, sessionTokenAuthentification } from "../../../sharedModules/j
 import { spotImageStorage } from "../../../sharedModules/upload/spotImageStorage";
 import { services } from "../../server";
 const router = express.Router();
-// const upload = spotImageStorage.single("image")
-//type PostSpotImageRequest = Request<{ spotId: SpotInterface["_id"] }, unknown, ImageInterface>;
 
 router.post(`/:spotId`, spotImageStorage.single("image"), async function (req: Request, res: Response): Promise<Response<any>> {
   const { uploadService } = services;
   const { spotId } = req.params
   const token = getToken(req)
-  //console.log(req.file)
   try {
     const imageData = uploadService.rawImageToDbMapper(req.file)
     const { userId } = await sessionTokenAuthentification(`${token}`);
@@ -29,4 +26,23 @@ router.post(`/:spotId`, spotImageStorage.single("image"), async function (req: R
     });
   };
 });
+
+router.get("/:spotId", async (req: Request, res: Response) => {
+  const { spotId } = req.params;
+
+  try {
+    const spotImages = await database.imageRepository.getSpotImagesBySpotId(spotId as unknown as SpotInterface["_id"])
+    res.status(200).json({
+      error: false,
+      spotImages
+    })
+  } catch (error: any) {
+    return res.status(error.httpStatus).json({
+      message: error.message,
+      error: true
+    });
+  }
+})
+
+
 export default router;

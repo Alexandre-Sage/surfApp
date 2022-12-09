@@ -35,9 +35,9 @@ export class SpotRepository implements SpotRepositoryInterface {
       throw new CustomError("Something went wrong please retry", "GET SPOTS BY USER ID", 500)
     }
   };
-  getSpotById = async ({ spotId, selectedField }: { spotId: SpotInterface["_id"], selectedField?: Object }): Promise<SpotInterface | null> => {
+  getSpotById = async ({ spotId, selectedField }: { spotId: SpotInterface["_id"], selectedField?: Object }): Promise<SpotInterface> => {
     try {
-      return await this.spotModel.findById(spotId, { ...selectedField })
+      return await this.spotModel.findById(spotId, { ...selectedField }) as SpotInterface;
     } catch (error) {
       throw new CustomError("Something went wrong please retry", "GET SPOT BY USER ID", 500)
     }

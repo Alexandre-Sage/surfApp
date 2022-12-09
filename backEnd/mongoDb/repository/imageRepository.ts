@@ -6,12 +6,14 @@ import { UserInterface } from "../user/userInterface";
 interface RepositoryParams {
   userId: UserInterface["_id"];
   imageData: ImageInterface;
-  spotId: SpotInterface["_id"]
+  spotId?: SpotInterface["_id"]
 }
 
-interface ImageRepositoryInterface {
+export interface ImageRepositoryInterface {
   addUserImage: ({ }: RepositoryParams) => Promise<void>
   getUserImagesByUserId: ({ }: RepositoryParams) => Promise<ImageInterface[]>
+  addSpotImage: ({ }: RepositoryParams) => Promise<void>
+  getSpotImagesBySpotId: (spotId: SpotInterface["_id"]) => Promise<ImageInterface[]>
 }
 
 export class ImageRepository implements ImageRepositoryInterface {
@@ -23,16 +25,11 @@ export class ImageRepository implements ImageRepositoryInterface {
     try {
       await this.imageModel.create(imageToSave)
     } catch (error: any) {
-      console.log(error);
       throw error
     }
   };
   getUserImagesByUserId = async ({ userId }: { userId: UserInterface["_id"] }): Promise<ImageInterface[]> => {
-    try {
-      return await this.imageModel.find({ userId }, { path: 1, _id: 0, spotId: 0, userId: 0 });
-    } catch (error) {
-      throw error
-    }
+    return this.imageModel.find({ userId }, { path: 1, _id: 0, spotId: 1, userId: 1 })
   };
 
 
@@ -45,7 +42,9 @@ export class ImageRepository implements ImageRepositoryInterface {
     }
   };
 
-  getSpotImagesBySpotId = async () => { };
+  getSpotImagesBySpotId = async (spotId: SpotInterface["_id"]) => {
+    return this.imageModel.find({ spotId }, { path: 1, uploadDate: 1, spotId: 1, userId: 1 })
+  };
   getSpotImagesByUserId = async () => { };
   deleteUserImage = async () => { };
   deleteSpotImage = async () => { };

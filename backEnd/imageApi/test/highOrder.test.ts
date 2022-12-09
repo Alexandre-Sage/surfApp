@@ -11,8 +11,9 @@ describe("IMAGE API", () => {
     describe("II) GET USER PROFIL IMAGE", () => {
         require("./userProfilImage/getAllUserProfilImages.test")
     })
-    describe("III) SPOT IMAGE UPLOAD", () => {
-        require("./spotImage/spotImageUpload.test")
+    describe("III) SPOT IMAGE", () => {
+        require("./spotImage/spotImageUpload.test");
+        require("./spotImage/getAllSpotImages.test")
     })
 });
 

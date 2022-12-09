@@ -1,11 +1,11 @@
 import { Request } from "express";
-import multer, { Multer, StorageEngine } from "multer";
-import fs, { exists } from "fs";
+import fs from "fs";
+import multer, { Multer } from "multer";
 import sharp, { Sharp } from "sharp";
-
+import { getToken, sessionTokenAuthentification } from "../jwt/jwtManagement";
 const storage = multer.diskStorage({
     async destination(req: Request, file: Express.Multer.File, callBack: Function) {
-        const userName = "testOne";
+        const userName = (await sessionTokenAuthentification(getToken(req))).userName;
         const folder: string = `./src/images/usersImages/${userName}`;
         //AREMPLACER PAR fs.stat
         fs.exists(folder, async (existing: boolean) => {
@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
         });
     },
     async filename(req: Request, file: Express.Multer.File, callBack: Function) {
-        const userName = "req.session";
+        const userName = (await sessionTokenAuthentification(getToken(req))).userName;
         const uniqueSuffix: string = `${Date.now()}_${userName}`;
         return await callBack(null, file.originalname + '-' + uniqueSuffix)
     },

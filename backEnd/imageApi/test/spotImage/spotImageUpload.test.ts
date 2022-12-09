@@ -30,7 +30,7 @@ export default describe("LOG IN AND  UPLOAD AN IMAGE RELATED TO SPOT", function 
     const boundary = Math.random();
     try {
       const token: any = await getAuthentificationToken(url, credentials)
-      const response = await agent.post(`/image/spotImageUpload/${this.ctx.spotId}`)
+      const response = await agent.post(`/image/spotImage/${this.ctx.spotId}`)
         .set("Authorization", `Bearer ${token.token}`)
         .set('Content-Type', 'multipart/form-data; boundary=' + boundary)
         .attach("image", fs.readFileSync(filePath), fileName);

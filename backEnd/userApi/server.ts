@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express from "express";
+import express, { Express } from "express";
 import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -8,6 +8,15 @@ import logger from "morgan";
 //ROUTES 
 import userHeaderRouter from "./routes/profilHeader";
 import updateProfilRoute from "./routes/updateProfil/updateProfil"
+
+
+const userServer = (server: Express) => {
+  return "hello world"
+}
+
+userServer(express())
+userServer("")
+
 const server = express();
 console.log(process.env.PORT)
 process.env.NODE_ENV === "developpment" ? server.use(logger("dev")) : null;

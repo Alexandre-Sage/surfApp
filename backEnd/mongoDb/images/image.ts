@@ -7,11 +7,13 @@ export interface ImageInterface {
   userId?: UserInterface["_id"];
   spotId?: SpotInterface["_id"];
   uploadDate: Date;
+  path: string
 }
 const ImageSchema = new Schema<ImageInterface>({
   userId: { type: String, required: true },
   spotId: { type: String, required: false },
-  uploadDate: { type: Date, default: Date.now, required: true }
+  uploadDate: { type: Date, default: Date.now, required: true },
+  path: { type: String, required: true }
 });
 
 const Images = model<ImageInterface>("Image", ImageSchema);

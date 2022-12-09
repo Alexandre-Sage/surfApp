@@ -49,7 +49,7 @@ export class ImageServer {
     this.init()
     this.server.use("/image/userImageUpload", userImageUpload);
     this.server.use("/image/allUserProfilPicture", userProfilPicture);
-    this.server.use("/image/spotImageUpload", spotImageUpload)
+    this.server.use("/image/spotImage", spotImageUpload)
     this.httpServer = http.createServer(this.server);
     return {
       server: this.server, httpServer: this.httpServer, repository: this.repository, services: { uploadService: this.uploadService }

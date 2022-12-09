@@ -17,7 +17,6 @@ export class ImageUploadService {
     return newString;
   };
   rawImageToDbMapper = (rawImage: any) => {
-    console.log({ rawImage })
     const { path, destination, originalname } = rawImage;
     const dataBasePath = this.createDbImagePath(path, "/", 0, 1, "/")
     const imageData = { path: `${dataBasePath}_compressed`, uploadDate: new Date() };
@@ -28,6 +27,6 @@ export class ImageUploadService {
     this.imageRepository.addUserImage({ userId, imageData });
   }
   uploadSpotPicture = async ({ imageData, spotId, userId }: { userId: UserInterface["_id"], imageData: any, spotId: SpotInterface["_id"] }) => {
-    await this.imageRepository.addSpotImage({ userId, imageData, spotId });
+    return this.imageRepository.addSpotImage({ userId, imageData, spotId });
   }
 }
