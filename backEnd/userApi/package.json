@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start:dev": "nodemon",
-    "test": "mocha --loader=ts-node/esm --extension ts 'test/**/highOrder.test.ts'",
+    "test": "mocha --loader=ts-node/esm --extension ts 'test/**/highOrder.test.ts' --exit",
     "start:prod":"pm2  start --interpreter /usr/local/bin/ts-node-esm  server.ts --name userServer  --log userLog.json"  
   },
   "author": "",

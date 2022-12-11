@@ -6,7 +6,7 @@
   "scripts": {
     "start:prod":"pm2  start --interpreter /usr/local/bin/ts-node-esm  server.ts --name forecastServer  --log forecastLog.json",
     "start:dev": "nodemon",
-    "test": "mocha --loader=ts-node/esm --extension ts 'test/**/highOrder.test.ts'"
+    "test": "mocha --loader=ts-node/esm --extension ts 'test/**/highOrder.test.ts' --exit"
   },
   "author": "",
   "license": "ISC",

@@ -15,7 +15,6 @@ const userServer = (server: Express) => {
 }
 
 userServer(express())
-userServer("")
 
 const server = express();
 console.log(process.env.PORT)
