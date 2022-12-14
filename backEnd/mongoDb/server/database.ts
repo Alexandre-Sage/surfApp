@@ -1,6 +1,7 @@
 import mongoose, { Connection, Schema } from "mongoose";
 import { ImageInterface, ImageSchema } from "../images/image";
 import { ImageRepository } from "../repository/imageRepository";
+import { MyThing } from "../repository/repositoryClass";
 import { SpotRepository } from "../repository/spotRepository";
 import { UserRepository } from "../repository/userRepository";
 import { SessionInterface } from "../sessions/sessionInterface";

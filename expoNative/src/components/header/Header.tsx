@@ -14,14 +14,14 @@ export const Header = ({ title }: HeaderProps): JSX.Element => (
       <Text style={styles.title}>{title}</Text>
     </View>
     <View style={styles.logoContainer}>
-      <SvgUri width={75} height={75} uri={`${process.env.DEVELOPMENT_IMAGE_SERVER}/images/assets/logo.svg`} />
+      {/* <SvgUri width={75} height={75} uri={`${process.env.DEVELOPMENT_IMAGE_SERVER}/images/assets/logo.svg`} /> */}
     </View>
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.button}>
-        <SvgUri width={30} height={40} uri={`${process.env.DEVELOPMENT_IMAGE_SERVER}/images/assets/profil.svg`} />
+        {/* <SvgUri width={30} height={40} uri={`${process.env.DEVELOPMENT_IMAGE_SERVER}/images/assets/profil.svg`} /> */}
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
-        <SvgUri width={30} height={30} uri={`${process.env.DEVELOPMENT_IMAGE_SERVER}/images/assets/settings.svg`} />
+        {/* <SvgUri width={30} height={30} uri={`${process.env.DEVELOPMENT_IMAGE_SERVER}/images/assets/settings.svg`} /> */}
       </TouchableOpacity>
     </View>
   </View>

@@ -15,9 +15,11 @@ router.get("/:spotId", async function (req: RequestType, res) {
   try {
     const userData = await sessionTokenAuthentification(token);
     const spotInfo = database.spotRepository.getSpotById({ spotId: spotId as unknown as Types.ObjectId })
-    res.status(200).json(spotInfo);
+    res.status(200).json({
+      spotInfo,
+      sucess: true
+    });
   } catch (error: any) {
-    console.log(error)
     res.status(error.httpStatus).json({
       message: error.message,
       error: true

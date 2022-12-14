@@ -16,7 +16,7 @@ export const PictureSideScroller = ({ pictures, styles, isPreview, pictureFuncti
   const pictureJsx = pictures.map((picture, key): ReactNode => (
     <TouchablePicture
       key={key}
-      imagePath={picture.path ? `${process.env.API_LAN}/${picture.path}` : picture.uri}
+      imagePath={picture.path ? `${process.env.DEVELOPMENT_SERVER}/static/${picture.path}` : picture.uri}
       style={styles.picture}
       isPreview={isPreview}
       previewFunction={pictureFunction ? pictureFunction : () => { }} />

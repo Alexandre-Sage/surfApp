@@ -1,7 +1,9 @@
+import { Types } from "mongoose";
 import { SwellObject } from "../generalInterface/swellInterface";
 import { WindObject } from "../generalInterface/windInterface";
 
 export interface SessionInterface {
+    _id: Types.ObjectId
     userId: String,
     date: Date,
     spotId: String,
