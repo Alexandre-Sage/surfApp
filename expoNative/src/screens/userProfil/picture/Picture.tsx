@@ -16,6 +16,7 @@ export default function Picture({ navigation }: PictureProps) {
   const [addPicturePressed, setAddPicturePressed] = useState<boolean>(false);
   const [pictureInfo, updatePictureInfo] = useProfilPicture();
   const [newPictures, updateNewPictures] = useNewPicture([])
+  console.log(pictureInfo[0]?.path)
   useEffect(() => {
     updatePictureInfo();
   }, []);
