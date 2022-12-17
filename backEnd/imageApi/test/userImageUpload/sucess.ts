@@ -4,6 +4,7 @@ import chai, { request, assert, should, expect, } from "chai";
 import chaiHttp from "chai-http"
 import { Suite } from "mocha";
 import { getAuthentificationToken } from "../../../sharedModules/testModules/login"
+import { credentials } from '../fixtures/image.fixtures';
 const filePath = `test/userImageUpload/image.jpg`
 const fileName = "image.jpg"
 chai.use(chaiHttp)
@@ -18,7 +19,6 @@ const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 export default describe("LOG IN AND  UPLOAD AN IMAGE", function () {
     it("Should log in and post a new user image", async () => {
         const agent = chai.request.agent(server);
-        const credentials = { email: "test@testOne.com", password: "test" };
         const responseMessage = { message: "You're image was successfully uploaded.", error: false };
         const contentType = 'application/json; charset=utf-8';
         const contentLength = '67';

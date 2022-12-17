@@ -1,7 +1,7 @@
 import mongoose, { Connection, Schema } from "mongoose";
 import { ImageInterface, ImageSchema } from "../images/image";
 import { ImageRepository } from "../repository/imageRepository";
-import { MyThing } from "../repository/repositoryClass";
+import { SessionRepository } from "../repository/sessionRepository";
 import { SpotRepository } from "../repository/spotRepository";
 import { UserRepository } from "../repository/userRepository";
 import { SessionInterface } from "../sessions/sessionInterface";
@@ -16,6 +16,7 @@ class Database {
   imageRepository: ImageRepository
   userRepository: UserRepository
   spotRepository: SpotRepository
+  sessionRepository: SessionRepository
   constructor(
     readonly spotSchema: Schema<SpotInterface>,
     readonly sessionSchema: Schema<SessionInterface>,
@@ -30,12 +31,10 @@ class Database {
     this.imageRepository = {} as ImageRepository;
     this.userRepository = {} as UserRepository;
     this.spotRepository = {} as SpotRepository;
+    this.sessionRepository = {} as SessionRepository;
     this.mongoose = mongoose.createConnection(`${process.env.MONGO_ATLAS}`, {
       autoIndex: true,
     });
-  }
-  defineModels = () => {
-
   }
   databaseInit() {
     this.mongoose.model("Spot", SpotSchema);
@@ -45,6 +44,7 @@ class Database {
     this.imageRepository = new ImageRepository(this.mongoose.models.Image);
     this.userRepository = new UserRepository(this.mongoose.models.User);
     this.spotRepository = new SpotRepository(this.mongoose.models.Spot);
+    this.sessionRepository = new SessionRepository(this.mongoose.models.Session);
   }
 }
 const database = new Database(SpotSchema, SessionSchema, UserSchema, ImageSchema)

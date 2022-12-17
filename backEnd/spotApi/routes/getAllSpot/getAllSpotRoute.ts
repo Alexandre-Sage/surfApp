@@ -10,10 +10,10 @@ type ResponseType = Response<SpotInterface[] | ErrorResponseInterface>;
 type RequestType = Request<never, unknown, never>;
 router.get("/", async function (req: RequestType, res: ResponseType) {
   const token = getToken(req);
-  const selectedField = { _id: 1, spotName: 1, location: 1 };
+  const filter = { _id: 1, spotName: 1, location: 1 };
   try {
     const userId = (await sessionTokenAuthentification(token)).userId
-    const spotsInfo = await database.spotRepository.getSpotsByUserId({ userId, selectedField })
+    const spotsInfo = await database.spotRepository.getAll({ userId, filter })
     const test = "here"
     res.status(200).json(
       spotsInfo,

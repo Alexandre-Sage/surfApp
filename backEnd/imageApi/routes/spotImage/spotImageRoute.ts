@@ -12,9 +12,10 @@ router.post(`/:spotId`, spotImageStorage.single("image"), async function (req: R
   const { spotId } = req.params
   const token = getToken(req)
   try {
-    const imageData = uploadService.rawImageToDbMapper(req.file)
+
+    const imageData = uploadService.rawImageToDbMapper(req.file);
     const { userId } = await sessionTokenAuthentification(`${token}`);
-    await uploadService.uploadSpotPicture({ userId, imageData, spotId: spotId as unknown as SpotInterface["_id"] })
+    await uploadService.uploadSpotPicture({ userId, imageData, spotId: spotId as unknown as SpotInterface["_id"] });
     return res.status(200).json({
       error: false,
       message: "You're image was successfully uploaded."
@@ -44,5 +45,10 @@ router.get("/:spotId", async (req: Request, res: Response) => {
   }
 })
 
+
+type GetOneRequestType = Request<{ spotId: SpotInterface["_id"], imageId: SpotInterface["_id"] }, unknown, never>;
+router.get("/:imageId", (req: GetOneRequestType, res) => {
+  const { spotId, imageId } = req.params;
+});
 
 export default router;

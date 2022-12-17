@@ -2,6 +2,7 @@ import { Model, Schema } from "mongoose";
 import { ImageInterface, Images } from "../images/image";
 import { SpotInterface } from "../spots/spotInterface";
 import { UserInterface } from "../user/userInterface";
+import { Repository, RepositoryInterface } from "./repositoryClass";
 
 interface RepositoryParams {
   userId: UserInterface["_id"];
@@ -9,41 +10,27 @@ interface RepositoryParams {
   spotId?: SpotInterface["_id"]
 }
 
-export interface ImageRepositoryInterface {
-  addUserImage: ({ }: RepositoryParams) => Promise<void>
-  getUserImagesByUserId: ({ }: RepositoryParams) => Promise<ImageInterface[]>
+export interface ImageRepositoryInterface extends RepositoryInterface {
   addSpotImage: ({ }: RepositoryParams) => Promise<void>
   getSpotImagesBySpotId: (spotId: SpotInterface["_id"]) => Promise<ImageInterface[]>
 }
 
-export class ImageRepository implements ImageRepositoryInterface {
-  constructor(private imageModel: Model<ImageInterface, {}, {}, {}, Schema<ImageInterface>>) {
-    this.imageModel = imageModel;
+export class ImageRepository extends Repository implements ImageRepositoryInterface {
+  constructor(readonly model: Model<ImageInterface, {}, {}, {}, Schema<ImageInterface>>) {
+    super(model)
+    this.model = model;
   }
-  addUserImage = async ({ userId, imageData }: Omit<RepositoryParams, "spotId">): Promise<void> => {
-    const imageToSave = new Images<ImageInterface>({ ...imageData, userId });
-    try {
-      await this.imageModel.create(imageToSave)
-    } catch (error: any) {
-      throw error
-    }
-  };
-  getUserImagesByUserId = async ({ userId }: { userId: UserInterface["_id"] }): Promise<ImageInterface[]> => {
-    return this.imageModel.find({ userId }, { path: 1, _id: 0, spotId: 1, userId: 1 })
-  };
-
-
   addSpotImage = async ({ imageData, spotId, userId }: RepositoryParams) => {
     const imageToSave = new Images<ImageInterface>({ ...imageData, userId, spotId });
     try {
-      this.imageModel.create(imageToSave)
+      this.model.create(imageToSave)
     } catch (error) {
       throw error;
     }
   };
 
   getSpotImagesBySpotId = async (spotId: SpotInterface["_id"]) => {
-    return this.imageModel.find({ spotId }, { path: 1, uploadDate: 1, spotId: 1, userId: 1 })
+    return this.model.find({ spotId }, { path: 1, uploadDate: 1, spotId: 1, userId: 1 })
   };
   getSpotImagesByUserId = async () => { };
   deleteUserImage = async () => { };

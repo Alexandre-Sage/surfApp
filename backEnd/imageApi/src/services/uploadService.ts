@@ -24,9 +24,10 @@ export class ImageUploadService {
   }
   uploadUserPicture = async ({ userId, imageData, path }: { userId: UserInterface["_id"], imageData: any, path: string }) => {
     compressImage(`${path}`);
-    this.imageRepository.addUserImage({ userId, imageData });
+    this.imageRepository.create({ userId, newData: imageData });
   }
   uploadSpotPicture = async ({ imageData, spotId, userId }: { userId: UserInterface["_id"], imageData: any, spotId: SpotInterface["_id"] }) => {
-    return this.imageRepository.addSpotImage({ userId, imageData, spotId });
+    const newData = { ...imageData, spotId }
+    return this.imageRepository.create({ userId, newData });
   }
 }

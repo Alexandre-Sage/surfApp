@@ -14,7 +14,7 @@ router.post("/", async function (req: RequestType, res: ResponseType) {
   try {
     const userId = (await sessionTokenAuthentification(token)).userId
     await spotValidatior(newSpotData)
-    database.spotRepository.createNewSpot({ userId, newSpotData })
+    database.spotRepository.create({ userId, newData: newSpotData })
     return res.status(200).json({
       message: "Spot added with sucess",
       error: false
