@@ -1,16 +1,12 @@
 import "mocha";
 import { database } from "../../mongoDb/server/database";
+import { createSpot } from "../../sharedModules/testModules/createSpot";
 import { credentials, getUserId, spotFactory } from "./fixtures/image.fixtures";
 
 describe("IMAGE API", () => {
     const { mongoose } = database
     before(async () => {
-        try {
-            const { userId } = await getUserId(credentials)
-            await mongoose.models.Spot.create(spotFactory(userId))
-        } catch (error) {
-            throw error
-        }
+        createSpot(spotFactory({}))
     })
     describe("I) IMAGE UPLOAD", () => {
         require("./userImageUpload/sucess")

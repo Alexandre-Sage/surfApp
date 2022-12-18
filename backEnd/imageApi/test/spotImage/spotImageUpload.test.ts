@@ -4,6 +4,7 @@ import fs from 'fs';
 import { getAuthentificationToken } from "../../../sharedModules/testModules/login";
 import server from "../../server";
 import { database } from "../../../mongoDb/server/database";
+import { credentials } from "../fixtures/image.fixtures";
 const filePath = `test/userImageUpload/image.jpg`
 const fileName = "image.jpg"
 chai.use(chaiHttp)
@@ -18,6 +19,7 @@ const url = `https://development.alexandre-sage-dev.fr/auth/logIn`
 export default describe("LOG IN AND  UPLOAD AN IMAGE RELATED TO SPOT", function () {
   before(async () => {
     const { mongoose } = database
+    const token: any = await getAuthentificationToken(url, credentials)
     const { _id } = await mongoose.models.Spot.findOne({ spotName: "port blanc" }, { _id: 1, spotName: 1 })
     console.log(_id)
     this.ctx.spotId = _id

@@ -1,12 +1,13 @@
 import { SpotInterface } from "../../../mongoDb/spots/spotInterface";
 import { UserInterface } from "../../../mongoDb/user/userInterface";
-const sessionFactory = ({ spotId, userId }: { userId: UserInterface["_id"], spotId: SpotInterface["_id"] }) => ({
+import { spotFactory } from "../../../spotApi/test/fixtures/spot.fixtures";
+import { createSpot } from '../../../sharedModules/testModules/createSpot';
+const sessionFactory = ({ spotId, userId }: { userId?: UserInterface["_id"] | undefined, spotId: SpotInterface["_id"] }) => ({
   userId,
   date: new Date().toUTCString(),
   spotId,
   startTime: new Date().toUTCString(),
   endTime: new Date().toUTCString(),
-  totalTime: new Date().toUTCString(),
   swell: {
     size: "2m",
     period: "12s",
@@ -19,4 +20,4 @@ const sessionFactory = ({ spotId, userId }: { userId: UserInterface["_id"], spot
   comment: "Something to say about"
 });
 
-export { sessionFactory }
+export { sessionFactory, spotFactory, createSpot }

@@ -15,7 +15,7 @@ export default describe("LOG IN AND GET USER PICTURES", function () {
     const contentType = 'application/json; charset=utf-8';
     try {
       const token: any = await getAuthentificationToken(url, credentials)
-      const response = await agent.get("/image/allUserProfilPicture").set("Authorization", `Bearer ${token.token}`);
+      const response = await agent.get("/image/userImage").set("Authorization", `Bearer ${token.token}`);
       const { header, body, error } = response;
       expect(error).to.be.eql(false);
       expect(response).to.have.property("status").eql(200);

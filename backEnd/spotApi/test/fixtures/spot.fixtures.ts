@@ -2,20 +2,21 @@ import { Types } from "mongoose";
 import { SpotInterface } from "../../../mongoDb/spots/spotInterface";
 
 const spotFactory = (spot: Partial<SpotInterface>) => {
+  const { country, creationDate, optimalConditions, orientation, location, type, picture, sessions, userId, spotName } = spot
   return ({
-    spotName: "port blanc",
-    country: "France",
-    userId: spot.userId,
-    type: {
+    userId,
+    spotName: spotName ?? "port blanc",
+    country: country ?? "France",
+    type: type ?? {
       waveType: "Shore break",
       bottomType: "Sand",
     },
-    location: {
+    location: location ?? {
       type: "Point",
       coordinates: ["47.52408959", "-3.1545563"]
     },
-    orientation: ["W", "N/W", "WN/W"],
-    optimalConditions: {
+    orientation: orientation ?? ["W", "N/W", "WN/W"],
+    optimalConditions: optimalConditions ?? {
       wind: {
 
       },
@@ -23,7 +24,7 @@ const spotFactory = (spot: Partial<SpotInterface>) => {
 
       }
     },
-    creationDate: new Date().toUTCString()
-  })
+    creationDate: creationDate ?? new Date().toUTCString()
+  });
 };
 export { spotFactory }

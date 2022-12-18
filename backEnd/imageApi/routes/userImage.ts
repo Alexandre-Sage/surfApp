@@ -1,4 +1,6 @@
 import express, { Request, Response } from "express";
+import { ImageInterface } from "../../mongoDb/images/image";
+import { database } from "../../mongoDb/server/database";
 import { getToken, sessionTokenAuthentification } from "../../sharedModules/jwt/jwtManagement";
 import { imageStorage } from "../../sharedModules/upload/imageStorage";
 import { services } from "../server";
@@ -29,4 +31,19 @@ router.post("/", imageStorage.single("image"), async function (req: Request, res
       });
    };
 });
-export default router;
+
+router.get(`/`, async function (req: Request, res: Response): Promise<Response<ImageInterface[]>> {
+   const token = getToken(req)
+   const pictureFieldObject = { picture: 1, _id: 0 };
+   try {
+      const { userId } = await sessionTokenAuthentification(`${token}`);
+      const pictures = await database.imageRepository.getAll({ userId });
+      return res.status(200).json(pictures);
+   } catch (error: any) {
+      return res.status(error.httpStatus).json({
+         message: error.message,
+         error: true
+      });
+   };
+});
+export { router };

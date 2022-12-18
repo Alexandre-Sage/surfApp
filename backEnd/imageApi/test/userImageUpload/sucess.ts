@@ -25,7 +25,7 @@ export default describe("LOG IN AND  UPLOAD AN IMAGE", function () {
         const boundary = Math.random();
         try {
             const token: any = await getAuthentificationToken(url, credentials)
-            const response = await agent.post("/image/userImageUpload")
+            const response = await agent.post("/image/userImage")
                 .set("Authorization", `Bearer ${token.token}`)
                 .set('Content-Type', 'multipart/form-data; boundary=' + boundary)
                 .attach("image", fs.readFileSync(filePath), fileName);
