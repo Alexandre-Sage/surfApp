@@ -5,7 +5,7 @@ import { Server, routes } from "../server"
 import { time } from "console";
 import { url } from "inspector";
 
-
+//http://localhost:5000/swellForcast/3.2928029506472734/47.59130712336542
 describe("FORECAST API TEST SUITE", () => {
   it("Should get waves forecast", async () => {
     const date = new Date(Date.now()).toISOString().split(".")[0]

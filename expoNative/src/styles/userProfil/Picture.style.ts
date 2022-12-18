@@ -1,6 +1,5 @@
-import { WhiteBalance } from "expo-camera";
 import { StyleSheet } from "react-native";
-import { backgroundColor, borderColor, borderRadius, columnFullCenter, fontColor, rowFullCenter } from "../variable.style"
+import { backgroundColor, borderColor, borderRadius, columnFullCenter, fontColor, rowFullCenter } from "../variable.style";
 
 const styles = StyleSheet.create({
   container: {
@@ -56,20 +55,17 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     width: 125,
     height: 50,
-    //flexDirection: "row",
-    ...rowFullCenter
-    //position: "relative"
-    //justifyContent: "center",
-    //alignItems: "center"
+    ...rowFullCenter,
+    position: "relative",
   },
   addPictureButton: {
-    //borderLeftWidth: 1,
-    //borderColor: borderColor,
+    borderLeftWidth: 1,
+    borderColor: borderColor,
     width: 62.5,
     height: 50,
     ...columnFullCenter
-    //justifyContent: "center",
-    //alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
 
   },
   split: {

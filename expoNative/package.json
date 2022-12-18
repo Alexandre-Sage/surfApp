@@ -23,7 +23,7 @@
     "@sage/ui-project": "file:../../sage-ui-project-0.1.0.tgz",
     "animated": "^0.2.2",
     "dotenv": "^16.0.2",
-    "expo": "^47.0.0",
+    "expo": "^47.0.8",
     "expo-camera": "~13.1.0",
     "expo-file-system": "~15.1.1",
     "expo-image-manipulator": "~11.0.0",
@@ -52,6 +52,7 @@
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/plugin-transform-react-jsx": "^7.19.0",
+    "@config-plugins/detox": "^2.0.0",
     "@types/jest": "^28.1.8",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",

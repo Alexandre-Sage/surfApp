@@ -21,9 +21,9 @@ export default function Spot({ enableMainScroll }: SpotPropsInterface): JSX.Elem
   const { mapLocation, setMapLocation, mapEnabled, setMapEnabled } = useMap()
   const { latitude, longitude } = currentLocation;
   //FINIR LE SCROLL POUR LA MODALE
-  const test = () => {
-    scrollTo
-  }
+  //const test = () => {
+  //  scrollTo
+  //}
   useEffect(() => { setSpotList() }, []);
   const displayModal = (): void => {
     enableMainScroll();

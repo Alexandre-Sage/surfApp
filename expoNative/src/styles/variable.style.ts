@@ -24,7 +24,7 @@ const mixin = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
-    flexWrap: "wrap",
+    //flexWrap: "wrap",
   },
   rowAlign: {
 

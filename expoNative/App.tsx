@@ -7,10 +7,12 @@ import UserProfil from "./src/screens/userProfil/userProfil";
 import UserCamera from "./src/components/camera/Camera";
 import FullScreen from "./src/components/picture/FullScreen";
 import Preview from "./src/components/picture/Preview";
-import AddSpotScreen from "./src/screens/userProfil/spot/AddSpot";
+import AddSpotScreen from "./src/screens/spot/addSpot/AddSpot";
 import Gallery from "./src/screens/userProfil/picture/Gallery";
 import { Header } from "./src/components/header/Header";
 import { ImageInfo } from "expo-image-picker";
+import SpotScreen from "./src/screens/spot/spotScreen/Spot";
+import { SpotListInterface } from "./src/interfaces/spotInterfaces";
 export type RootStackParamList = {
   LandingPage: undefined,
   UserProfil: undefined,
@@ -18,7 +20,8 @@ export type RootStackParamList = {
   Camera: undefined,
   Preview: { images: Array<Omit<ImageInfo, 'cancelled'> | ImageInfo> },
   FullScreen: { imagePath: string; },
-  AddSpot: undefined
+  AddSpot: undefined;
+  SpotScreen: { spotId: string };
 }
 const Stack = createStackNavigator<RootStackParamList>();
 if (Platform.OS === "android") {
@@ -65,6 +68,7 @@ export default function App() {
         <Stack.Screen name="Preview" component={Preview} />
         <Stack.Screen name="Camera" component={UserCamera} />
         <Stack.Screen name="AddSpot" component={AddSpotScreen} />
+        <Stack.Screen name="SpotScreen" component={SpotScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
