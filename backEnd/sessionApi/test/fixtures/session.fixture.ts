@@ -2,22 +2,23 @@ import { SpotInterface } from "../../../mongoDb/spots/spotInterface";
 import { UserInterface } from "../../../mongoDb/user/userInterface";
 import { spotFactory } from "../../../spotApi/test/fixtures/spot.fixtures";
 import { createSpot } from '../../../sharedModules/testModules/createSpot';
-const sessionFactory = ({ spotId, userId }: { userId?: UserInterface["_id"] | undefined, spotId: SpotInterface["_id"] }) => ({
+import { SessionInterface } from "../../../mongoDb/sessions/sessionInterface";
+const sessionFactory = ({ spotId, userId, endTime, startTime, date, swell, wind, comment }: Partial<SessionInterface>) => ({
   userId,
-  date: new Date().toUTCString(),
+  date: date ?? new Date().toUTCString(),
   spotId,
-  startTime: new Date().toUTCString(),
-  endTime: new Date().toUTCString(),
-  swell: {
+  startTime: startTime ?? new Date().toUTCString(),
+  endTime: endTime ?? new Date().toUTCString(),
+  swell: swell ?? {
     size: "2m",
     period: "12s",
     orientation: "NO"
   },
-  wind: {
+  wind: wind ?? {
     strength: "12knot",
     orientation: "E"
   },
-  comment: "Something to say about"
+  comment: comment ?? "Something to say about"
 });
 
 export { sessionFactory, spotFactory, createSpot }
